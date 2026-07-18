@@ -7,17 +7,20 @@ import { FadeIn } from "@/components/motion/fade-in";
 import { FoundersGrid } from "@/components/sections/founders-grid";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { siteConfig } from "@/config/site";
-import { fallbackPeople, fallbackSiteSettings } from "@/content/fallback";
+import { getFounders, getSiteSettings } from "@/lib/sanity/fetch";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "About",
   description: `The story, mission, and founders of ${siteConfig.name} — a youth-led community theater.`,
 };
 
-// TODO(phase-3): replace direct fallback imports with Sanity fetch helpers.
-export default function AboutPage() {
-  const settings = fallbackSiteSettings;
-  const founders = fallbackPeople.filter((p) => p.isFounder);
+export default async function AboutPage() {
+  const [settings, founders] = await Promise.all([
+    getSiteSettings(),
+    getFounders(),
+  ]);
 
   return (
     <>

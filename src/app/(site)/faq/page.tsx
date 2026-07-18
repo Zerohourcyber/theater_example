@@ -11,7 +11,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { fallbackFaq } from "@/content/fallback";
+import { getFaqItems } from "@/lib/sanity/fetch";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "FAQ",
@@ -19,9 +21,9 @@ export const metadata: Metadata = {
     "Answers about participating, tickets, venues, and supporting our youth-led theater.",
 };
 
-// TODO(phase-3): replace direct fallback imports with Sanity fetch helpers.
-export default function FaqPage() {
-  const faqs = [...fallbackFaq].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+export default async function FaqPage() {
+  const items = await getFaqItems();
+  const faqs = [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
   return (
     <>

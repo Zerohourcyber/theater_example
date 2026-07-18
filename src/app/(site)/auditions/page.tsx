@@ -10,7 +10,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { formatDate } from "@/lib/utils";
-import { fallbackProductions } from "@/content/fallback";
+import { getUpcomingProduction } from "@/lib/sanity/fetch";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Auditions",
@@ -39,11 +41,9 @@ const expectations = [
   },
 ];
 
-// TODO(phase-3): replace direct fallback imports with Sanity fetch helpers.
-export default function AuditionsPage() {
-  const nextProduction = fallbackProductions.find(
-    (p) => p.status === "upcoming" && p.auditionInfo
-  );
+export default async function AuditionsPage() {
+  const upcoming = await getUpcomingProduction();
+  const nextProduction = upcoming?.auditionInfo ? upcoming : null;
 
   return (
     <>

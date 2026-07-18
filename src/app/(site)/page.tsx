@@ -7,16 +7,21 @@ import { NewsletterCta } from "@/components/sections/newsletter-cta";
 import { SponsorStrip } from "@/components/sections/sponsor-strip";
 import { UpcomingProduction } from "@/components/sections/upcoming-production";
 import {
-  fallbackNews,
-  fallbackPeople,
-  fallbackProductions,
-  fallbackSponsors,
-} from "@/content/fallback";
+  getFounders,
+  getNewsPosts,
+  getSponsors,
+  getUpcomingProduction,
+} from "@/lib/sanity/fetch";
 
-// TODO(phase-3): replace direct fallback imports with Sanity fetch helpers.
-export default function HomePage() {
-  const upcoming = fallbackProductions.find((p) => p.status === "upcoming");
-  const founders = fallbackPeople.filter((p) => p.isFounder);
+export const revalidate = 60;
+
+export default async function HomePage() {
+  const [upcoming, posts, founders, sponsors] = await Promise.all([
+    getUpcomingProduction(),
+    getNewsPosts(),
+    getFounders(),
+    getSponsors(),
+  ]);
 
   return (
     <>
@@ -29,9 +34,9 @@ export default function HomePage() {
       ) : null}
       {upcoming ? <UpcomingProduction production={upcoming} /> : null}
       <MissionSection />
-      <NewsGrid posts={fallbackNews} />
+      <NewsGrid posts={posts} />
       <FoundersGrid founders={founders} />
-      <SponsorStrip sponsors={fallbackSponsors} />
+      <SponsorStrip sponsors={sponsors} />
       <NewsletterCta />
     </>
   );
