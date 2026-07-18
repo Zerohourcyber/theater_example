@@ -13,7 +13,7 @@ export const siteConfig = {
   /** Public base URL; overridden by NEXT_PUBLIC_SITE_URL in production. */
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   contactEmail: "hello@limelightyouththeater.org",
-  collegePartner: "Riverside College",
+  collegePartner: "ENMU",
   socials: [
     { label: "Instagram", href: "https://instagram.com", handle: "@limelightyouth" },
     { label: "TikTok", href: "https://tiktok.com", handle: "@limelightyouth" },

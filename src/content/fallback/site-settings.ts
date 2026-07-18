@@ -11,7 +11,7 @@ export const fallbackSiteSettings: SiteSettings = {
   aboutStory: pt(
     "Limelight Youth Theater started the way most good theater does: with a problem and a deadline. In the summer of 2025, a handful of high school students who had just closed their school musical realized there was nowhere in town to keep making theater until the next school year — so they made somewhere.",
     "That first summer production was staged in a borrowed auditorium with a rented keyboard and a set built from donated pallets. It sold enough tickets to pay for itself, which is all the proof anyone needed that this should keep happening.",
-    "Today we're a year-round, youth-led company. Students perform, direct, produce, design, market, and manage every production, with adult mentors advising rather than deciding. Our residency with Riverside College gives us a real stage, a scene shop, and mentorship from college theater majors — and our productions give younger students a place to start."
+    "Today we're a year-round, youth-led company. Students perform, direct, produce, design, market, and manage every production, with adult mentors advising rather than deciding. Our residency with ENMU gives us a real stage, a scene shop, and mentorship from college theater majors — and our productions give younger students a place to start."
   ),
   timeline: [
     {
@@ -34,7 +34,7 @@ export const fallbackSiteSettings: SiteSettings = {
     },
     {
       year: "2026",
-      title: "A home at Riverside College",
+      title: "A home at ENMU",
       description:
         "A two-year residency agreement gives the company rehearsal space, scene-shop access, and two productions a year on a real stage.",
     },

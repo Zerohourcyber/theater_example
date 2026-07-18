@@ -11,20 +11,20 @@ export const fallbackNews: NewsPost[] = [
     excerpt:
       "Our biggest production yet lands on the college mainstage this October. Here's the concept, the dates, and how to audition.",
     body: pt(
-      "We're thrilled to announce that our fall mainstage production will be Dear Evan Hansen, opening October 16 at the Riverside College Mainstage Theater.",
+      "We're thrilled to announce that our fall mainstage production will be Dear Evan Hansen, opening October 16 at the ENMU Mainstage Theater.",
       "This is the largest production we've ever attempted: a full student band playing the score live, a projection-driven set built by our design crew, and a story our generation knows from the inside. Auditions are open to all students ages 13–20 — no musical-theater experience required.",
       "Audition details are on the Auditions page. If you'd rather run the projections than stand in them, design and crew sign-ups open the same week."
     ),
   },
   {
     _id: "fb-news-2",
-    title: "We Have a Home: Residency Agreement with Riverside College",
+    title: "We Have a Home: Residency Agreement with ENMU",
     slug: "college-residency",
     publishedAt: "2026-05-12T09:00:00-04:00",
     excerpt:
       "A two-year partnership gives our company rehearsal space and two productions a year on a real stage — with student mentorship from the college's theater department.",
     body: pt(
-      "After a year of borrowed auditoriums and generous cafeterias, we finally have a home. Riverside College has signed a two-year residency agreement giving our company rehearsal space, scene-shop access, and two productions a year in their theaters.",
+      "After a year of borrowed auditoriums and generous cafeterias, we finally have a home. ENMU has signed a two-year residency agreement giving our company rehearsal space, scene-shop access, and two productions a year in their theaters.",
       "The partnership also pairs our student designers with college theater majors for mentorship in lighting, sound, and stage management. It's the kind of infrastructure that turns a summer project into an institution.",
       "Our first mainstage production under the agreement opens this fall."
     ),

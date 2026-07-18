@@ -15,7 +15,7 @@ export const fallbackProductions: Production[] = [
     title: "Dear Evan Hansen",
     slug: "dear-evan-hansen",
     status: "upcoming",
-    venue: "Riverside College — Mainstage Theater",
+    venue: "ENMU — Mainstage Theater",
     openingNight: "2026-10-16T19:30:00-04:00",
     performances: [
       { dateTime: "2026-10-16T19:30:00-04:00" },
@@ -50,7 +50,7 @@ export const fallbackProductions: Production[] = [
     title: "Almost, Maine",
     slug: "almost-maine",
     status: "past",
-    venue: "Riverside College — Black Box",
+    venue: "ENMU — Black Box",
     openingNight: "2026-03-06T19:30:00-05:00",
     performances: [
       { dateTime: "2026-03-06T19:30:00-05:00" },

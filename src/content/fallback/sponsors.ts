@@ -4,7 +4,7 @@ import type { Sponsor } from "@/types";
 export const fallbackSponsors: Sponsor[] = [
   {
     _id: "fb-sponsor-1",
-    name: "Riverside College",
+    name: "ENMU",
     tier: "partner",
     url: "https://example.edu",
     order: 1,

@@ -24,7 +24,7 @@ export const fallbackFaq: FaqItem[] = [
     order: 3,
     question: "Where are performances held?",
     answer: pt(
-      "Our mainstage and black-box productions are staged at Riverside College's theaters through our residency partnership. Occasional workshops and fundraisers happen at local schools and community spaces."
+      "Our mainstage and black-box productions are staged at ENMU's theaters through our residency partnership. Occasional workshops and fundraisers happen at local schools and community spaces."
     ),
   },
   {
