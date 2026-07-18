@@ -13,11 +13,11 @@ export default function NotFound() {
         id="main-content"
         className="spotlight flex flex-1 flex-col items-center justify-center px-4 py-40 text-center"
       >
-        <p className="text-sm font-medium uppercase tracking-[0.3em] text-primary">
+        <p className="text-sm font-medium uppercase tracking-[0.3em] text-accent">
           404 — Dark stage
         </p>
         <h1 className="mt-4 text-5xl sm:text-6xl">
-          This page missed its <span className="text-gold-gradient">cue</span>
+          This page missed its <span className="text-brand-gradient">cue</span>
         </h1>
         <p className="mt-4 max-w-md text-muted">
           The page you’re looking for isn’t in tonight’s program. Let’s get you

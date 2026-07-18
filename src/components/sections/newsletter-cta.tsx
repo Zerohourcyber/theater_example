@@ -8,7 +8,7 @@ export function NewsletterCta() {
       <Container className="flex flex-col items-center gap-6 text-center">
         <FadeIn className="flex flex-col items-center gap-6">
           <h2 className="text-3xl sm:text-5xl">
-            Never miss a <span className="text-gold-gradient">curtain call</span>
+            Never miss a <span className="text-brand-gradient">curtain call</span>
           </h2>
           <p className="max-w-xl text-muted">
             Show announcements, audition calls, and opening-night invites —

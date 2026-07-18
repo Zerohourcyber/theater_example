@@ -5,15 +5,16 @@
 /* ------------------------------------------------------------------ */
 
 @theme {
-  /* Colors */
-  --color-background: #0a0a0f; /* near-black, slight blue */
-  --color-surface: #14141c;
-  --color-primary: #d9a441; /* limelight gold */
-  --color-primary-hover: #e8bc66;
-  --color-accent: #8e2434; /* curtain crimson, sparingly */
-  --color-foreground: #f5f2ea; /* warm off-white */
-  --color-muted: #9a97a3;
-  --color-border: #26262f;
+  /* Colors — electric-blue stage theme */
+  --color-background: #0b0e16; /* near-black with a navy cast */
+  --color-surface: #121a2a; /* dark navy card/surface */
+  --color-primary: #3b9bff; /* electric blue */
+  --color-primary-hover: #66b3ff;
+  --color-accent: #8fd0ff; /* pale sky blue, sparingly */
+  --color-foreground: #f2f6fc; /* cool off-white */
+  --color-muted: #8c96ab;
+  --color-border: #263349;
+  --color-danger: #e2919e; /* functional error color (not branding) */
 
   /* Typography */
   --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
@@ -94,7 +95,7 @@ h3 {
   text-wrap: balance;
 }
 
-/* Gold focus ring on all interactive elements (SPEC §5, a11y) */
+/* Electric-blue focus ring on all interactive elements (a11y) */
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 3px;
@@ -111,11 +112,11 @@ h3 {
 /* ------------------------------------------------------------------ */
 
 @utility spotlight {
-  /* Radial stage-spotlight falling from above */
+  /* Radial stage-spotlight falling from above — cool blue wash */
   background-image: radial-gradient(
     ellipse 70% 55% at 50% 0%,
-    rgba(217, 164, 65, 0.14),
-    rgba(217, 164, 65, 0.05) 40%,
+    rgba(59, 155, 255, 0.14),
+    rgba(59, 155, 255, 0.05) 40%,
     transparent 70%
   );
 }
@@ -124,7 +125,7 @@ h3 {
   /* Tighter pool of light for CTA bands */
   background-image: radial-gradient(
     ellipse 55% 90% at 50% 50%,
-    rgba(217, 164, 65, 0.12),
+    rgba(59, 155, 255, 0.12),
     transparent 75%
   );
 }
@@ -134,24 +135,25 @@ h3 {
   background-image: radial-gradient(
     ellipse 90% 90% at 50% 40%,
     transparent 55%,
-    rgba(5, 5, 8, 0.65) 100%
+    rgba(4, 6, 12, 0.65) 100%
   );
 }
 
-@utility text-gold-gradient {
+@utility text-brand-gradient {
+  /* White → electric blue display gradient */
   background-image: linear-gradient(
     100deg,
-    #f0d493 0%,
-    var(--color-primary) 45%,
-    #b07f2a 100%
+    var(--color-foreground) 0%,
+    var(--color-primary-hover) 45%,
+    var(--color-primary) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
 }
 
-@utility gold-rule {
-  /* Thin gold horizontal rule that fades at the edges */
+@utility brand-rule {
+  /* Thin blue horizontal rule that fades at the edges */
   background-image: linear-gradient(
     to right,
     transparent,

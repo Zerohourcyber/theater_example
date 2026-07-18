@@ -43,13 +43,13 @@ export function UpcomingProduction({ production }: { production: Production }) {
             <div className="space-y-3 text-muted">
               {production.venue ? (
                 <p className="flex items-center gap-3">
-                  <MapPin aria-hidden className="size-5 text-primary" />
+                  <MapPin aria-hidden className="size-5 text-accent" />
                   {production.venue}
                 </p>
               ) : null}
               {production.performances?.length ? (
                 <div className="flex items-start gap-3">
-                  <CalendarDays aria-hidden className="mt-1 size-5 shrink-0 text-primary" />
+                  <CalendarDays aria-hidden className="mt-1 size-5 shrink-0 text-accent" />
                   <ul className="space-y-1">
                     {production.performances.map((perf) => (
                       <li key={perf._key ?? perf.dateTime}>
@@ -61,7 +61,7 @@ export function UpcomingProduction({ production }: { production: Production }) {
               ) : null}
             </div>
 
-            <div className="gold-rule w-full max-w-md" />
+            <div className="brand-rule w-full max-w-md" />
 
             <div className="flex flex-wrap gap-4">
               <Button asChild size="lg">

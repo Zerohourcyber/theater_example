@@ -51,7 +51,7 @@ export default async function AboutPage() {
                     aria-hidden
                     className="absolute -left-[2.35rem] top-1.5 size-3 rounded-full border border-primary bg-background"
                   />
-                  <p className="text-sm font-medium uppercase tracking-widest text-primary">
+                  <p className="text-sm font-medium uppercase tracking-widest text-accent">
                     {item.year}
                   </p>
                   <h3 className="mt-1 text-2xl">{item.title}</h3>
@@ -72,7 +72,7 @@ export default async function AboutPage() {
         <Container>
           <FadeIn className="mx-auto flex max-w-3xl flex-col items-center gap-5 rounded-lg border border-border bg-surface p-10 text-center">
             <div className="flex size-14 items-center justify-center rounded-full border border-primary/40 bg-primary/10">
-              <GraduationCap aria-hidden className="size-7 text-primary" />
+              <GraduationCap aria-hidden className="size-7 text-accent" />
             </div>
             <h2 className="text-3xl">
               In partnership with {siteConfig.collegePartner}

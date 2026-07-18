@@ -84,7 +84,7 @@ export function Countdown({ target, productionTitle }: CountdownProps) {
     <section aria-label="Countdown to opening night" className="border-y border-border/60 bg-surface/40 py-14">
       <Container className="flex flex-col items-center gap-8 text-center">
         <div>
-          <p className="text-sm font-medium uppercase tracking-[0.25em] text-primary">
+          <p className="text-sm font-medium uppercase tracking-[0.25em] text-accent">
             Opening night
           </p>
           <p className="mt-2 font-display text-2xl sm:text-3xl">

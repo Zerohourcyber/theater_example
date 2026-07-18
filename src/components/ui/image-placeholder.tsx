@@ -46,11 +46,11 @@ export function SmartImage({
       role="img"
       aria-label={alt}
       className={cn(
-        "absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[linear-gradient(160deg,#1b1b26_0%,#14141c_55%,#221a10_100%)]",
+        "absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[linear-gradient(160deg,#1a2338_0%,#121a2a_55%,#0f1e33_100%)]",
         className
       )}
     >
-      <Theater aria-hidden className="size-8 text-primary/50" />
+      <Theater aria-hidden className="size-8 text-accent/50" />
       {placeholderLabel ? (
         <span className="max-w-[80%] text-center font-display text-lg leading-snug text-foreground/70">
           {placeholderLabel}

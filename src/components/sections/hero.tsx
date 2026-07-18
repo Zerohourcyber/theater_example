@@ -43,7 +43,7 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-4 py-32 text-center">
         <MotionOrDiv {...motionProps(0)}>
-          <p className="mb-6 text-sm font-medium uppercase tracking-[0.3em] text-primary">
+          <p className="mb-6 text-sm font-medium uppercase tracking-[0.3em] text-accent">
             {siteConfig.name}
           </p>
         </MotionOrDiv>
@@ -51,7 +51,7 @@ export function Hero() {
         <MotionOrDiv {...motionProps(1)}>
           <h1 className="text-5xl sm:text-6xl md:text-[4.5rem]">
             Youth-led.{" "}
-            <span className="text-gold-gradient">Community-built.</span>{" "}
+            <span className="text-brand-gradient">Community-built.</span>{" "}
             Stage-ready.
           </h1>
         </MotionOrDiv>

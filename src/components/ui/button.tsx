@@ -8,16 +8,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        /** Solid gold — primary CTA. Dark text passes AA on gold. */
+        /** Solid electric blue — primary CTA. Dark text passes AA on blue. */
         primary:
           "bg-primary text-background hover:bg-primary-hover font-semibold",
-        /** Thin gold outline — secondary CTA. */
+        /** Thin blue outline — secondary CTA. */
         outline:
           "border border-primary/60 text-primary hover:border-primary hover:bg-primary/10",
         /** Low-emphasis surface button. */
         ghost: "text-foreground hover:bg-surface hover:text-primary",
-        /** Curtain-red, used sparingly. White text passes AA on crimson. */
-        accent: "bg-accent text-foreground hover:bg-accent/85 font-semibold",
+        /** Pale sky blue, used sparingly. Dark text passes AA on pale blue. */
+        accent: "bg-accent text-background hover:bg-accent/85 font-semibold",
         /** Text-like link button. */
         link: "text-primary underline-offset-4 hover:underline",
       },

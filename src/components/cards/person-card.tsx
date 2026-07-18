@@ -28,7 +28,7 @@ export function PersonCard({
       <div className="space-y-2 p-5">
         <h3 className="text-2xl">{person.name}</h3>
         {person.roleTitle ? (
-          <p className="text-sm font-medium uppercase tracking-widest text-primary">
+          <p className="text-sm font-medium uppercase tracking-widest text-accent">
             {person.roleTitle}
           </p>
         ) : null}

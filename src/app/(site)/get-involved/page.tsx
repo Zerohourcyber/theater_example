@@ -95,7 +95,7 @@ export default function GetInvolvedPage() {
             {volunteerRoles.map((role, i) => (
               <FadeIn key={role.title} delay={i * 0.06}>
                 <div className="card-lift h-full rounded-lg border border-border bg-surface p-6">
-                  <role.icon aria-hidden className="mb-4 size-6 text-primary" />
+                  <role.icon aria-hidden className="mb-4 size-6 text-accent" />
                   <h3 className="text-2xl">{role.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted">
                     {role.description}
@@ -135,7 +135,7 @@ export default function GetInvolvedPage() {
               <FadeIn key={tier.title} delay={i * 0.06}>
                 <div className="card-lift h-full rounded-lg border border-border bg-surface p-8">
                   <div className="flex items-center gap-3">
-                    <Star aria-hidden className="size-5 text-primary" />
+                    <Star aria-hidden className="size-5 text-accent" />
                     <h3 className="text-2xl">{tier.title}</h3>
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-muted">

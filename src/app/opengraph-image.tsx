@@ -18,8 +18,8 @@ export default function OpengraphImage() {
           alignItems: "center",
           justifyContent: "center",
           background:
-            "radial-gradient(ellipse 70% 60% at 50% 0%, rgba(217,164,65,0.25), rgba(10,10,15,1) 70%), #0A0A0F",
-          color: "#F5F2EA",
+            "radial-gradient(ellipse 70% 60% at 50% 0%, rgba(59,155,255,0.25), rgba(11,14,22,1) 70%), #0B0E16",
+          color: "#F2F6FC",
           fontFamily: "Georgia, serif",
         }}
       >
@@ -28,7 +28,7 @@ export default function OpengraphImage() {
             display: "flex",
             alignItems: "center",
             gap: 18,
-            color: "#D9A441",
+            color: "#3B9BFF",
             fontSize: 28,
             letterSpacing: 12,
             textTransform: "uppercase",
@@ -41,7 +41,7 @@ export default function OpengraphImage() {
             style={{
               width: 18,
               height: 18,
-              background: "#D9A441",
+              background: "#3B9BFF",
               transform: "rotate(45deg)",
             }}
           />
@@ -65,7 +65,7 @@ export default function OpengraphImage() {
             width: 480,
             height: 2,
             background:
-              "linear-gradient(to right, transparent, #D9A441, transparent)",
+              "linear-gradient(to right, transparent, #3B9BFF, transparent)",
           }}
         />
       </div>

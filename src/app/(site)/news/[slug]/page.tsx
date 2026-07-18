@@ -49,7 +49,7 @@ export default async function NewsDetailPage({ params }: Props) {
             </Link>
             <time
               dateTime={post.publishedAt}
-              className="mt-6 block text-sm uppercase tracking-widest text-primary"
+              className="mt-6 block text-sm uppercase tracking-widest text-accent"
             >
               {formatDate(post.publishedAt)}
             </time>

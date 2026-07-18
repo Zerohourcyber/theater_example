@@ -41,14 +41,14 @@ export function ProductionCard({ production }: { production: Production }) {
         </h3>
         {firstNight ? (
           <p className="flex items-center gap-2 text-sm text-muted">
-            <CalendarDays aria-hidden className="size-4 text-primary/70" />
+            <CalendarDays aria-hidden className="size-4 text-accent/70" />
             {production.status === "past" ? "Opened " : "Opens "}
             {formatDate(firstNight)}
           </p>
         ) : null}
         {production.venue ? (
           <p className="flex items-center gap-2 text-sm text-muted">
-            <MapPin aria-hidden className="size-4 text-primary/70" />
+            <MapPin aria-hidden className="size-4 text-accent/70" />
             {production.venue}
           </p>
         ) : null}

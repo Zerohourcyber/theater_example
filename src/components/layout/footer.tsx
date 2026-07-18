@@ -23,7 +23,7 @@ export function Footer() {
         </div>
 
         <nav aria-label="Footer">
-          <p className="mb-3 text-sm font-medium uppercase tracking-widest text-primary">
+          <p className="mb-3 text-sm font-medium uppercase tracking-widest text-accent">
             Explore
           </p>
           <ul className="space-y-2">
@@ -41,7 +41,7 @@ export function Footer() {
         </nav>
 
         <div>
-          <p className="mb-3 text-sm font-medium uppercase tracking-widest text-primary">
+          <p className="mb-3 text-sm font-medium uppercase tracking-widest text-accent">
             Connect
           </p>
           <ul className="space-y-2">

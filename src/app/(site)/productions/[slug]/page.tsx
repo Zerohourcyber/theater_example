@@ -38,7 +38,7 @@ function CreditList({ title, credits }: { title: string; credits: CreditMember[]
   return (
     <div>
       <h3 className="flex items-center gap-2 text-2xl">
-        <Users aria-hidden className="size-5 text-primary" />
+        <Users aria-hidden className="size-5 text-accent" />
         {title}
       </h3>
       <ul className="mt-4 divide-y divide-border/60">
@@ -90,7 +90,7 @@ export default async function ProductionDetailPage({ params }: Props) {
             <h1 className="text-5xl sm:text-6xl">{production.title}</h1>
             {production.venue ? (
               <p className="flex items-center gap-2 text-muted">
-                <MapPin aria-hidden className="size-5 text-primary" />
+                <MapPin aria-hidden className="size-5 text-accent" />
                 {production.venue}
               </p>
             ) : null}
@@ -146,7 +146,7 @@ export default async function ProductionDetailPage({ params }: Props) {
             {production.performances?.length ? (
               <div className="rounded-lg border border-border bg-surface p-6">
                 <h2 className="flex items-center gap-2 text-2xl">
-                  <CalendarDays aria-hidden className="size-5 text-primary" />
+                  <CalendarDays aria-hidden className="size-5 text-accent" />
                   Performances
                 </h2>
                 <ul className="mt-4 space-y-2 text-sm text-muted">

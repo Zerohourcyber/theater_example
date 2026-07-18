@@ -57,7 +57,7 @@ export default async function TicketSuccessPage({
   return (
     <section className="spotlight flex min-h-[70svh] items-center py-32">
       <Container className="flex max-w-xl flex-col items-center text-center">
-        <CheckCircle2 aria-hidden className="size-14 text-primary" />
+        <CheckCircle2 aria-hidden className="size-14 text-accent" />
         <h1 className="mt-6 text-5xl">See you at the show!</h1>
 
         {order ? (

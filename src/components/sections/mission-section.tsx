@@ -43,7 +43,7 @@ export function MissionSection() {
             <StaggerItem key={pillar.title}>
               <div className="card-lift h-full rounded-lg border border-border bg-surface p-8 text-center">
                 <div className="mx-auto mb-5 flex size-14 items-center justify-center rounded-full border border-primary/40 bg-primary/10">
-                  <pillar.icon aria-hidden className="size-7 text-primary" />
+                  <pillar.icon aria-hidden className="size-7 text-accent" />
                 </div>
                 <h3 className="text-2xl">{pillar.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted">

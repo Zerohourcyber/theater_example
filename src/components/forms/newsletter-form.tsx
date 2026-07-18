@@ -56,7 +56,7 @@ export function NewsletterForm() {
         className={cn(
           "mt-3 min-h-6 text-sm",
           state.status === "success" && "text-primary",
-          state.status === "error" && "text-[#e2919e]"
+          state.status === "error" && "text-danger"
         )}
       >
         {state.message}

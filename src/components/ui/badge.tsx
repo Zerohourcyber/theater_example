@@ -7,8 +7,9 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
+        /* Variant names are legacy API; colors come from the theme tokens. */
         gold: "border-primary/50 text-primary",
-        crimson: "border-accent/60 text-[#e2919e]",
+        crimson: "border-accent/60 text-accent",
         muted: "border-border text-muted",
       },
     },

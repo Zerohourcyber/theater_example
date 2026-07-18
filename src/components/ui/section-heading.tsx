@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
-  /** Small gold kicker line above the title, e.g. "On Stage". */
+  /** Small pale-blue kicker line above the title, e.g. "On Stage". */
   eyebrow?: string;
   title: string;
   description?: string;
@@ -12,7 +12,7 @@ interface SectionHeadingProps {
   as?: "h1" | "h2" | "h3";
 }
 
-/** Standard section heading: gold eyebrow, display-serif title, muted lede. */
+/** Standard section heading: accent eyebrow, display-serif title, muted lede. */
 export function SectionHeading({
   eyebrow,
   title,
@@ -30,7 +30,7 @@ export function SectionHeading({
       )}
     >
       {eyebrow ? (
-        <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-primary">
+        <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
           {eyebrow}
         </p>
       ) : null}

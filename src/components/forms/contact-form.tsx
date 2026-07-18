@@ -15,7 +15,7 @@ const inputClasses =
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
   return (
-    <p id={id} className="mt-1 text-sm text-[#e2919e]">
+    <p id={id} className="mt-1 text-sm text-danger">
       {message}
     </p>
   );
@@ -59,7 +59,7 @@ export function ContactForm({
             autoComplete="name"
             aria-invalid={!!state.errors?.name}
             aria-describedby={state.errors?.name ? "contact-name-error" : undefined}
-            className={cn(inputClasses, state.errors?.name && "border-accent")}
+            className={cn(inputClasses, state.errors?.name && "border-danger")}
           />
           <FieldError id="contact-name-error" message={state.errors?.name} />
         </div>
@@ -75,7 +75,7 @@ export function ContactForm({
             autoComplete="email"
             aria-invalid={!!state.errors?.email}
             aria-describedby={state.errors?.email ? "contact-email-error" : undefined}
-            className={cn(inputClasses, state.errors?.email && "border-accent")}
+            className={cn(inputClasses, state.errors?.email && "border-danger")}
           />
           <FieldError id="contact-email-error" message={state.errors?.email} />
         </div>
@@ -91,7 +91,7 @@ export function ContactForm({
           defaultValue={defaultSubject ?? contactSubjects[0]}
           aria-invalid={!!state.errors?.subject}
           aria-describedby={state.errors?.subject ? "contact-subject-error" : undefined}
-          className={cn(inputClasses, state.errors?.subject && "border-accent")}
+          className={cn(inputClasses, state.errors?.subject && "border-danger")}
         >
           {contactSubjects.map((subject) => (
             <option key={subject} value={subject}>
@@ -113,7 +113,7 @@ export function ContactForm({
           required
           aria-invalid={!!state.errors?.message}
           aria-describedby={state.errors?.message ? "contact-message-error" : undefined}
-          className={cn(inputClasses, "resize-y", state.errors?.message && "border-accent")}
+          className={cn(inputClasses, "resize-y", state.errors?.message && "border-danger")}
         />
         <FieldError id="contact-message-error" message={state.errors?.message} />
       </div>
@@ -137,7 +137,7 @@ export function ContactForm({
           )}
           Send message
         </Button>
-        <p role="status" aria-live="polite" className="text-sm text-[#e2919e]">
+        <p role="status" aria-live="polite" className="text-sm text-danger">
           {state.status === "error" ? state.message : ""}
         </p>
       </div>

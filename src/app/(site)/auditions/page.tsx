@@ -61,7 +61,7 @@ export default async function AuditionsPage() {
               <h2 className="mt-4 text-3xl sm:text-5xl">{nextProduction.title}</h2>
               {nextProduction.openingNight ? (
                 <p className="mt-3 flex items-center gap-2 text-muted">
-                  <CalendarDays aria-hidden className="size-5 text-primary" />
+                  <CalendarDays aria-hidden className="size-5 text-accent" />
                   Opens {formatDate(nextProduction.openingNight)} ·{" "}
                   {nextProduction.venue}
                 </p>
@@ -108,7 +108,7 @@ export default async function AuditionsPage() {
             {expectations.map((item, i) => (
               <FadeIn key={item.title} delay={i * 0.08}>
                 <div className="card-lift h-full rounded-lg border border-border bg-surface p-8">
-                  <item.icon aria-hidden className="mb-4 size-7 text-primary" />
+                  <item.icon aria-hidden className="mb-4 size-7 text-accent" />
                   <h3 className="text-2xl">{item.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted">
                     {item.description}
