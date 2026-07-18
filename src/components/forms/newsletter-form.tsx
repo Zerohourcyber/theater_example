@@ -30,6 +30,9 @@ export function NewsletterForm() {
           required
           autoComplete="email"
           placeholder="you@example.com"
+          // Form-filler extensions inject attributes before hydration;
+          // suppress the resulting harmless attribute-mismatch warnings.
+          suppressHydrationWarning
           className="h-11 flex-1 rounded-md border border-border bg-background px-4 text-base text-foreground placeholder:text-muted"
         />
         {/* Honeypot: hidden from real users, catches naive bots */}
@@ -41,7 +44,7 @@ export function NewsletterForm() {
           aria-hidden="true"
           className="hidden"
         />
-        <Button type="submit" disabled={pending}>
+        <Button type="submit" disabled={pending} suppressHydrationWarning>
           {pending ? (
             <Loader2 aria-hidden className="animate-spin" />
           ) : (

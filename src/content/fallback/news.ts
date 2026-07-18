@@ -5,15 +5,15 @@ import { pt } from "./portable-text";
 export const fallbackNews: NewsPost[] = [
   {
     _id: "fb-news-1",
-    title: "The Tempest Is Our Fall Mainstage — Auditions Announced",
-    slug: "tempest-announcement",
+    title: "Dear Evan Hansen Is Our Fall Mainstage — Auditions Announced",
+    slug: "dear-evan-hansen-announcement",
     publishedAt: "2026-06-28T09:00:00-04:00",
     excerpt:
       "Our biggest production yet lands on the college mainstage this October. Here's the concept, the dates, and how to audition.",
     body: pt(
-      "We're thrilled to announce that our fall mainstage production will be William Shakespeare's The Tempest, opening October 16 at the Riverside College Mainstage Theater.",
-      "This is the largest production we've ever attempted: a cast of eighteen, a live student ensemble score, and staging in the round. Auditions are open to all students ages 13–20 — no Shakespeare experience required.",
-      "Audition details are on the Auditions page. If you'd rather build the storm than act in it, design and crew sign-ups open the same week."
+      "We're thrilled to announce that our fall mainstage production will be Dear Evan Hansen, opening October 16 at the Riverside College Mainstage Theater.",
+      "This is the largest production we've ever attempted: a full student band playing the score live, a projection-driven set built by our design crew, and a story our generation knows from the inside. Auditions are open to all students ages 13–20 — no musical-theater experience required.",
+      "Audition details are on the Auditions page. If you'd rather run the projections than stand in them, design and crew sign-ups open the same week."
     ),
   },
   {

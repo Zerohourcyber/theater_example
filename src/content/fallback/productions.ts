@@ -12,8 +12,8 @@ const [maya, jordan, sam, priya] = fallbackPeople;
 export const fallbackProductions: Production[] = [
   {
     _id: "fb-prod-1",
-    title: "The Tempest",
-    slug: "the-tempest",
+    title: "Dear Evan Hansen",
+    slug: "dear-evan-hansen",
     status: "upcoming",
     venue: "Riverside College — Mainstage Theater",
     openingNight: "2026-10-16T19:30:00-04:00",
@@ -27,13 +27,13 @@ export const fallbackProductions: Production[] = [
     ticketsEnabled: true,
     ticketPriceCents: 1500,
     synopsis: pt(
-      "A storm. A shipwreck. An island that remembers everything. Our young company reimagines Shakespeare's late romance as a story about power handed down and power given up — staged in the round with a live student ensemble score.",
-      "Prospero's island becomes a rehearsal room where forgiveness is practiced until it becomes real. Expect rough magic, paper oceans, and a finale that asks the audience to set everyone free."
+      "A letter that was never meant to be seen. A lie that was never meant to be told. A life he never dreamed he could have. Our young company takes on the Tony-winning musical about anxiety, grief, and the ache to be seen — with a student band playing the score live.",
+      "For a cast that grew up with social media, this story isn't a metaphor. Expect an honest, stripped-back staging where the words you post — and the ones you can't say out loud — fill the stage."
     ),
     cast: [
-      { person: maya, role: "Prospero" },
-      { person: priya, role: "Ariel" },
-      { person: jordan, role: "Caliban" },
+      { person: maya, role: "Evan Hansen" },
+      { person: priya, role: "Zoe Murphy" },
+      { person: jordan, role: "Connor Murphy" },
     ],
     crew: [
       { person: sam, role: "Technical Director" },
@@ -41,8 +41,8 @@ export const fallbackProductions: Production[] = [
       { person: priya, role: "Marketing & House" },
     ],
     auditionInfo: pt(
-      "Auditions for The Tempest are open to all students ages 13–20. Prepare one short Shakespeare monologue (under two minutes) or a contemporary piece if verse is new to you — we care about bravery, not polish.",
-      "Sign up for a slot through the contact form, or just show up: walk-ins are welcome on both audition days. Callbacks will involve group scene work and movement — wear clothes you can move in."
+      "Auditions for Dear Evan Hansen are open to all students ages 13–20. Prepare a one-minute contemporary monologue and about 16 bars of a contemporary musical-theater or pop song — bring sheet music or a backing track; an accompanist is provided. We care about honesty, not polish.",
+      "Sign up for a slot through the contact form, or just show up: walk-ins are welcome on both audition days. Callbacks will involve scene work, a short vocal call, and ensemble singing — wear clothes you can move in."
     ),
   },
   {

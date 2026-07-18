@@ -57,6 +57,7 @@ export function ContactForm({
             type="text"
             required
             autoComplete="name"
+            suppressHydrationWarning
             aria-invalid={!!state.errors?.name}
             aria-describedby={state.errors?.name ? "contact-name-error" : undefined}
             className={cn(inputClasses, state.errors?.name && "border-danger")}
@@ -73,6 +74,7 @@ export function ContactForm({
             type="email"
             required
             autoComplete="email"
+            suppressHydrationWarning
             aria-invalid={!!state.errors?.email}
             aria-describedby={state.errors?.email ? "contact-email-error" : undefined}
             className={cn(inputClasses, state.errors?.email && "border-danger")}
@@ -89,6 +91,7 @@ export function ContactForm({
           id="contact-subject"
           name="subject"
           defaultValue={defaultSubject ?? contactSubjects[0]}
+          suppressHydrationWarning
           aria-invalid={!!state.errors?.subject}
           aria-describedby={state.errors?.subject ? "contact-subject-error" : undefined}
           className={cn(inputClasses, state.errors?.subject && "border-danger")}
@@ -111,6 +114,7 @@ export function ContactForm({
           name="message"
           rows={6}
           required
+          suppressHydrationWarning
           aria-invalid={!!state.errors?.message}
           aria-describedby={state.errors?.message ? "contact-message-error" : undefined}
           className={cn(inputClasses, "resize-y", state.errors?.message && "border-danger")}
@@ -129,7 +133,7 @@ export function ContactForm({
       />
 
       <div className="flex items-center gap-4">
-        <Button type="submit" disabled={pending}>
+        <Button type="submit" disabled={pending} suppressHydrationWarning>
           {pending ? (
             <Loader2 aria-hidden className="animate-spin" />
           ) : (

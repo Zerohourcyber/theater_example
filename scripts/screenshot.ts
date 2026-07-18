@@ -24,7 +24,7 @@ const OUT_DIR = join(process.cwd(), "screenshots");
 const routes: Array<{ name: string; path: string }> = [
   { name: "home", path: "/" },
   { name: "productions", path: "/productions" },
-  { name: "production-detail", path: "/productions/the-tempest" },
+  { name: "production-detail", path: "/productions/dear-evan-hansen" },
   { name: "about", path: "/about" },
   { name: "auditions", path: "/auditions" },
   { name: "get-involved", path: "/get-involved" },
