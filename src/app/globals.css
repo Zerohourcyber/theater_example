@@ -1,26 +1,173 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ------------------------------------------------------------------ */
+/* Design tokens (SPEC §5) — Tailwind v4 CSS-first theme               */
+/* ------------------------------------------------------------------ */
+
+@theme {
+  /* Colors */
+  --color-background: #0a0a0f; /* near-black, slight blue */
+  --color-surface: #14141c;
+  --color-primary: #d9a441; /* limelight gold */
+  --color-primary-hover: #e8bc66;
+  --color-accent: #8e2434; /* curtain crimson, sparingly */
+  --color-foreground: #f5f2ea; /* warm off-white */
+  --color-muted: #9a97a3;
+  --color-border: #26262f;
+
+  /* Typography */
+  --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-sans: var(--font-inter), Inter, system-ui, sans-serif;
+
+  /* Type scale: 12/14/16/18/24/32/48/64 */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-5xl: 3rem;
+  --text-6xl: 4rem;
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+html {
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+/* Gold focus ring on all interactive elements (SPEC §5, a11y) */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-primary) 35%, transparent);
+  color: var(--color-foreground);
+}
+
+/* ------------------------------------------------------------------ */
+/* Signature utilities                                                 */
+/* ------------------------------------------------------------------ */
+
+@utility spotlight {
+  /* Radial stage-spotlight falling from above */
+  background-image: radial-gradient(
+    ellipse 70% 55% at 50% 0%,
+    rgba(217, 164, 65, 0.14),
+    rgba(217, 164, 65, 0.05) 40%,
+    transparent 70%
+  );
+}
+
+@utility spotlight-band {
+  /* Tighter pool of light for CTA bands */
+  background-image: radial-gradient(
+    ellipse 55% 90% at 50% 50%,
+    rgba(217, 164, 65, 0.12),
+    transparent 75%
+  );
+}
+
+@utility vignette {
+  /* Darkened edges, cinematic */
+  background-image: radial-gradient(
+    ellipse 90% 90% at 50% 40%,
+    transparent 55%,
+    rgba(5, 5, 8, 0.65) 100%
+  );
+}
+
+@utility text-gold-gradient {
+  background-image: linear-gradient(
+    100deg,
+    #f0d493 0%,
+    var(--color-primary) 45%,
+    #b07f2a 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@utility gold-rule {
+  /* Thin gold horizontal rule that fades at the edges */
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in srgb, var(--color-primary) 60%, transparent),
+    transparent
+  );
+  height: 1px;
+}
+
+@utility card-lift {
+  transition:
+    transform 250ms var(--ease-out-soft),
+    border-color 250ms var(--ease-out-soft),
+    box-shadow 250ms var(--ease-out-soft);
+  &:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--color-primary) 55%, transparent);
+    box-shadow: 0 0 24px -6px color-mix(in srgb, var(--color-primary) 35%, transparent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+@utility film-grain {
+  /* Low-opacity SVG noise; hero only (SPEC §5) */
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
 }
