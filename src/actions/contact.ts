@@ -2,6 +2,9 @@
 
 import { z } from "zod";
 import { contactSubjects } from "@/config/contact";
+import { siteConfig } from "@/config/site";
+import { contactNotificationHtml } from "@/lib/email/contact-notification";
+import { fromEmail, getResend } from "@/lib/resend";
 
 export interface ContactState {
   status: "idle" | "success" | "error";
@@ -20,8 +23,9 @@ const schema = z.object({
 });
 
 /**
- * Contact form submission. Phase 2 stub: validates only.
- * Phase 5 adds the Resend notification to CONTACT_INBOX_EMAIL.
+ * Contact form submission: zod validation + honeypot, then a Resend
+ * notification to CONTACT_INBOX_EMAIL. Degrades gracefully (still succeeds,
+ * logs a warning) when email env vars are absent.
  */
 export async function submitContactForm(
   _prev: ContactState,
@@ -48,11 +52,43 @@ export async function submitContactForm(
         errors[field] ??= issue.message;
       }
     }
+    // Silently accept honeypot-only failures so bots learn nothing.
+    if (Object.keys(errors).length === 0) {
+      return { status: "success", message: "Thanks for reaching out!" };
+    }
     return {
       status: "error",
       message: "Please fix the highlighted fields and try again.",
       errors,
     };
+  }
+
+  const { name, email, subject, message } = parsed.data;
+  const resend = getResend();
+  const inbox = process.env.CONTACT_INBOX_EMAIL;
+
+  if (resend && inbox) {
+    try {
+      await resend.emails.send({
+        from: `${siteConfig.name} <${fromEmail()}>`,
+        to: inbox,
+        replyTo: email,
+        subject: `[Contact] ${subject} — ${name}`,
+        html: contactNotificationHtml({ name, email, subject, message }),
+      });
+    } catch (error) {
+      console.error("[resend] contact notification failed:", error);
+      return {
+        status: "error",
+        message:
+          "We couldn't send your message just now. Please try again, or email us directly.",
+      };
+    }
+  } else {
+    console.warn(
+      "[contact] Resend/CONTACT_INBOX_EMAIL not configured; submission logged only:",
+      { name, email, subject }
+    );
   }
 
   return {
