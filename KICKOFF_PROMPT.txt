@@ -1,0 +1,12 @@
+Read CLAUDE.md and SPEC.md in this directory, then build the entire project by
+following the phases in CLAUDE.md in order (Phase 0 through Phase 6). Work
+autonomously: scaffold the Next.js app in this same directory, install all
+dependencies, implement each phase fully, run `npm run build` at the end of every
+phase and fix any errors before moving on, and make one git commit per phase with
+a conventional commit message. Use the fallback content system so the site is
+fully demo-able with zero environment variables configured. Do not ask me
+questions unless you are genuinely blocked; make reasonable decisions and note
+them in the README. When finished, give me: (1) confirmation the production build
+passes, (2) the list of commits, and (3) the exact remaining manual steps for me
+(Sanity project creation, Stripe test keys, Resend key, Stripe webhook setup,
+GitHub push, Vercel import).
