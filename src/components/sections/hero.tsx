@@ -10,18 +10,23 @@ const entrance = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: 0.15 * i, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 0.5, delay: 0.12 * i, ease: [0.22, 1, 0.36, 1] as const },
   }),
 };
 
+interface HeroProps {
+  /** One-line ticker for the marquee strip, e.g. next show + dates + venue. */
+  ticker?: string | null;
+}
+
 /**
- * Full-viewport cinematic hero: spotlight sweep, film grain, vignette,
- * staggered entrance. Always renders motion elements — reduced motion is
- * handled with `initial={false}` (content starts visible, no animation)
- * to avoid SSR/hydration opacity bugs, and the spotlight sweep is stopped
- * via the motion-reduce CSS variant.
+ * Full-viewport editorial hero: oversized left-aligned display type,
+ * asymmetric copy/CTA row, and a marquee ticker with the next show.
+ * Motion is prop-switched (`initial={false}`) under reduced motion to
+ * avoid SSR/hydration opacity bugs; the marquee and spotlight sweep are
+ * stopped via the motion-reduce CSS variant.
  */
-export function Hero() {
+export function Hero({ ticker }: HeroProps) {
   const reduceMotion = useReducedMotion();
 
   const motionProps = (i: number) => ({
@@ -32,7 +37,7 @@ export function Hero() {
   });
 
   return (
-    <section className="film-grain relative flex min-h-svh items-center justify-center overflow-hidden">
+    <section className="film-grain relative flex min-h-svh flex-col overflow-hidden">
       {/* Sweeping spotlight; sweep disabled under reduced motion via CSS */}
       <div
         aria-hidden
@@ -48,51 +53,89 @@ export function Hero() {
         aria-hidden
         className="absolute -top-40 left-1/2 h-[85vh] w-36 translate-x-[45%] -rotate-[15deg] bg-gradient-to-b from-accent/15 via-accent/5 to-transparent blur-3xl"
       />
-      {/* Stage-floor glow at the bottom edge */}
-      <div
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 h-56 bg-[radial-gradient(ellipse_60%_100%_at_50%_100%,rgba(59,155,255,0.12),transparent_70%)]"
-      />
       <div aria-hidden className="vignette absolute inset-0" />
 
-      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-4 py-32 text-center">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-4 pb-14 pt-32 sm:px-6 lg:px-8">
         <motion.div {...motionProps(0)}>
-          <p className="mb-6 text-sm font-medium uppercase tracking-[0.3em] text-accent">
-            {siteConfig.name}
+          <p className="mb-8 text-xs font-medium uppercase tracking-[0.35em] text-accent sm:text-sm">
+            Est. 2025 — in residence at {siteConfig.collegePartner}
           </p>
         </motion.div>
 
-        <motion.div {...motionProps(1)}>
-          <h1 className="text-5xl sm:text-6xl md:text-[4.5rem]">
-            Youth-led.{" "}
-            <span className="text-brand-gradient">Community-built.</span>{" "}
-            Stage-ready.
-          </h1>
-        </motion.div>
+        <h1 className="max-w-none text-left leading-[0.95]">
+          <motion.span
+            {...motionProps(1)}
+            className="block text-[clamp(3rem,9vw,8rem)]"
+          >
+            Youth-led.
+          </motion.span>
+          <motion.span
+            {...motionProps(2)}
+            className="text-brand-gradient block pb-2 pr-4 text-[clamp(3rem,9vw,8rem)] italic"
+          >
+            Community-built.
+          </motion.span>
+          <motion.span
+            {...motionProps(3)}
+            className="block text-[clamp(3rem,9vw,8rem)]"
+          >
+            Stage-ready<span className="text-primary">.</span>
+          </motion.span>
+        </h1>
 
-        <motion.div {...motionProps(2)}>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted">
-            {siteConfig.description}
-          </p>
-        </motion.div>
-
-        <motion.div {...motionProps(3)}>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Button asChild size="lg">
-              <Link href="/productions">See Our Next Show</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link href="/get-involved">Get Involved</Link>
-            </Button>
+        <motion.div {...motionProps(4)}>
+          <div className="mt-12 flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+            <p className="max-w-md text-left text-base leading-relaxed text-muted sm:text-lg">
+              {siteConfig.description}
+            </p>
+            <div className="flex shrink-0 flex-wrap gap-4">
+              <Button asChild size="lg">
+                <Link href="/productions">See Our Next Show</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link href="/get-involved">Get Involved</Link>
+              </Button>
+            </div>
           </div>
         </motion.div>
       </div>
 
-      {/* Keyframes for the slow spotlight sweep */}
+      {/* Marquee ticker with the next show */}
+      {ticker ? (
+        <div className="relative z-10 border-t border-border/60 bg-background/50 py-3 backdrop-blur-sm">
+          <div className="flex overflow-hidden whitespace-nowrap [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+            {[0, 1].map((copy) => (
+              <div
+                key={copy}
+                aria-hidden={copy === 1}
+                className="flex min-w-full shrink-0 animate-[hero-marquee_26s_linear_infinite] items-center motion-reduce:animate-none"
+              >
+                {[0, 1, 2].map((rep) => (
+                  <span
+                    key={rep}
+                    className="flex items-center gap-6 pr-6 text-xs font-medium uppercase tracking-[0.25em] text-muted"
+                  >
+                    <span aria-hidden className="text-accent">
+                      ✦
+                    </span>
+                    {ticker}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      {/* Keyframes for the slow spotlight sweep and the ticker */}
       <style>{`
         @keyframes spotlight-sweep {
           from { transform: translateX(-6%) scaleX(1); }
           to { transform: translateX(6%) scaleX(1.08); }
+        }
+        @keyframes hero-marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-100%); }
         }
       `}</style>
     </section>

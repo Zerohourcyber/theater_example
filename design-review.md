@@ -107,3 +107,25 @@ productions index "Upcoming" row is one small card adrift in empty space.
 poster/headshot/news imagery is generated placeholder art, not photography. Iterations
 3–5 were not run because every code-addressable criterion is at 8 and the residual gap
 requires real assets (photos, logos) — a human decision, not a design-loop fix.
+
+---
+
+## Iteration 3 — 2026-07-18 (direction change, per client feedback)
+
+Feedback: the site read as "AI-generated / too template-professional"; wanted a more
+modern feel. Root cause: centered symmetric compositions and conventional type scale.
+Editorial redesign applied:
+
+1. Hero: oversized left-aligned display type (clamp to 8rem), italic gradient middle
+   line, asymmetric description/CTA row, marquee ticker strip with the next show
+   (pauses under reduced motion), specific kicker ("Est. 2025 — in residence at …").
+2. PageHeader: slash-prefixed kicker, clamp(2.75rem→5.5rem) titles, description offset
+   right on wide screens.
+3. SectionHeading: slash kicker motif + one step larger display titles.
+4. Navbar: uppercase micro links with wide tracking.
+5. Footer: oversized "Limelight." wordmark band above the columns.
+6. Buttons: uppercase micro-type (smaller size, wide tracking) — reads designed rather
+   than default-component.
+
+Verified on home/productions/mobile screenshots: no overflow at 390px, ticker loops,
+hierarchy intact. Build passes.

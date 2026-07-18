@@ -12,6 +12,7 @@ import {
   getSponsors,
   getUpcomingProduction,
 } from "@/lib/sanity/fetch";
+import { formatDate } from "@/lib/utils";
 
 export const revalidate = 60;
 
@@ -23,9 +24,22 @@ export default async function HomePage() {
     getSponsors(),
   ]);
 
+  const ticker = upcoming
+    ? [
+        `Next on stage: ${upcoming.title}`,
+        upcoming.openingNight
+          ? `Opens ${formatDate(upcoming.openingNight, { month: "short", day: "numeric" })}`
+          : null,
+        upcoming.venue ?? null,
+        "Tickets on sale now",
+      ]
+        .filter(Boolean)
+        .join("  ·  ")
+    : null;
+
   return (
     <>
-      <Hero />
+      <Hero ticker={ticker} />
       {upcoming?.openingNight ? (
         <Countdown
           target={upcoming.openingNight}

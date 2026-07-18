@@ -5,6 +5,18 @@ import { Container } from "./container";
 export function Footer() {
   return (
     <footer className="border-t border-border bg-surface/50">
+      {/* Oversized editorial wordmark band */}
+      <div className="overflow-hidden border-b border-border/60">
+        <Container className="py-8 sm:py-10">
+          <p
+            aria-hidden
+            className="font-display text-[clamp(3rem,11vw,8rem)] leading-none tracking-tight text-foreground/90"
+          >
+            {siteConfig.shortName}
+            <span className="text-primary">.</span>
+          </p>
+        </Container>
+      </div>
       <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div className="sm:col-span-2">
           <p className="font-display text-2xl">

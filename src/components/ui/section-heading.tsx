@@ -30,13 +30,16 @@ export function SectionHeading({
       )}
     >
       {eyebrow ? (
-        <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+        <p className="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-accent sm:text-sm">
+          <span aria-hidden className="mr-2 text-primary">
+            /
+          </span>
           {eyebrow}
         </p>
       ) : null}
-      <Tag className="text-3xl sm:text-5xl">{title}</Tag>
+      <Tag className="text-4xl leading-[1.02] sm:text-6xl">{title}</Tag>
       {description ? (
-        <p className="mt-4 text-lg text-muted">{description}</p>
+        <p className="mt-5 text-lg text-muted">{description}</p>
       ) : null}
     </div>
   );
