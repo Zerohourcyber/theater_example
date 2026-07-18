@@ -72,8 +72,13 @@ export default async function ProductionDetailPage({ params }: Props) {
       {/* Hero */}
       <div className="spotlight border-b border-border/60 pb-16 pt-32">
         <Container className="grid items-end gap-10 lg:grid-cols-3">
-          <FadeIn className="lg:col-span-1">
-            <div className="relative mx-auto aspect-2/3 w-full max-w-xs overflow-hidden rounded-lg border border-border lg:mx-0">
+          <FadeIn className="relative lg:col-span-1">
+            {/* Soft glow so the poster reads as lit rather than floating on black */}
+            <div
+              aria-hidden
+              className="absolute left-1/2 top-1/2 h-[110%] w-[130%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,rgba(59,155,255,0.18),transparent_70%)] blur-2xl"
+            />
+            <div className="relative mx-auto aspect-2/3 w-full max-w-xs overflow-hidden rounded-lg border border-border shadow-[0_0_60px_rgba(59,155,255,0.12)] lg:mx-0">
               <SmartImage
                 image={production.poster}
                 alt={`Poster for ${production.title}`}

@@ -46,16 +46,42 @@ export function SmartImage({
       role="img"
       aria-label={alt}
       className={cn(
-        "absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[linear-gradient(160deg,#1a2338_0%,#121a2a_55%,#0f1e33_100%)]",
+        "absolute inset-0 @container overflow-hidden bg-[linear-gradient(165deg,#16203a_0%,#121a2a_50%,#0d1626_100%)]",
         className
       )}
     >
-      <Theater aria-hidden className="size-8 text-accent/50" />
-      {placeholderLabel ? (
-        <span className="max-w-[80%] text-center font-display text-lg leading-snug text-foreground/70">
-          {placeholderLabel}
+      {/* Volumetric light beams falling from above */}
+      <div
+        aria-hidden
+        className="absolute -top-1/4 left-[18%] h-[150%] w-[18%] rotate-[16deg] bg-gradient-to-b from-primary/25 via-primary/8 to-transparent blur-xl"
+      />
+      <div
+        aria-hidden
+        className="absolute -top-1/4 right-[18%] h-[150%] w-[14%] -rotate-[14deg] bg-gradient-to-b from-accent/20 via-accent/6 to-transparent blur-xl"
+      />
+      {/* Stage-floor glow */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 h-1/3 bg-[radial-gradient(ellipse_70%_100%_at_50%_100%,rgba(59,155,255,0.16),transparent_70%)]"
+      />
+      {/* Thin inner frame, like a printed poster border */}
+      <div
+        aria-hidden
+        className="absolute inset-[6%] border border-foreground/15"
+      />
+
+      <div className="absolute inset-[6%] flex flex-col items-center justify-center gap-[4cqh] px-[8cqw] text-center">
+        <span aria-hidden className="text-[6cqw] leading-none text-accent/80">
+          ✦
         </span>
-      ) : null}
+        {placeholderLabel ? (
+          <span className="font-display text-[clamp(0.9rem,11cqw,3rem)] leading-[1.15] text-foreground/90 [text-wrap:balance]">
+            {placeholderLabel}
+          </span>
+        ) : (
+          <Theater aria-hidden className="size-8 text-accent/50" />
+        )}
+      </div>
     </div>
   );
 }

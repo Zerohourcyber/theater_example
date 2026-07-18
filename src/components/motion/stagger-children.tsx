@@ -31,7 +31,14 @@ const child = {
   },
 };
 
-/** Container that staggers its StaggerItem children into view on scroll. */
+/**
+ * Container that staggers its StaggerItem children into view on scroll.
+ *
+ * Always renders motion elements — under reduced motion `initial={false}`
+ * makes the whole tree start at its visible state with no animation.
+ * (Branching to plain divs caused an SSR/hydration bug that left server-
+ * rendered opacity:0 styles in place.)
+ */
 export function StaggerChildren({
   children,
   className,
@@ -40,8 +47,21 @@ export function StaggerChildren({
 }: StaggerChildrenProps) {
   const reduceMotion = useReducedMotion();
 
+  // Under reduced motion, skip the in-view choreography: mount the whole
+  // tree directly at its visible state (same elements, different props).
   if (reduceMotion) {
-    return <div className={className}>{children}</div>;
+    return (
+      <motion.div
+        className={className}
+        variants={parent}
+        custom={{ interval: 0, delay: 0 }}
+        initial={false}
+        animate="visible"
+        transition={{ duration: 0 }}
+      >
+        {children}
+      </motion.div>
+    );
   }
 
   return (
@@ -58,7 +78,7 @@ export function StaggerChildren({
   );
 }
 
-/** One staggered child. No-ops (renders a plain div) under reduced motion. */
+/** One staggered child; inherits reduced-motion handling from its parent. */
 export function StaggerItem({
   children,
   className,
@@ -66,10 +86,6 @@ export function StaggerItem({
   children: ReactNode;
   className?: string;
 }) {
-  const reduceMotion = useReducedMotion();
-  if (reduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
   return (
     <motion.div className={className} variants={child}>
       {children}

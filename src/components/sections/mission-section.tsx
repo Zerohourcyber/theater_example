@@ -28,27 +28,37 @@ const pillars = [
 export function MissionSection() {
   return (
     <section className="border-y border-border/60 bg-surface/30 py-24">
-      <Container>
+      <Container className="grid gap-12 lg:grid-cols-[1fr_1.5fr] lg:gap-24">
         <FadeIn>
-          <SectionHeading
-            eyebrow="Our mission"
-            title="Perform. Lead. Serve."
-            description="Three commitments behind every production we stage."
-            align="center"
-          />
+          <div className="lg:sticky lg:top-32">
+            <SectionHeading
+              eyebrow="Our mission"
+              title="Perform. Lead. Serve."
+              description="Three commitments behind every production we stage."
+            />
+            <div className="brand-rule mt-10 w-24" />
+          </div>
         </FadeIn>
 
-        <StaggerChildren className="mt-14 grid gap-6 md:grid-cols-3">
-          {pillars.map((pillar) => (
+        <StaggerChildren className="divide-y divide-border/60">
+          {pillars.map((pillar, i) => (
             <StaggerItem key={pillar.title}>
-              <div className="card-lift h-full rounded-lg border border-border bg-surface p-8 text-center">
-                <div className="mx-auto mb-5 flex size-14 items-center justify-center rounded-full border border-primary/40 bg-primary/10">
-                  <pillar.icon aria-hidden className="size-7 text-accent" />
+              <div className="flex gap-6 py-9 first:pt-0 last:pb-0 sm:gap-10">
+                <span
+                  aria-hidden
+                  className="font-display text-4xl leading-none text-primary/50 sm:text-5xl"
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <h3 className="flex items-center gap-3 text-2xl">
+                    {pillar.title}
+                    <pillar.icon aria-hidden className="size-5 text-accent" />
+                  </h3>
+                  <p className="mt-3 max-w-prose leading-relaxed text-muted">
+                    {pillar.description}
+                  </p>
                 </div>
-                <h3 className="text-2xl">{pillar.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted">
-                  {pillar.description}
-                </p>
               </div>
             </StaggerItem>
           ))}

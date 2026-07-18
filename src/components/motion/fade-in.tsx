@@ -13,8 +13,12 @@ interface FadeInProps {
 }
 
 /**
- * Scroll-triggered fade + rise. Renders children immediately (no motion)
- * when the user prefers reduced motion.
+ * Scroll-triggered fade + rise.
+ *
+ * Always renders motion.div — under reduced motion we pass `initial={false}`
+ * so content starts fully visible with no animation. (Branching to a plain
+ * div here caused an SSR/hydration bug: server HTML carries opacity:0 from
+ * the motion branch, and a plain client div never clears it.)
  */
 export function FadeIn({
   delay = 0,
@@ -24,8 +28,19 @@ export function FadeIn({
 }: FadeInProps) {
   const reduceMotion = useReducedMotion();
 
+  // Under reduced motion, skip the in-view choreography entirely: mount
+  // directly at the visible state (same element, different props only).
   if (reduceMotion) {
-    return <div className={className}>{children}</div>;
+    return (
+      <motion.div
+        className={className}
+        initial={false}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0 }}
+      >
+        {children}
+      </motion.div>
+    );
   }
 
   return (

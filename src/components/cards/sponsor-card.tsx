@@ -17,13 +17,18 @@ export function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
       className="max-h-12 w-auto object-contain grayscale transition-[filter] duration-300 group-hover:grayscale-0"
     />
   ) : (
-    <span className="font-display text-lg text-muted transition-colors duration-300 group-hover:text-foreground">
-      {sponsor.name}
-    </span>
+    <>
+      <span className="text-center font-display text-xl leading-tight text-foreground/75 transition-colors duration-300 group-hover:text-foreground">
+        {sponsor.name}
+      </span>
+      <span className="text-[10px] font-medium uppercase tracking-[0.22em] text-muted/70 transition-colors duration-300 group-hover:text-accent">
+        {sponsor.tier} sponsor
+      </span>
+    </>
   );
 
   const className =
-    "group flex h-24 items-center justify-center rounded-lg border border-border bg-surface px-6 transition-colors duration-300 hover:border-primary/50";
+    "group flex h-28 flex-col items-center justify-center gap-1.5 rounded-lg border border-border bg-surface px-6 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 motion-reduce:hover:translate-y-0";
 
   if (sponsor.url) {
     return (

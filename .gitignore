@@ -35,6 +35,9 @@ yarn-error.log*
 .env.local
 .env.*.local
 
+# visual QA artifacts
+/screenshots
+
 # vercel
 .vercel
 
