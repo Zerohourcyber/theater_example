@@ -4,27 +4,26 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium uppercase tracking-[0.14em] transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        /** Solid electric blue — primary CTA. Dark text passes AA on blue. */
-        primary:
-          "bg-primary text-background hover:bg-primary-hover font-semibold",
-        /** Thin blue outline — secondary CTA. */
+        /** Solid ink pill — primary CTA. White text passes AA on ink. */
+        primary: "bg-foreground text-background hover:bg-foreground/85",
+        /** Hairline outline pill — secondary CTA. */
         outline:
-          "border border-primary/60 text-primary hover:border-primary hover:bg-primary/10",
-        /** Low-emphasis surface button. */
-        ghost: "text-foreground hover:bg-surface hover:text-primary",
-        /** Pale sky blue, used sparingly. Dark text passes AA on pale blue. */
-        accent: "bg-accent text-background hover:bg-accent/85 font-semibold",
+          "border border-border bg-surface text-foreground shadow-sm hover:border-foreground/30",
+        /** Low-emphasis button. */
+        ghost: "text-foreground hover:bg-foreground/5",
+        /** Violet accent, used sparingly. White text passes AA on violet. */
+        accent: "bg-accent text-surface hover:bg-accent/90",
         /** Text-like link button. */
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        sm: "h-9 px-4 text-xs",
+        sm: "h-9 px-4 text-sm",
         default: "h-11 px-6 text-sm",
-        lg: "h-13 px-8 text-sm",
+        lg: "h-12 px-7 text-base",
       },
     },
     defaultVariants: {

@@ -129,3 +129,29 @@ Editorial redesign applied:
 
 Verified on home/productions/mobile screenshots: no overflow at 390px, ticker loops,
 hierarchy intact. Build passes.
+
+---
+
+## Iteration 4 — 2026-07-18 (full aesthetic pivot, per client reference)
+
+Client supplied sticklight.com as the target look — light, airy, modern-SaaS. This
+overrides the SPEC's dark stage-lit direction. Mirrored patterns:
+
+- Tokens: warm paper background (#F6F5F1), white cards, ink foreground (#1B1B18),
+  hairline borders, link blue (#2E6BE6), violet accent (#7A5AF8); sans-only type
+  (Playfair dropped from the bundle).
+- Utilities: dot-grid canvas, pastel aurora glow, aurora-tinted spotlight bands,
+  neutral card shadows; ink→blue→violet text gradient.
+- Hero: centered, announcement pill ("On stage · The Tempest — opens Oct 16 →"),
+  aurora blob behind headline, ink pill CTAs, residency line beneath.
+- Navbar: quiet normal-case links + black "Get Tickets" pill. Footer: contrast-flip
+  dark ink block (mirrors reference).
+- Poster/headshot placeholders keep their dark navy key art (reads like the
+  reference's template-gallery thumbnails) — internals pinned to literal
+  light-on-dark colors after the token flip briefly made them ink-on-navy.
+- Countdown digits: ink on white tiles; detail-page poster glow → pastel aurora.
+
+Verified: pixel-sampled screenshots confirm paper background on desktop + mobile,
+legible placeholders, dark footer. Build + lint pass. OG image and email templates
+intentionally keep the previous dark-navy branding until the new direction is
+confirmed (flagged to client).

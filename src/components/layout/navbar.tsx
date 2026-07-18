@@ -49,7 +49,7 @@ export function Navbar() {
         </Link>
 
         {/* Desktop nav */}
-        <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
+        <nav aria-label="Main" className="hidden items-center gap-0.5 md:flex">
           {navLinks.map((link) => {
             const active =
               link.href === "/"
@@ -61,16 +61,22 @@ export function Navbar() {
                 href={link.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "rounded-md px-3 py-2 text-xs font-medium uppercase tracking-[0.16em] transition-colors",
+                  "rounded-full px-3 py-2 text-sm transition-colors",
                   active
-                    ? "text-primary"
-                    : "text-foreground/80 hover:bg-surface hover:text-foreground"
+                    ? "font-medium text-foreground"
+                    : "text-muted hover:text-foreground"
                 )}
               >
                 {link.label}
               </Link>
             );
           })}
+          <Link
+            href="/productions"
+            className="ml-3 inline-flex h-9 items-center rounded-full bg-foreground px-4 text-sm font-medium text-background transition-colors hover:bg-foreground/85"
+          >
+            Get Tickets
+          </Link>
         </nav>
 
         {/* Mobile toggle */}
@@ -106,10 +112,10 @@ export function Navbar() {
                   onClick={closeMenu}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "rounded-md px-3 py-3 text-sm font-medium uppercase tracking-[0.16em] transition-colors",
+                    "rounded-md px-3 py-3 text-base transition-colors",
                     active
-                      ? "text-primary"
-                      : "text-foreground/80 hover:bg-surface hover:text-foreground"
+                      ? "font-medium text-foreground"
+                      : "text-muted hover:text-foreground"
                   )}
                 >
                   {link.label}

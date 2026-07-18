@@ -35,9 +35,9 @@ function Digit({ value, label }: { value: number; label: string }) {
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <div className="relative h-20 w-20 overflow-hidden rounded-lg border border-primary/30 bg-surface sm:h-24 sm:w-24">
+      <div className="relative h-20 w-20 overflow-hidden rounded-xl border border-border bg-surface shadow-sm sm:h-24 sm:w-24">
         {reduceMotion ? (
-          <span className="absolute inset-0 flex items-center justify-center font-display text-3xl text-primary sm:text-5xl">
+          <span className="absolute inset-0 flex items-center justify-center font-display text-3xl font-semibold text-foreground sm:text-5xl">
             {display}
           </span>
         ) : (
@@ -48,7 +48,7 @@ function Digit({ value, label }: { value: number; label: string }) {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: "100%", opacity: 0 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0 flex items-center justify-center font-display text-3xl text-primary sm:text-5xl"
+              className="absolute inset-0 flex items-center justify-center font-display text-3xl font-semibold text-foreground sm:text-5xl"
             >
               {display}
             </motion.span>

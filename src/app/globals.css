@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ */
-/* Design tokens (SPEC §5) — Tailwind v4 CSS-first theme               */
+/* Design tokens — light "paper & aurora" theme (sticklight-inspired)  */
 /* ------------------------------------------------------------------ */
 
 @theme {
-  /* Colors — electric-blue stage theme */
-  --color-background: #0b0e16; /* near-black with a navy cast */
-  --color-surface: #121a2a; /* dark navy card/surface */
-  --color-primary: #3b9bff; /* electric blue */
-  --color-primary-hover: #66b3ff;
-  --color-accent: #8fd0ff; /* pale sky blue, sparingly */
-  --color-foreground: #f2f6fc; /* cool off-white */
-  --color-muted: #8c96ab;
-  --color-border: #263349;
-  --color-danger: #e2919e; /* functional error color (not branding) */
+  /* Colors */
+  --color-background: #f6f5f1; /* warm paper */
+  --color-surface: #ffffff; /* white cards */
+  --color-primary: #2e6be6; /* link/interactive blue */
+  --color-primary-hover: #1e56c4;
+  --color-accent: #7a5af8; /* violet, sparingly (kickers, icons) */
+  --color-foreground: #1b1b18; /* ink */
+  --color-muted: #63635e;
+  --color-border: #e4e2db; /* hairline */
+  --color-danger: #c4444e; /* functional error color (not branding) */
 
-  /* Typography */
-  --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
+  /* Typography — clean sans throughout */
+  --font-display: var(--font-inter), Inter, system-ui, sans-serif;
   --font-sans: var(--font-inter), Inter, system-ui, sans-serif;
 
   /* Type scale: 12/14/16/18/24/32/48/64 */
@@ -91,11 +91,13 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
   line-height: 1.1;
   text-wrap: balance;
 }
 
-/* Electric-blue focus ring on all interactive elements (a11y) */
+/* Visible focus ring on all interactive elements (a11y) */
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 3px;
@@ -103,7 +105,7 @@ h3 {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-primary) 35%, transparent);
+  background: color-mix(in srgb, var(--color-primary) 25%, transparent);
   color: var(--color-foreground);
 }
 
@@ -111,41 +113,68 @@ h3 {
 /* Signature utilities                                                 */
 /* ------------------------------------------------------------------ */
 
-@utility spotlight {
-  /* Radial stage-spotlight falling from above — cool blue wash */
+@utility dot-grid {
+  /* Subtle graph-paper dots, sticklight-style */
   background-image: radial-gradient(
-    ellipse 70% 55% at 50% 0%,
-    rgba(59, 155, 255, 0.14),
-    rgba(59, 155, 255, 0.05) 40%,
-    transparent 70%
+    circle,
+    rgba(27, 27, 24, 0.08) 1px,
+    transparent 1px
   );
+  background-size: 22px 22px;
+}
+
+@utility aurora {
+  /* Pastel iridescent glow for hero/headline backdrops */
+  background-image:
+    radial-gradient(
+      ellipse 45% 60% at 38% 40%,
+      rgba(255, 190, 224, 0.55),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 45% 60% at 62% 45%,
+      rgba(167, 199, 255, 0.6),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 35% 50% at 50% 60%,
+      rgba(199, 178, 255, 0.5),
+      transparent 70%
+    );
+  filter: blur(24px);
+}
+
+@utility spotlight {
+  /* Faint aurora wash for page-header bands */
+  background-image:
+    radial-gradient(
+      ellipse 55% 70% at 30% 0%,
+      rgba(216, 203, 255, 0.35),
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 55% 70% at 70% 0%,
+      rgba(191, 224, 255, 0.4),
+      transparent 65%
+    );
 }
 
 @utility spotlight-band {
-  /* Tighter pool of light for CTA bands */
+  /* Softer pool of pastel light for CTA bands */
   background-image: radial-gradient(
     ellipse 55% 90% at 50% 50%,
-    rgba(59, 155, 255, 0.12),
+    rgba(199, 178, 255, 0.22),
     transparent 75%
   );
 }
 
-@utility vignette {
-  /* Darkened edges, cinematic */
-  background-image: radial-gradient(
-    ellipse 90% 90% at 50% 40%,
-    transparent 55%,
-    rgba(4, 6, 12, 0.65) 100%
-  );
-}
-
 @utility text-brand-gradient {
-  /* White → electric blue display gradient */
+  /* Ink → blue → violet display gradient (works on paper) */
   background-image: linear-gradient(
     100deg,
-    var(--color-foreground) 0%,
-    var(--color-primary-hover) 45%,
-    var(--color-primary) 100%
+    var(--color-primary) 0%,
+    #6d5ae6 55%,
+    var(--color-accent) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
@@ -153,11 +182,11 @@ h3 {
 }
 
 @utility brand-rule {
-  /* Thin blue horizontal rule that fades at the edges */
+  /* Thin rule that fades at the edges */
   background-image: linear-gradient(
     to right,
     transparent,
-    color-mix(in srgb, var(--color-primary) 60%, transparent),
+    color-mix(in srgb, var(--color-foreground) 25%, transparent),
     transparent
   );
   height: 1px;
@@ -168,10 +197,11 @@ h3 {
     transform 250ms var(--ease-out-soft),
     border-color 250ms var(--ease-out-soft),
     box-shadow 250ms var(--ease-out-soft);
+  box-shadow: 0 1px 2px rgba(27, 27, 24, 0.05);
   &:hover {
     transform: translateY(-2px);
-    border-color: color-mix(in srgb, var(--color-primary) 55%, transparent);
-    box-shadow: 0 0 24px -6px color-mix(in srgb, var(--color-primary) 35%, transparent);
+    border-color: color-mix(in srgb, var(--color-foreground) 25%, transparent);
+    box-shadow: 0 10px 28px -8px rgba(27, 27, 24, 0.16);
   }
   @media (prefers-reduced-motion: reduce) {
     transition: none;
@@ -182,14 +212,19 @@ h3 {
 }
 
 @utility film-grain {
-  /* Low-opacity SVG noise; hero only (SPEC §5) */
+  /* Low-opacity noise texture (kept subtle on paper) */
   position: relative;
   &::after {
     content: "";
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.05;
+    opacity: 0.03;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
+}
+
+@utility vignette {
+  /* Legacy no-op on light theme (kept so stray usages stay harmless) */
+  background-image: none;
 }

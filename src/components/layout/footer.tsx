@@ -2,40 +2,29 @@ import Link from "next/link";
 import { footerLinks, navLinks, siteConfig } from "@/config/site";
 import { Container } from "./container";
 
+/** Contrast-flipped dark footer (ink block on the paper theme). */
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-surface/50">
-      {/* Oversized editorial wordmark band */}
-      <div className="overflow-hidden border-b border-border/60">
-        <Container className="py-8 sm:py-10">
-          <p
-            aria-hidden
-            className="font-display text-[clamp(3rem,11vw,8rem)] leading-none tracking-tight text-foreground/90"
-          >
-            {siteConfig.shortName}
-            <span className="text-primary">.</span>
-          </p>
-        </Container>
-      </div>
-      <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="bg-foreground text-background">
+      <Container className="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
         <div className="sm:col-span-2">
-          <p className="font-display text-2xl">
-            <span aria-hidden className="mr-2 text-primary">
+          <p className="font-display text-2xl font-semibold">
+            <span aria-hidden className="mr-2 text-accent">
               ✦
             </span>
             {siteConfig.name}
           </p>
-          <p className="mt-3 max-w-sm text-sm text-muted">
+          <p className="mt-3 max-w-sm text-sm text-background/70">
             {siteConfig.description}
           </p>
-          <p className="mt-4 text-sm text-muted">
+          <p className="mt-4 text-sm text-background/70">
             In partnership with{" "}
-            <span className="text-foreground">{siteConfig.collegePartner}</span>
+            <span className="text-background">{siteConfig.collegePartner}</span>
           </p>
         </div>
 
         <nav aria-label="Footer">
-          <p className="mb-3 text-sm font-medium uppercase tracking-widest text-accent">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-background/60">
             Explore
           </p>
           <ul className="space-y-2">
@@ -43,7 +32,7 @@ export function Footer() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-sm text-muted transition-colors hover:text-foreground"
+                  className="text-sm text-background/70 transition-colors hover:text-background"
                 >
                   {link.label}
                 </Link>
@@ -53,14 +42,14 @@ export function Footer() {
         </nav>
 
         <div>
-          <p className="mb-3 text-sm font-medium uppercase tracking-widest text-accent">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-background/60">
             Connect
           </p>
           <ul className="space-y-2">
             <li>
               <a
                 href={`mailto:${siteConfig.contactEmail}`}
-                className="text-sm text-muted transition-colors hover:text-foreground"
+                className="text-sm text-background/70 transition-colors hover:text-background"
               >
                 {siteConfig.contactEmail}
               </a>
@@ -71,7 +60,7 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-muted transition-colors hover:text-foreground"
+                  className="text-sm text-background/70 transition-colors hover:text-background"
                 >
                   {social.label}
                 </a>
@@ -81,8 +70,8 @@ export function Footer() {
         </div>
       </Container>
 
-      <div className="border-t border-border/60">
-        <Container className="flex flex-col items-start justify-between gap-2 py-6 text-xs text-muted sm:flex-row sm:items-center">
+      <div className="border-t border-background/15">
+        <Container className="flex flex-col items-start justify-between gap-2 py-6 text-xs text-background/60 sm:flex-row sm:items-center">
           <p>
             © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>

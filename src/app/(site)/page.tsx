@@ -24,22 +24,18 @@ export default async function HomePage() {
     getSponsors(),
   ]);
 
-  const ticker = upcoming
-    ? [
-        `Next on stage: ${upcoming.title}`,
-        upcoming.openingNight
-          ? `Opens ${formatDate(upcoming.openingNight, { month: "short", day: "numeric" })}`
-          : null,
-        upcoming.venue ?? null,
-        "Tickets on sale now",
-      ]
-        .filter(Boolean)
-        .join("  ·  ")
+  const announcement = upcoming
+    ? {
+        label: upcoming.openingNight
+          ? `${upcoming.title} — opens ${formatDate(upcoming.openingNight, { month: "short", day: "numeric" })}`
+          : upcoming.title,
+        href: `/productions/${upcoming.slug}`,
+      }
     : null;
 
   return (
     <>
-      <Hero ticker={ticker} />
+      <Hero announcement={announcement} />
       {upcoming?.openingNight ? (
         <Countdown
           target={upcoming.openingNight}

@@ -52,11 +52,11 @@ export function SmartImage({
       {/* Volumetric light beams falling from above */}
       <div
         aria-hidden
-        className="absolute -top-1/4 left-[18%] h-[150%] w-[18%] rotate-[16deg] bg-gradient-to-b from-primary/25 via-primary/8 to-transparent blur-xl"
+        className="absolute -top-1/4 left-[18%] h-[150%] w-[18%] rotate-[16deg] bg-gradient-to-b from-[#3b9bff]/25 via-[#3b9bff]/8 to-transparent blur-xl"
       />
       <div
         aria-hidden
-        className="absolute -top-1/4 right-[18%] h-[150%] w-[14%] -rotate-[14deg] bg-gradient-to-b from-accent/20 via-accent/6 to-transparent blur-xl"
+        className="absolute -top-1/4 right-[18%] h-[150%] w-[14%] -rotate-[14deg] bg-gradient-to-b from-[#8fd0ff]/20 via-[#8fd0ff]/6 to-transparent blur-xl"
       />
       {/* Stage-floor glow */}
       <div
@@ -66,7 +66,7 @@ export function SmartImage({
       {/* Thin inner frame, like a printed poster border */}
       <div
         aria-hidden
-        className="absolute inset-[6%] border border-foreground/15"
+        className="absolute inset-[6%] border border-white/15"
       />
 
       <div className="absolute inset-[6%] flex flex-col items-center justify-center gap-[4cqh] px-[8cqw] text-center">
@@ -74,18 +74,18 @@ export function SmartImage({
           <>
             <span
               aria-hidden
-              className="text-[6cqw] leading-none text-accent/80"
+              className="text-[6cqw] leading-none text-[#8fd0ff]/80"
             >
               ✦
             </span>
-            <span className="font-display text-[clamp(0.9rem,11cqw,3rem)] leading-[1.15] text-foreground/90 [text-wrap:balance]">
+            <span className="font-display text-[clamp(0.9rem,11cqw,3rem)] leading-[1.15] text-[#f2f6fc]/90 [text-wrap:balance]">
               {placeholderLabel}
             </span>
           </>
         ) : (
           <span
             aria-hidden
-            className="text-[clamp(1.25rem,10cqw,2.5rem)] leading-none text-accent/60"
+            className="text-[clamp(1.25rem,10cqw,2.5rem)] leading-none text-[#8fd0ff]/60"
           >
             ✦
           </span>

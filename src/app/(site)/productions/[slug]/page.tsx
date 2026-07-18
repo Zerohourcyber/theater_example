@@ -76,9 +76,9 @@ export default async function ProductionDetailPage({ params }: Props) {
             {/* Soft glow so the poster reads as lit rather than floating on black */}
             <div
               aria-hidden
-              className="absolute left-1/2 top-1/2 h-[110%] w-[130%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,rgba(59,155,255,0.18),transparent_70%)] blur-2xl"
+              className="absolute left-1/2 top-1/2 h-[110%] w-[130%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,rgba(199,178,255,0.45),transparent_70%)] blur-2xl"
             />
-            <div className="relative mx-auto aspect-2/3 w-full max-w-xs overflow-hidden rounded-lg border border-border shadow-[0_0_60px_rgba(59,155,255,0.12)] lg:mx-0">
+            <div className="relative mx-auto aspect-2/3 w-full max-w-xs overflow-hidden rounded-lg border border-border shadow-lg lg:mx-0">
               <SmartImage
                 image={production.poster}
                 alt={`Poster for ${production.title}`}

@@ -12,22 +12,19 @@ interface PageHeaderProps {
  */
 export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
   return (
-    <div className="spotlight border-b border-border/60 pb-14 pt-40">
+    <div className="spotlight dot-grid border-b border-border pb-14 pt-36">
       <Container>
         {eyebrow ? (
-          <p className="mb-6 text-xs font-medium uppercase tracking-[0.35em] text-accent sm:text-sm">
-            <span aria-hidden className="mr-2 text-primary">
-              /
-            </span>
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
             {eyebrow}
           </p>
         ) : null}
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
-          <h1 className="max-w-4xl text-[clamp(2.75rem,6.5vw,5.5rem)] leading-[0.98]">
+          <h1 className="max-w-3xl text-5xl tracking-tight sm:text-6xl">
             {title}
           </h1>
           {description ? (
-            <p className="max-w-md shrink-0 text-lg leading-relaxed text-muted lg:pb-3">
+            <p className="max-w-md shrink-0 text-lg leading-relaxed text-muted lg:pb-2">
               {description}
             </p>
           ) : null}
