@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Theater } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ImageRef } from "@/types";
 
@@ -71,15 +70,25 @@ export function SmartImage({
       />
 
       <div className="absolute inset-[6%] flex flex-col items-center justify-center gap-[4cqh] px-[8cqw] text-center">
-        <span aria-hidden className="text-[6cqw] leading-none text-accent/80">
-          ✦
-        </span>
         {placeholderLabel ? (
-          <span className="font-display text-[clamp(0.9rem,11cqw,3rem)] leading-[1.15] text-foreground/90 [text-wrap:balance]">
-            {placeholderLabel}
-          </span>
+          <>
+            <span
+              aria-hidden
+              className="text-[6cqw] leading-none text-accent/80"
+            >
+              ✦
+            </span>
+            <span className="font-display text-[clamp(0.9rem,11cqw,3rem)] leading-[1.15] text-foreground/90 [text-wrap:balance]">
+              {placeholderLabel}
+            </span>
+          </>
         ) : (
-          <Theater aria-hidden className="size-8 text-accent/50" />
+          <span
+            aria-hidden
+            className="text-[clamp(1.25rem,10cqw,2.5rem)] leading-none text-accent/60"
+          >
+            ✦
+          </span>
         )}
       </div>
     </div>

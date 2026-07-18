@@ -70,20 +70,22 @@ export default async function AboutPage() {
       {/* College partnership */}
       <section className="py-20">
         <Container>
-          <FadeIn className="mx-auto flex max-w-3xl flex-col items-center gap-5 rounded-lg border border-border bg-surface p-10 text-center">
-            <div className="flex size-14 items-center justify-center rounded-full border border-primary/40 bg-primary/10">
+          <FadeIn className="spotlight-band mx-auto flex max-w-4xl flex-col gap-6 rounded-lg border border-border bg-surface p-8 sm:flex-row sm:items-start sm:gap-8 sm:p-10">
+            <div className="flex size-14 shrink-0 items-center justify-center rounded-md border border-primary/40 bg-primary/10">
               <GraduationCap aria-hidden className="size-7 text-accent" />
             </div>
-            <h2 className="text-3xl">
-              In partnership with {siteConfig.collegePartner}
-            </h2>
-            <p className="max-w-xl text-muted">
-              Our residency with {siteConfig.collegePartner} gives the company
-              rehearsal space, scene-shop access, and two productions a year on
-              a professional stage — plus mentorship pairing our student
-              designers with college theater majors. We’re grateful to perform
-              in a space that takes young artists seriously.
-            </p>
+            <div>
+              <h2 className="text-3xl">
+                In partnership with {siteConfig.collegePartner}
+              </h2>
+              <p className="mt-4 max-w-2xl text-muted">
+                Our residency with {siteConfig.collegePartner} gives the company
+                rehearsal space, scene-shop access, and two productions a year on
+                a professional stage — plus mentorship pairing our student
+                designers with college theater majors. We’re grateful to perform
+                in a space that takes young artists seriously.
+              </p>
+            </div>
           </FadeIn>
         </Container>
       </section>

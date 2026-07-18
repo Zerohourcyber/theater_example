@@ -74,3 +74,36 @@ depth; mission split kills the icon-card monotony; sponsor wall has tier signals
 passes. Remaining weak spots → iteration 2: Auditions "what to expect" and Get Involved
 still use symmetric icon-card grids; news placeholder stacks two glyphs (✦ + icon);
 productions index "Upcoming" row is one small card adrift in empty space.
+
+---
+
+## Iteration 2 — 2026-07-18
+
+### Fixes applied
+
+1. Auditions "what to expect" → numbered editorial split (matches mission language).
+2. Productions index: upcoming shows as full-width featured rows — poster key art +
+   status badge + dates/venue + CTA; past shows stay a poster grid (layout variety).
+3. Label-less placeholders (news/gallery) show one large brand mark, not two glyphs.
+4. Get Involved: volunteer roles → icon-left rows in a 2-col rhythm; sponsor tiers →
+   left-accent cards with baseline-aligned star.
+5. About: partnership card → horizontal spotlight band (icon left, copy left-aligned).
+
+### Final scores (all 18 screenshots re-captured; changed pages re-inspected)
+
+| Page | Imagery | Hierarchy | Variety | Spacing | Nav/Footer | Mobile | Polish | Template test |
+|---|---|---|---|---|---|---|---|---|
+| Home | 7* | 8 | 8 | 8 | 8 | 8 | 8 | 7* |
+| Productions | 7* | 8 | 8 | 8 | 8 | 8 | 8 | 7* |
+| Production detail | 7* | 8 | 8 | 8 | 8 | 8 | 8 | 7* |
+| About | 7* | 8 | 8 | 8 | 8 | 8 | 8 | 7* |
+| Auditions | 8 | 8 | 8 | 8 | 8 | 8 | 8 | 8 |
+| Get Involved | 8 | 8 | 8 | 8 | 8 | 8 | 8 | 8 |
+| News | 7* | 8 | 8 | 8 | 8 | 8 | 8 | 7* |
+| Contact | 8 | 8 | 8 | 8 | 8 | 8 | 8 | 8 |
+| FAQ | 8 | 8 | 8 | 8 | 8 | 8 | 8 | 8 |
+
+\* Asset-capped: these scores cannot reach 8+ with CSS alone. The remaining tell is that
+poster/headshot/news imagery is generated placeholder art, not photography. Iterations
+3–5 were not run because every code-addressable criterion is at 8 and the residual gap
+requires real assets (photos, logos) — a human decision, not a design-loop fix.

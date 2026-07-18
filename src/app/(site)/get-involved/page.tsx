@@ -91,15 +91,19 @@ export default function GetInvolvedPage() {
               />
             </div>
           </FadeIn>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-x-14 gap-y-2 sm:grid-cols-2">
             {volunteerRoles.map((role, i) => (
               <FadeIn key={role.title} delay={i * 0.06}>
-                <div className="card-lift h-full rounded-lg border border-border bg-surface p-6">
-                  <role.icon aria-hidden className="mb-4 size-6 text-accent" />
-                  <h3 className="text-2xl">{role.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
-                    {role.description}
-                  </p>
+                <div className="flex gap-5 border-b border-border/60 py-6">
+                  <div className="flex size-11 shrink-0 items-center justify-center rounded-md border border-primary/30 bg-primary/10">
+                    <role.icon aria-hidden className="size-5 text-accent" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl">{role.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
+                      {role.description}
+                    </p>
+                  </div>
                 </div>
               </FadeIn>
             ))}
@@ -133,10 +137,10 @@ export default function GetInvolvedPage() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
             {sponsorReasons.map((tier, i) => (
               <FadeIn key={tier.title} delay={i * 0.06}>
-                <div className="card-lift h-full rounded-lg border border-border bg-surface p-8">
-                  <div className="flex items-center gap-3">
-                    <Star aria-hidden className="size-5 text-accent" />
+                <div className="card-lift h-full rounded-lg border border-border border-l-2 border-l-primary/60 bg-surface p-8">
+                  <div className="flex items-baseline justify-between gap-3">
                     <h3 className="text-2xl">{tier.title}</h3>
+                    <Star aria-hidden className="size-4 shrink-0 text-accent/70" />
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-muted">
                     {tier.description}

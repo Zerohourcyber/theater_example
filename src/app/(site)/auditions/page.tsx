@@ -96,23 +96,35 @@ export default async function AuditionsPage() {
       </section>
 
       <section className="border-t border-border/60 bg-surface/30 py-20">
-        <Container>
+        <Container className="grid gap-12 lg:grid-cols-[1fr_1.5fr] lg:gap-24">
           <FadeIn>
-            <SectionHeading
-              eyebrow="What to expect"
-              title="Auditions, demystified"
-              align="center"
-            />
+            <div className="lg:sticky lg:top-32">
+              <SectionHeading
+                eyebrow="What to expect"
+                title="Auditions, demystified"
+              />
+              <div className="brand-rule mt-10 w-24" />
+            </div>
           </FadeIn>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="divide-y divide-border/60">
             {expectations.map((item, i) => (
               <FadeIn key={item.title} delay={i * 0.08}>
-                <div className="card-lift h-full rounded-lg border border-border bg-surface p-8">
-                  <item.icon aria-hidden className="mb-4 size-7 text-accent" />
-                  <h3 className="text-2xl">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted">
-                    {item.description}
-                  </p>
+                <div className="flex gap-6 py-9 first:pt-0 last:pb-0 sm:gap-10">
+                  <span
+                    aria-hidden
+                    className="font-display text-4xl leading-none text-primary/50 sm:text-5xl"
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="flex items-center gap-3 text-2xl">
+                      {item.title}
+                      <item.icon aria-hidden className="size-5 text-accent" />
+                    </h3>
+                    <p className="mt-3 max-w-prose leading-relaxed text-muted">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
               </FadeIn>
             ))}
