@@ -21,8 +21,8 @@ interface HeroProps {
 }
 
 /**
- * Light "paper & aurora" hero: dot-grid canvas, pastel aurora glow behind
- * a centered sans headline, announcement pill, pill CTAs. Motion is
+ * Light "paper & aurora" hero: pastel aurora glow behind a centered sans
+ * headline, announcement pill, pill CTAs. Motion is
  * prop-switched (`initial={false}`) under reduced motion to avoid
  * SSR/hydration opacity bugs.
  */
@@ -37,7 +37,7 @@ export function Hero({ announcement }: HeroProps) {
   });
 
   return (
-    <section className="dot-grid relative overflow-hidden border-b border-border">
+    <section className="relative overflow-hidden border-b border-border">
       {/* Pastel aurora glow behind the headline */}
       <div
         aria-hidden

@@ -12,7 +12,7 @@ interface PageHeaderProps {
  */
 export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
   return (
-    <div className="spotlight dot-grid border-b border-border pb-14 pt-36">
+    <div className="spotlight border-b border-border pb-14 pt-36">
       <Container>
         {eyebrow ? (
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
