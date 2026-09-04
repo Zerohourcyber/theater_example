@@ -1,83 +1,76 @@
 import Link from "next/link";
-import { footerLinks, navLinks, siteConfig } from "@/config/site";
-import { Container } from "./container";
+import { navLinks, placeholderText, siteConfig } from "@/config/site";
+import { Container } from "@/components/layout/container";
+import { DarkBand } from "@/components/ui/section";
 
-/** Contrast-flipped dark footer (ink block on the paper theme). */
+/**
+ * The disclaimers here are load-bearing rather than boilerplate: they are what
+ * let the rest of the site make claims a reader can trust. Carried over from
+ * the source files with the wording intact.
+ */
 export function Footer() {
+  const email = placeholderText(siteConfig.contactEmail);
+
   return (
-    <footer className="bg-foreground text-background">
-      <Container className="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="sm:col-span-2">
-          <p className="font-display text-2xl font-semibold">
-            <span aria-hidden className="mr-2 text-accent">
-              ✦
-            </span>
-            {siteConfig.name}
-          </p>
-          <p className="mt-3 max-w-sm text-sm text-background/70">
-            {siteConfig.description}
-          </p>
-          <p className="mt-4 text-sm text-background/70">
-            In partnership with{" "}
-            <span className="text-background">{siteConfig.collegePartner}</span>
-          </p>
-        </div>
+    <DarkBand className="mt-auto border-t border-rule-dark">
+      <Container>
+        <footer className="py-14">
+          <div className="flex flex-wrap justify-between gap-x-12 gap-y-8 border-b border-rule-dark pb-10">
+            <div>
+              <p className="m-0 text-[1.0625rem] font-medium">
+                {siteConfig.name}
+              </p>
+              <p className="m-0 text-[0.8125rem] italic text-bone-dim">
+                {siteConfig.nameQualifier} · Portales, New Mexico
+              </p>
+            </div>
 
-        <nav aria-label="Footer">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-background/60">
-            Explore
-          </p>
-          <ul className="space-y-2">
-            {[...navLinks.slice(1), ...footerLinks].map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-sm text-background/70 transition-colors hover:text-background"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+            <nav aria-label="Footer">
+              <ul className="m-0 flex list-none flex-wrap gap-x-6 gap-y-2 p-0 text-[0.9375rem]">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-bone-dim no-underline hover:text-bone"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
 
-        <div>
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-background/60">
-            Connect
-          </p>
-          <ul className="space-y-2">
-            <li>
-              <a
-                href={`mailto:${siteConfig.contactEmail}`}
-                className="text-sm text-background/70 transition-colors hover:text-background"
-              >
-                {siteConfig.contactEmail}
-              </a>
-            </li>
-            {siteConfig.socials.map((social) => (
-              <li key={social.label}>
-                <a
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-background/70 transition-colors hover:text-background"
-                >
-                  {social.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+            <a
+              href={`mailto:${email}`}
+              className="text-[0.9375rem] text-bone underline decoration-rule-dark underline-offset-4 hover:decoration-wheat-bright"
+            >
+              {email}
+            </a>
+          </div>
+
+          <div className="space-y-3 pt-8 text-[0.875rem] leading-[1.65] text-bone-dim">
+            <p className="m-0 max-w-[52rem]">
+              <strong className="font-normal text-bone">
+                We are not affiliated with {siteConfig.collegePartner}, the City
+                of Portales, or Roosevelt County.
+              </strong>{" "}
+              Any partnership described on this site is proposed, not agreed.
+              Nothing here represents a commitment by any organisation other
+              than our own, and no funder, sponsor or partner named or implied
+              has been approached or has expressed interest.
+            </p>
+            <p className="m-0 max-w-[52rem]">
+              {siteConfig.name} is a working name for a group in formation in
+              Portales, New Mexico. It is not yet an incorporated organization,
+              and contributions are not yet tax-deductible.
+            </p>
+            <p className="m-0 max-w-[52rem]">
+              All dollar figures and dates are planning estimates prepared for
+              discussion. Population figures are from the 2020 US Census.
+            </p>
+          </div>
+        </footer>
       </Container>
-
-      <div className="border-t border-background/15">
-        <Container className="flex flex-col items-start justify-between gap-2 py-6 text-xs text-background/60 sm:flex-row sm:items-center">
-          <p>
-            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
-          </p>
-          <p>Youth-led. Community-built. Stage-ready.</p>
-        </Container>
-      </div>
-    </footer>
+    </DarkBand>
   );
 }

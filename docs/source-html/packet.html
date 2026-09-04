@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A proposal for a community theater in Portales</title>
+<meta name="description" content="A proposal to establish a community theater organization in Portales, New Mexico, with a founding production in spring 2027.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..700;1,6..72,200..600&display=swap" rel="stylesheet">
+
+<!-- ══════════════════════════════════════════════════════════════════
+     PARTNER PACKET — tailored by URL
+       packet.html            general
+       packet.html?for=enmu   university
+       packet.html?for=sponsor  business sponsor
+       packet.html?for=city   city / county
+
+     FILL BEFORE SENDING — search for [FILL]
+       · organisation name        · contact name and email
+       · the founding team section (section 08)
+     ══════════════════════════════════════════════════════════════════ -->
+
+<style>
+  :root{
+    --paper:#FBF9F5; --paper-2:#F1ECE3; --ink:#141D26; --ink-2:#2E3B47;
+    --ink-dim:#616D78; --rule:#DFD8CB; --wheat:#8E6A10; --go:#43604A; --stop:#9C412A;
+    --gutter:clamp(1.25rem,4vw,3rem);
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition-duration:.01ms!important;animation:none!important}}
+
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;font-optical-sizing:auto;
+    font-size:1.0625rem;font-weight:300;line-height:1.68}
+  h1,h2,h3,h4{font-weight:400;letter-spacing:-.014em;margin:0}
+  a{color:var(--wheat)}
+  :focus-visible{outline:2px solid var(--wheat);outline-offset:3px}
+
+  .skip{position:absolute;left:-9999px;background:var(--wheat);color:#fff;padding:.7rem 1.2rem;z-index:60}
+  .skip:focus{left:0;top:0}
+
+  /* ── layout ───────────────────────────────────────────── */
+  .shell{max-width:78rem;margin:0 auto;padding-inline:var(--gutter)}
+  .body-col{max-width:40rem}
+
+  @media(min-width:64rem){
+    .shell.split{display:grid;grid-template-columns:13rem 1fr;gap:0 4rem;align-items:start}
+  }
+
+  /* ── side nav ─────────────────────────────────────────── */
+  nav.side{display:none}
+  @media(min-width:64rem){
+    nav.side{display:block;position:sticky;top:0;padding-block:4rem 2rem}
+    nav.side ol{list-style:none;margin:0;padding:0;font-size:.9375rem}
+    nav.side li{margin-bottom:.42rem}
+    nav.side a{display:flex;gap:.7rem;color:var(--ink-dim);text-decoration:none;line-height:1.35;padding-block:.1rem}
+    nav.side a b{font-weight:300;font-variant-numeric:tabular-nums;opacity:.55}
+    nav.side a:hover{color:var(--ink)}
+    nav.side a[aria-current="true"]{color:var(--ink)}
+    nav.side a[aria-current="true"] b{color:var(--wheat);opacity:1}
+  }
+
+  /* ── cover ────────────────────────────────────────────── */
+  .cover{background:var(--ink);color:var(--paper);padding-block:clamp(3.5rem,11vh,7rem)}
+  .cover .eyebrow{font-size:.9375rem;font-style:italic;color:#A9B3BC;margin:0 0 1.5rem}
+  .cover h1{font-size:clamp(2.125rem,1.3rem + 3.6vw,3.75rem);line-height:1.1;max-width:19ch;margin-bottom:1.5rem}
+  .cover .stand{font-size:clamp(1.125rem,1.05rem + .4vw,1.3125rem);color:#CBD2D8;max-width:44ch;margin:0 0 2.25rem;font-weight:200}
+  .cover dl{display:grid;gap:.9rem 3rem;grid-template-columns:repeat(auto-fit,minmax(10rem,max-content));
+    margin:0;padding-top:1.75rem;border-top:1px solid rgba(251,249,245,.22)}
+  .cover dt{font-size:.8125rem;color:#94A0AB;margin-bottom:.15rem}
+  .cover dd{margin:0;font-size:1.0625rem}
+
+  /* ── sections ─────────────────────────────────────────── */
+  section{padding-block:clamp(2.75rem,7vh,4.25rem);border-bottom:1px solid var(--rule)}
+  section:last-of-type{border-bottom:0}
+  .snum{font-size:.8125rem;color:var(--wheat);font-variant-numeric:tabular-nums;margin:0 0 .5rem}
+  section>h2{font-size:clamp(1.5rem,1.2rem + 1.3vw,2.125rem);line-height:1.2;max-width:20ch;margin-bottom:1.1rem}
+  section p{max-width:40rem;margin:0 0 1.1rem}
+  section p:last-child{margin-bottom:0}
+  .pull{font-size:1.1875rem;color:var(--ink-2);border-left:2px solid var(--wheat);
+    padding-left:1.25rem;margin-block:1.75rem;max-width:38rem;font-weight:300}
+
+  /* ── figures ──────────────────────────────────────────── */
+  .figs{display:grid;gap:1.25rem 2.5rem;grid-template-columns:repeat(auto-fit,minmax(8rem,1fr));
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    padding-block:1.4rem;margin-block:2rem;max-width:44rem}
+  .figs p{margin:0}
+  .figs .n{font-size:1.75rem;line-height:1}
+  .figs .l{font-size:.8125rem;color:var(--ink-dim);margin-top:.3rem;line-height:1.4}
+
+  /* ── ask box ──────────────────────────────────────────── */
+  .ask{background:var(--paper-2);border-left:3px solid var(--wheat);padding:clamp(1.4rem,3.5vw,2rem);max-width:44rem}
+  .ask h3{font-size:1.1875rem;font-weight:500;margin-bottom:.9rem}
+  .ask ol{margin:0 0 1.1rem;padding-left:1.3rem}
+  .ask li{margin-bottom:.7rem;max-width:36rem}
+  .ask li:last-child{margin-bottom:0}
+  .ask li strong{font-weight:500}
+  .ask .close{margin:0;color:var(--ink-dim);font-size:1rem}
+
+  /* ── timeline ─────────────────────────────────────────── */
+  .tl{margin-top:.5rem;max-width:44rem}
+  .tl-phase{display:grid;grid-template-columns:auto 1fr;gap:0 1.4rem}
+  .tl-rail{position:relative;width:.5rem}
+  .tl-rail::before{content:"";position:absolute;left:.1875rem;top:.55rem;bottom:-.2rem;width:1px;background:var(--rule)}
+  .tl-phase:last-child .tl-rail::before{display:none}
+  .tl-dot{position:absolute;top:.42rem;left:0;width:.5rem;height:.5rem;border-radius:50%;
+    background:var(--paper);border:1.5px solid var(--rule)}
+  .tl-phase.now .tl-dot{background:var(--wheat);border-color:var(--wheat)}
+  .tl-body{padding-bottom:1.5rem}
+  .tl-when{font-size:.8125rem;color:var(--ink-dim);margin:0 0 .1rem}
+  .tl-phase.now .tl-when{color:var(--wheat)}
+  .tl-body h3{font-size:1.0625rem;font-weight:500;margin-bottom:.3rem}
+  .tl-body p{font-size:1rem;color:var(--ink-dim);margin:0;max-width:36rem}
+  .tl-phase.now .tl-body h3::after{content:" — we are here";font-weight:300;color:var(--wheat);font-style:italic}
+
+  /* ── tables ───────────────────────────────────────────── */
+  table{width:100%;border-collapse:collapse;max-width:44rem}
+  caption{text-align:left;color:var(--ink-dim);margin-bottom:1rem;max-width:38rem}
+  th{text-align:left;font-weight:500;font-size:.875rem;border-bottom:2px solid var(--ink);padding:0 1.25rem .4rem 0}
+  td{vertical-align:top;padding:.75rem 1.25rem .75rem 0;border-bottom:1px solid var(--rule);font-size:1rem}
+  th:last-child,td:last-child{padding-right:0}
+  td.dim{color:var(--ink-dim)}
+  td.w{white-space:nowrap;font-size:.9375rem;color:var(--ink-dim)}
+  @media(max-width:46rem){
+    thead{position:absolute;left:-9999px}
+    tr{display:block;border-bottom:1px solid var(--rule);padding-block:.85rem}
+    td{display:block;border:0;padding:0 0 .3rem}
+  }
+
+  /* ── team scaffold ────────────────────────────────────── */
+  .team{display:grid;gap:1.75rem 2.5rem;grid-template-columns:1fr;max-width:44rem}
+  @media(min-width:44rem){.team{grid-template-columns:1fr 1fr}}
+  .member{border-top:1px solid var(--rule);padding-top:.85rem}
+  .member h3{font-size:1.0625rem;font-weight:500}
+  .member .role{font-size:.9375rem;color:var(--wheat);display:block;margin-top:.1rem}
+  .member p{font-size:1rem;color:var(--ink-dim);margin:.5rem 0 0}
+  .member.empty h3{color:var(--ink-dim);font-style:italic}
+
+  /* ── close ────────────────────────────────────────────── */
+  .close-block{background:var(--ink);color:var(--paper);padding-block:clamp(3rem,8vh,4.5rem)}
+  .close-block h2{font-size:clamp(1.5rem,1.2rem + 1.3vw,2.125rem);max-width:18ch;margin-bottom:1.1rem}
+  .close-block p{color:#C3CBD2;max-width:38rem;margin:0 0 1.75rem}
+  .close-block a.mail{font-size:clamp(1.25rem,1.05rem + .9vw,1.625rem);color:var(--paper);
+    text-decoration:none;border-bottom:1px solid var(--wheat);padding-bottom:2px;word-break:break-word}
+  .close-block a.mail:hover{color:#E5B94F}
+
+  footer{padding-block:2rem 3.5rem;font-size:.875rem;color:var(--ink-dim);line-height:1.62}
+  footer p{margin:0 0 .6rem;max-width:52rem}
+  footer strong{font-weight:400;color:var(--ink)}
+
+  .noprint-hint{font-size:.875rem;color:var(--ink-dim);margin-top:1.5rem}
+  .noprint-hint button{font-family:inherit;font-size:inherit;background:none;border:0;
+    color:var(--wheat);text-decoration:underline;cursor:pointer;padding:0}
+
+  /* ── print ────────────────────────────────────────────── */
+  @media print{
+    nav.side,.skip,.noprint-hint{display:none!important}
+    body{background:#fff;color:#000;font-size:10pt;line-height:1.45}
+    .shell{max-width:none;padding-inline:0}
+    .shell.split{display:block}
+    .cover,.close-block{background:#fff!important;color:#000!important;padding-block:0 1rem}
+    .cover .eyebrow,.cover .stand,.cover dt,.cover dd,.close-block p{color:#333!important}
+    .cover dl{border-color:#bbb}
+    .cover h1{font-size:24pt}
+    section{padding-block:.75rem;break-inside:avoid;border-color:#ddd}
+    .ask,.figs,.tl,table,.team{break-inside:avoid}
+    .close-block a.mail{color:#000!important;font-size:13pt}
+    a{color:#000;text-decoration:none}
+    @page{margin:1.6cm}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#s1">Skip to content</a>
+
+<!-- ── COVER ────────────────────────────────────────────── -->
+<div class="cover">
+  <div class="shell">
+    <p class="eyebrow" id="cover-eyebrow">A proposal — prepared for discussion</p>
+    <h1>A community theater for Portales</h1>
+    <p class="stand" id="cover-stand">A group of residents is working to establish a theater company that belongs to this town, beginning with a founding production in spring 2027.</p>
+    <dl>
+      <div><dt>Organisation</dt><dd>[FILL] Portales Community Theater<br><span style="font-size:.875rem;color:#94A0AB">working name, in formation</span></dd></div>
+      <div><dt>Founding production</dt><dd>Spring 2027, proposed</dd></div>
+      <div><dt>Status</dt><dd id="cover-status">In formation</dd></div>
+      <div><dt>Prepared</dt><dd id="cover-date">—</dd></div>
+    </dl>
+  </div>
+</div>
+
+<div class="shell split">
+
+  <nav class="side" aria-label="Sections">
+    <ol id="sidenav"></ol>
+  </nav>
+
+  <main>
+
+  <!-- 01 ─────────────────────────────────────────────── -->
+  <section id="s1">
+    <p class="snum">01</p>
+    <h2>What we're proposing</h2>
+    <p>A community theater is a company made of the people who live in a place. Not touring professionals — teachers, students, retirees, shift workers, and people who have never been on a stage and would like to try.</p>
+    <p>We intend to establish one in Portales: a standing organisation with a board, a budget, and policies, capable of producing work year after year. The first production is planned for spring 2027. It is the proof of concept, not the purpose.</p>
+    <p class="pull">A theater that closes after opening night isn't a theater. It's an event. We are building the organisation first, and the show is how we prove it works.</p>
+    <p>We are early. The organisation is not yet incorporated, no venue is confirmed, no production has been chosen, and no funding has been raised. We are talking to potential partners now because the decisions that matter most are the ones made before any of that is fixed.</p>
+  </section>
+
+  <!-- 02 ─────────────────────────────────────────────── -->
+  <section id="s2">
+    <p class="snum">02</p>
+    <h2>Why Portales</h2>
+    <p>Roosevelt County has roughly 19,200 residents, about 12,100 of them in Portales. It has a university with a theatre programme and a purpose-built performance facility. It has a civic culture that already turns out for the county fair and the Peanut Valley Festival.</p>
+    <p>What we understand it does not have is a theater company outside the university that any resident can simply join. Students graduate and leave. Faculty productions serve the academic calendar. Between them sits a large group of people — adults with jobs, families new to the area, retirees, teenagers not enrolled at ENMU — with no route onto a stage.</p>
+    <div class="figs">
+      <div><p class="n">12,100</p><p class="l">residents of Portales</p></div>
+      <div><p class="n">19,200</p><p class="l">Roosevelt County</p></div>
+      <div><p class="n">1934</p><p class="l">ENMU founded in Portales</p></div>
+      <div><p class="n">0</p><p class="l">community theater companies we're aware of</p></div>
+    </div>
+    <p>A community theater is unusually good value for a small town. It needs no building of its own, employs volunteers, draws audiences from a wide rural catchment, and gives people a reason to spend an evening in town rather than driving to Clovis or Lubbock. It also gives young people a place to be after school that is neither sport nor screen.</p>
+  </section>
+
+  <!-- 03 ─────────────────────────────────────────────── -->
+  <section id="s3">
+    <p class="snum">03</p>
+    <h2>The founding production</h2>
+    <p>Spring 2027. The show has not been chosen — deliberately. We are confirming a venue and dates first, because those constraints determine what can realistically be staged, and choosing a title before knowing the room is how amateur companies get into trouble.</p>
+    <p>Selection will run through a scorecard weighing cast size, technical demands, rights availability and cost, volunteer capacity, audience appeal, and how well the piece suits this community. We will carry genuine second and third choices, because performance rights can be refused.</p>
+    <p>Our working assumption is three performances. Everything else — budget, ticket pricing, marketing reach — follows from the venue decision.</p>
+  </section>
+
+  <!-- 04 ─────────────────────────────────────────────── -->
+  <section id="s4">
+    <p class="snum">04</p>
+    <h2>Timeline</h2>
+    <p>Backward-planned from the target opening. Dates are targets, not commitments, and shift with the venue decision.</p>
+    <div class="tl" id="timeline"></div>
+  </section>
+
+  <!-- 05 ─────────────────────────────────────────────── -->
+  <section id="s5">
+    <p class="snum">05</p>
+    <h2 id="ask-heading">What we're asking</h2>
+    <div class="ask" id="ask-box"></div>
+  </section>
+
+  <!-- 06 ─────────────────────────────────────────────── -->
+  <section id="s6">
+    <p class="snum">06</p>
+    <h2>How it gets paid for</h2>
+    <p>We researched this before asking anyone for anything, and the finding shaped the plan.</p>
+    <p>State and federal arts grants cannot fund this production. New Mexico Arts requires tax-exempt status and approves awards in July, paying by reimbursement — money would arrive months after opening night. The state tourism programmes run on the same July fiscal year. The National Endowment for the Arts requires years of prior programming and does not accept fiscally sponsored applicants.</p>
+    <p class="pull">So a founding production has to be funded locally. We are planning on that basis rather than hoping a grant lands.</p>
+    <table>
+      <caption>Where a first production's funding realistically comes from. Figures are planning estimates for discussion, not quotes or commitments.</caption>
+      <thead><tr><th scope="col">Source</th><th scope="col">Role</th><th scope="col">Available in time</th></tr></thead>
+      <tbody>
+        <tr><td>Local business sponsorship</td><td class="dim">The largest cash share. No eligibility gate, decisions made locally.</td><td class="w">Yes</td></tr>
+        <tr><td>Ticket revenue</td><td class="dim">The most predictable line, and proof of demand for later funders.</td><td class="w">Yes</td></tr>
+        <tr><td>In-kind support</td><td class="dim">Donated space, equipment, printing and materials. Every item is cash not raised.</td><td class="w">Yes</td></tr>
+        <tr><td>Individual founding donors</td><td class="dim">Available once. Deductibility depends on our status at the time.</td><td class="w">Yes</td></tr>
+        <tr><td>City lodgers' tax</td><td class="dim">Rolling application, restricted to promotion. Pays marketing, not production.</td><td class="w">Likely</td></tr>
+        <tr><td>State and federal grants</td><td class="dim">Eligibility and award calendars both rule them out for this show.</td><td class="w">Season two</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:1.5rem">The formation work we are doing this autumn — incorporation, insurance, governance — is also what makes the organisation eligible for the state funding cycle that supports the <em>second</em> production. Nothing is wasted.</p>
+  </section>
+
+  <!-- 07 ─────────────────────────────────────────────── -->
+  <section id="s7">
+    <p class="snum">07</p>
+    <h2>Risks we're tracking</h2>
+    <table>
+      <caption>Named openly, with what we would do about each. We would rather show a partner this than have them find it.</caption>
+      <thead><tr><th scope="col">Risk</th><th scope="col">Our response</th></tr></thead>
+      <tbody>
+        <tr><td>No venue available in spring 2027</td><td class="dim">Asking early rather than assuming. Willing to move the date to fit a partner's calendar.</td></tr>
+        <tr><td>Performance rights refused or unavailable regionally</td><td class="dim">Carrying real second and third choices, not a favourite and two placeholders.</td></tr>
+        <tr><td>Local fundraising falls short</td><td class="dim">Scoping the production to what is raised. A modest show that happens beats an ambitious one that doesn't.</td></tr>
+        <tr><td>Too few people audition</td><td class="dim">Early publicity, no experience required, and a show chosen partly for a manageable cast.</td></tr>
+        <tr><td>The work depends on one or two people</td><td class="dim">Separating director, producer and stage manager roles from the start, and documenting as we go.</td></tr>
+        <tr><td>The organisation doesn't outlast the first show</td><td class="dim">Closeout, lessons learned and a second-production decision are in the plan, not left to afterwards.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 08 ─────────────────────────────────────────────── -->
+  <section id="s8">
+    <p class="snum">08</p>
+    <h2>Who we are</h2>
+    <p>[FILL] Replace the placeholders below with the real founding group. Two or three sentences each — what they do locally, and what they bring to this. Delete any card you don't need.</p>
+    <div class="team">
+      <div class="member empty"><h3>Name</h3><span class="role">Role in the founding group</span>
+        <p>One or two sentences: what they do in Portales, and what they bring here. Local ties matter more than theater credentials.</p></div>
+      <div class="member empty"><h3>Name</h3><span class="role">Role in the founding group</span>
+        <p>If someone has run a budget, taught, built things, or organised volunteers, say so. Partners are assessing whether this group can finish what it starts.</p></div>
+      <div class="member empty"><h3>Name</h3><span class="role">Role in the founding group</span>
+        <p>Three or four named people with visible local roots does more for credibility than a long list.</p></div>
+      <div class="member empty"><h3>Advisors</h3><span class="role">Optional</span>
+        <p>Anyone advising informally — an accountant, an attorney, a retired teacher. Only name people who have agreed to be named.</p></div>
+    </div>
+  </section>
+
+  <!-- 09 ─────────────────────────────────────────────── -->
+  <section id="s9">
+    <p class="snum">09</p>
+    <h2>Beyond the first show</h2>
+    <p>The founding production is designed to leave things behind: policies and templates, a volunteer roster, an audience list, sponsor and vendor relationships, an equipment and costume inventory, a budget history, and a written record of what worked.</p>
+    <p>Year two stabilises operations, keeps the supporters gained in year one, and adds programming. Year three establishes a repeatable season, more diversified funding, stronger governance, and a plan for leadership succession so the organisation does not depend on whoever happened to start it.</p>
+    <p>These are planning scenarios rather than promises. We would rather say clearly that we intend to still exist in 2030 than quietly hope for it.</p>
+    <p class="noprint-hint">
+      <button type="button" onclick="window.print()">Print or save this as a PDF</button>
+    </p>
+  </section>
+
+  </main>
+</div>
+
+<!-- ── CLOSE ────────────────────────────────────────────── -->
+<div class="close-block">
+  <div class="shell">
+    <h2 id="close-heading">The next step</h2>
+    <p id="close-text">We would welcome a conversation. There is no decision to make today — we are looking for guidance on whether this is worth pursuing, and what the right process would be.</p>
+    <!-- [FILL] contact -->
+    <a class="mail" href="mailto:hello@example.org">hello@example.org</a>
+    <p style="margin-top:1rem;font-size:.9375rem">[FILL] Contact name, role, phone</p>
+  </div>
+</div>
+
+<div class="shell">
+  <footer>
+    <p><strong>We are not affiliated with Eastern New Mexico University, the City of Portales, or Roosevelt County.</strong> Any partnership described in this document is proposed, not agreed. Nothing here represents a commitment by any organisation other than our own, and no funder, sponsor or partner named or implied has been approached or has expressed interest.</p>
+    <p>All dollar figures and dates are planning estimates prepared for discussion. Population figures are from the 2020 US Census. Venue capacities, where mentioned, are drawn from publicly published information and are not confirmed for this production.</p>
+    <p id="stamp"></p>
+  </footer>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   AUDIENCE VARIANTS — the ask changes, everything else stays.
+   ═══════════════════════════════════════════════════════════════════ */
+
+const AUDIENCES = {
+
+  general: {
+    eyebrow: "A proposal — prepared for discussion",
+    heading: "What we're asking",
+    items: [
+      ["A conversation", "We would like to explain what we're doing and hear whether it interests you."],
+      ["Your honest assessment", "If you think this is unrealistic, we would rather hear it now than in March 2027."],
+      ["An introduction, if you have one", "To someone who should know about this, or who could help."]
+    ],
+    close: "We are not asking for a commitment or a decision today.",
+    closeHeading: "The next step",
+    closeText: "We would welcome a conversation. There is no decision to make today — we are looking for guidance on whether this is worth pursuing."
+  },
+
+  enmu: {
+    eyebrow: "A proposal — prepared for discussion with Eastern New Mexico University",
+    heading: "What we're asking of ENMU",
+    items: [
+      ["A conversation about venue availability", "For a community production in spring 2027, and what dates could realistically work around the department's own season. We understand that season comes first."],
+      ["An understanding of the requirements", "Insurance minimums, technical staffing, deposits, box office arrangements, custodial, and how far in advance a request needs to be made."],
+      ["Guidance on the right process and office", "We would rather follow the university's procedure correctly than ask for an exception to it."],
+      ["Whether a partnership interests you at all", "And if so, in what form. We are not assuming one."]
+    ],
+    benefits: {
+      heading: "What ENMU might get from it",
+      text: "A standing local audience for the theatre programme. A place for students to work alongside community members and for graduates to keep performing. A reason for alumni and residents to be on campus in the evening. A community partner that intends to carry its own costs and eventually its own equipment."
+    },
+    close: "We are not asking for money, and we are not asking for a decision today.",
+    closeHeading: "The next step",
+    closeText: "We would welcome a short meeting with whoever is best placed to discuss this — the Department of Theatre and Digital Filmmaking, facilities scheduling, or community engagement. We are happy to be directed elsewhere if that's more appropriate."
+  },
+
+  sponsor: {
+    eyebrow: "A proposal — prepared for local business partners",
+    heading: "What we're asking of local businesses",
+    items: [
+      ["Consider sponsoring the founding production", "Tiers run from programme advertising through to headline production sponsorship. We'll bring the full structure to a conversation."],
+      ["Or contribute in kind", "Printing, advertising, materials, storage, transport, hospitality, or professional services. Every donated item is money we don't have to raise."],
+      ["Tell us what would make this worth your while", "We would rather design recognition around what actually matters to you than offer a standard package."]
+    ],
+    benefits: {
+      heading: "What a sponsor gets",
+      text: "Recognition in the programme, in marketing, and from the stage, in front of an audience drawn from across Roosevelt County. Association with the founding of something intended to last. And, for most businesses, sponsorship is treated as a marketing expense rather than a charitable gift — worth confirming with your own accountant, particularly while our nonprofit status is still in progress."
+    },
+    close: "We have not approached anyone yet, and nothing here implies any business has agreed to take part.",
+    closeHeading: "Let's talk",
+    closeText: "We're happy to come to you, explain the plan in fifteen minutes, and leave you the sponsorship structure to consider."
+  },
+
+  city: {
+    eyebrow: "A proposal — prepared for civic leadership",
+    heading: "What we're asking of the city and county",
+    items: [
+      ["Guidance on lodgers' tax eligibility", "Whether a group in formation, or a fiscally sponsored project, may apply — and when the advisory board meets."],
+      ["Awareness and, where appropriate, endorsement", "A letter of support costs nothing and carries real weight with funders and with the university."],
+      ["Introductions", "To economic development, tourism, the schools, and anyone else who should know this is happening."],
+      ["Your view on where this fits", "You know the calendar and the community pressures better than we do."]
+    ],
+    benefits: {
+      heading: "What it could mean for Portales",
+      text: "An additional reason for residents to spend an evening in town rather than driving to Clovis or Lubbock. A visitor draw with a genuine tourism argument. A structured activity for young people. And a volunteer organisation that builds local capacity rather than consuming it."
+    },
+    close: "We are not requesting funding in this conversation.",
+    closeHeading: "The next step",
+    closeText: "We would welcome fifteen minutes to explain the plan and hear where you think it fits."
+  }
+};
+
+const TIMELINE = [
+  ["Autumn 2026","Formation and first conversations","Founding group, working name, mission, legal structure decision, and the first approaches to potential partners.","now"],
+  ["Late 2026","Venue and organisation","Incorporation, EIN, insurance, governance documents. Venue and dates confirmed in writing.",""],
+  ["Winter 2026–27","Selection and funding","Production chosen and performance rights secured. Sponsorship campaign and budget in place.",""],
+  ["Early 2027","Casting and preparation","Auditions, casting, design, build schedule, volunteer recruitment, marketing launch.",""],
+  ["Spring 2027","Rehearsal and performance","Roughly eight weeks of rehearsal, technical and dress rehearsals, then the founding production.",""],
+  ["Mid 2027","Closeout and continuation","Financial reconciliation, sponsor and partner reporting, lessons learned, and the decision on a second production.",""]
+];
+
+/* ═══════════════════════════════════════════════════════════════════ */
+
+(function(){
+  const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+  const key = (new URLSearchParams(location.search).get("for")||"general").toLowerCase();
+  const A = AUDIENCES[key] || AUDIENCES.general;
+
+  document.getElementById("cover-eyebrow").textContent = A.eyebrow;
+  document.getElementById("ask-heading").textContent   = A.heading;
+  document.getElementById("close-heading").textContent = A.closeHeading;
+  document.getElementById("close-text").textContent    = A.closeText;
+
+  document.getElementById("ask-box").innerHTML =
+    `<ol>${A.items.map(([t,d])=>`<li><strong>${esc(t)}</strong> — ${esc(d)}</li>`).join("")}</ol>` +
+    (A.benefits ? `<h3>${esc(A.benefits.heading)}</h3><p style="margin:0 0 1.1rem;max-width:36rem">${esc(A.benefits.text)}</p>` : "") +
+    `<p class="close">${esc(A.close)}</p>`;
+
+  document.getElementById("timeline").innerHTML = TIMELINE.map(([when,title,text,now])=>
+    `<div class="tl-phase ${now}">
+       <div class="tl-rail"><span class="tl-dot"></span></div>
+       <div class="tl-body">
+         <p class="tl-when">${esc(when)}</p>
+         <h3>${esc(title)}</h3>
+         <p>${esc(text)}</p>
+       </div>
+     </div>`).join("");
+
+  // side nav built from the sections themselves
+  const secs = [...document.querySelectorAll("main section")];
+  document.getElementById("sidenav").innerHTML = secs.map(s=>{
+    const n = s.querySelector(".snum").textContent;
+    const t = s.querySelector("h2").textContent;
+    return `<li><a href="#${s.id}"><b>${esc(n)}</b><span>${esc(t)}</span></a></li>`;
+  }).join("");
+
+  const links = [...document.querySelectorAll("#sidenav a")];
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(!e.isIntersecting) return;
+        const i = secs.indexOf(e.target);
+        links.forEach((l,j)=>l.setAttribute("aria-current", String(j===i)));
+      });
+    },{rootMargin:"-20% 0px -70% 0px"});
+    secs.forEach(s=>io.observe(s));
+  }
+
+  const d = new Date();
+  const long = d.toLocaleDateString("en-US",{month:"long",year:"numeric"});
+  document.getElementById("cover-date").textContent = long;
+  document.getElementById("stamp").textContent =
+    "Prepared " + d.toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"}) +
+    ". Status current as of that date.";
+})();
+</script>
+</body>
+</html>

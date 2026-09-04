@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planning Board — Portales Community Theater</title>
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..700;1,6..72,200..600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper:    #F7F4EE;
+    --paper-2:  #EFEAE1;
+    --ink:      #16202B;
+    --ink-dim:  #5C6873;
+    --rule:     #DAD3C7;
+    --wheat:    #9A7211;
+    --done:     #4A6B52;
+    --blocked:  #A3452B;
+    --gutter:   clamp(1.25rem, 4vw, 4rem);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, serif;
+    font-optical-sizing: auto;
+    font-size: 1.0625rem;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .wrap { max-width: 64rem; margin: 0 auto; padding-inline: var(--gutter); }
+
+  :focus-visible { outline: 2px solid var(--wheat); outline-offset: 3px; }
+
+  h1, h2, h3 { font-weight: 400; letter-spacing: -0.012em; margin: 0; }
+
+  /* ── Control bar (hidden in presentation + print) ────────── */
+
+  .controls {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--ink); color: var(--paper);
+    padding-block: 0.6rem;
+  }
+  .controls .wrap {
+    display: flex; flex-wrap: wrap; gap: 0.6rem 1.25rem;
+    align-items: center; justify-content: space-between;
+  }
+  .controls p { margin: 0; font-size: 0.875rem; opacity: 0.75; }
+  .controls div { display: flex; gap: 0.6rem; }
+
+  .ctl {
+    font-family: inherit; font-size: 0.875rem; font-weight: 400;
+    background: none; color: var(--paper);
+    border: 1px solid rgba(247,244,238,0.35);
+    padding: 0.35rem 0.9rem; cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .ctl:hover { background: rgba(247,244,238,0.12); border-color: var(--paper); }
+
+  body.present .controls { display: none; }
+
+  /* ── Masthead ────────────────────────────────────────────── */
+
+  header.top { padding-block: clamp(2rem, 5vh, 3.5rem) 0; }
+
+  .eyebrow {
+    font-size: 0.9375rem; font-style: italic;
+    color: var(--ink-dim); margin: 0 0 0.5rem;
+  }
+
+  header.top h1 {
+    font-size: clamp(1.875rem, 1.3rem + 2.4vw, 2.875rem);
+    line-height: 1.15; max-width: 24ch; margin-bottom: 0.75rem;
+  }
+
+  header.top .sub { color: var(--ink-dim); max-width: 46ch; margin: 0; }
+
+  /* ── Counters ────────────────────────────────────────────── */
+
+  .counters {
+    display: grid; gap: 1.25rem 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding-block: 1.5rem; margin-block: 2.5rem 0;
+  }
+  .counters div p { margin: 0; }
+  .counters .n {
+    font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
+    line-height: 1; font-weight: 400;
+  }
+  .counters .l { font-size: 0.875rem; color: var(--ink-dim); margin-top: 0.35rem; }
+
+  /* ── Sections ────────────────────────────────────────────── */
+
+  section { padding-block: clamp(2.5rem, 6vh, 3.75rem); }
+  section > h2 {
+    font-size: clamp(1.375rem, 1.15rem + 1vw, 1.75rem);
+    margin-bottom: 0.5rem;
+  }
+  .lede { color: var(--ink-dim); max-width: 52ch; margin: 0 0 1.75rem; }
+
+  /* ── Workstreams ─────────────────────────────────────────── */
+
+  .stream { margin-bottom: 2.25rem; }
+
+  .stream-head {
+    display: flex; flex-wrap: wrap; gap: 0.35rem 1rem;
+    align-items: baseline; justify-content: space-between;
+    border-bottom: 1px solid var(--ink); padding-bottom: 0.4rem;
+  }
+  .stream-head h3 { font-size: 1.1875rem; font-weight: 500; }
+  .stream-head .frac { font-size: 0.9375rem; color: var(--ink-dim); font-style: italic; }
+
+  ul.items { list-style: none; margin: 0; padding: 0; }
+
+  ul.items li {
+    display: grid; gap: 0.1rem 1rem;
+    grid-template-columns: 1.5rem 1fr auto;
+    padding-block: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+
+  .mark { font-size: 1rem; line-height: 1.5; }
+  .mark.done    { color: var(--done); }
+  .mark.blocked { color: var(--blocked); }
+  .mark.open    { color: var(--rule); }
+  .mark.active  { color: var(--wheat); }
+
+  .item-body .t { display: block; }
+  .item-body .t.struck { color: var(--ink-dim); }
+  .item-body .note {
+    display: block; font-size: 0.875rem; font-style: italic;
+    color: var(--ink-dim); margin-top: 0.1rem; max-width: 56ch;
+  }
+  body.present .note.internal { display: none; }
+
+  .when {
+    font-size: 0.875rem; color: var(--ink-dim);
+    white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  .when.late { color: var(--blocked); }
+
+  @media (max-width: 34rem) {
+    ul.items li { grid-template-columns: 1.5rem 1fr; }
+    .when { grid-column: 2; }
+  }
+
+  /* ── The ask ─────────────────────────────────────────────── */
+
+  .ask {
+    background: var(--paper-2);
+    border-left: 3px solid var(--wheat);
+    padding: clamp(1.5rem, 4vw, 2.25rem);
+  }
+  .ask h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+  .ask ol { margin: 0 0 1.25rem; padding-left: 1.25rem; }
+  .ask li { margin-bottom: 0.65rem; max-width: 56ch; }
+  .ask li:last-child { margin-bottom: 0; }
+  .ask p { margin: 0; max-width: 56ch; color: var(--ink-dim); }
+  .ask p + p { margin-top: 0.9rem; }
+
+  /* ── Two-column blocks ───────────────────────────────────── */
+
+  .cols { display: grid; gap: clamp(1.75rem, 4vw, 3rem); grid-template-columns: 1fr; }
+  @media (min-width: 52rem) { .cols { grid-template-columns: 1fr 1fr; } }
+
+  .cols h3 { font-size: 1.125rem; font-weight: 500; margin-bottom: 0.6rem; }
+  .cols p { margin: 0 0 0.9rem; max-width: 50ch; }
+  .cols p:last-child { margin-bottom: 0; }
+
+  /* ── Risks ───────────────────────────────────────────────── */
+
+  table.risks { width: 100%; border-collapse: collapse; }
+  table.risks caption { text-align: left; color: var(--ink-dim); margin-bottom: 1rem; max-width: 52ch; }
+  table.risks th {
+    text-align: left; font-weight: 500; font-size: 0.9375rem;
+    border-bottom: 2px solid var(--ink); padding: 0 1rem 0.4rem 0;
+  }
+  table.risks td {
+    vertical-align: top; padding: 0.7rem 1rem 0.7rem 0;
+    border-bottom: 1px solid var(--rule); font-size: 1rem;
+  }
+  table.risks td:last-child, table.risks th:last-child { padding-right: 0; }
+  .sev { white-space: nowrap; font-style: italic; color: var(--ink-dim); font-size: 0.9375rem; }
+  .sev.high { color: var(--blocked); font-style: normal; }
+
+  @media (max-width: 44rem) {
+    table.risks thead { position: absolute; left: -9999px; }
+    table.risks tr { display: block; border-bottom: 1px solid var(--rule); padding-block: 0.8rem; }
+    table.risks td { display: block; border: 0; padding: 0 0 0.3rem; }
+  }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-block: 2rem 3rem; font-size: 0.875rem;
+    color: var(--ink-dim); line-height: 1.6;
+  }
+  footer p { margin: 0 0 0.5rem; max-width: 54rem; }
+
+  /* ── Presentation mode ───────────────────────────────────── */
+
+  body.present { font-size: 1.1875rem; }
+  body.present .wrap { max-width: 58rem; }
+  body.present .internal-only { display: none; }
+
+  /* ── Print ───────────────────────────────────────────────── */
+
+  @media print {
+    .controls, .internal-only { display: none !important; }
+    body { background: #fff; font-size: 10.5pt; line-height: 1.45; }
+    .wrap { max-width: none; padding-inline: 0; }
+    section { padding-block: 0.6rem; break-inside: avoid; }
+    .stream, .ask, table.risks { break-inside: avoid; }
+    .note.internal { display: none; }
+    a { text-decoration: none; color: inherit; }
+    @page { margin: 1.6cm; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     THE ONLY THING YOU EDIT IS THE PLAN OBJECT AT THE BOTTOM
+     OF THIS FILE. Change a status, save, push. Everyone sees it.
+     Statuses: "done" | "active" | "open" | "blocked"
+     ═══════════════════════════════════════════════════════════════ -->
+
+<div class="controls internal-only">
+  <div class="wrap">
+    <p>Internal planning board — not published publicly</p>
+    <div>
+      <button class="ctl" id="present" type="button">Presentation mode</button>
+      <button class="ctl" type="button" onclick="window.print()">Print / PDF</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">Portales Community Theater — working name, group in formation</p>
+    <h1>A plan to establish a community theater in Portales</h1>
+    <p class="sub">Prepared for discussion with Eastern New Mexico University. Status shown is current as of the date below and updated as work progresses.</p>
+
+    <div class="counters">
+      <div><p class="n" id="c-days">—</p><p class="l">days to target opening</p></div>
+      <div><p class="n" id="c-ready">—</p><p class="l">of plan complete</p></div>
+      <div><p class="n" id="c-open">—</p><p class="l">items in progress</p></div>
+      <div><p class="n" id="c-date">—</p><p class="l">target opening</p></div>
+    </div>
+  </header>
+
+  <section class="ask">
+    <h2>What we're asking of ENMU</h2>
+    <ol>
+      <li><strong>A conversation about venue availability</strong> for a community production in spring 2027, and what dates could realistically work around the department's own season.</li>
+      <li><strong>An understanding of the requirements</strong> — insurance minimums, technical staffing, deposits, box office, custodial, and how far in advance a request needs to be made.</li>
+      <li><strong>Guidance on the right process</strong> and the right office. We would rather follow the university's procedure correctly than ask for an exception.</li>
+      <li><strong>Whether a partnership interests you at all</strong> — and if so, in what form. We are not assuming one.</li>
+    </ol>
+    <p>What we think ENMU might get from it: a standing local audience for the theater program, a place for students to work alongside community members, a reason for alumni and residents to be on campus, and a partner organization that can eventually carry its own costs.</p>
+    <p>We are not asking for money, and we are not asking for a decision today.</p>
+  </section>
+
+  <section>
+    <h2>The plan</h2>
+    <p class="lede">Backward-planned from the target opening. Items are marked complete, in progress, not started, or blocked. Nothing here is confirmed unless it says so.</p>
+    <div id="streams"></div>
+  </section>
+
+  <section>
+    <h2>What we already know about the constraints</h2>
+    <p class="lede">Some of this we researched before asking, so we would not waste your time.</p>
+    <div class="cols">
+      <div>
+        <h3>The venue is the whole schedule</h3>
+        <p>The University Theatre Center hosts around eight productions a year. A spring slot may already be committed to the department's own season, and we understand that comes first.</p>
+        <p>That is why this is the first conversation we're having, before choosing a show or announcing a date. If April doesn't work, we would rather hear it now and plan around it than build a season on an assumption.</p>
+      </div>
+      <div>
+        <h3>Grant money won't arrive in time</h3>
+        <p>New Mexico Arts notifies awards in July and pays on reimbursement. The state tourism programs run on the July fiscal year. The NEA requires years of programming history and won't accept a fiscally sponsored applicant.</p>
+        <p>So a first production has to be funded locally — sponsorships, individual gifts, in-kind support, ticket revenue, and possibly city lodgers' tax for marketing. We're planning on that basis rather than hoping a grant lands.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Risks we're tracking</h2>
+    <table class="risks">
+      <caption>Named honestly, with what we would do about each. We would rather show you this than have you find it.</caption>
+      <thead>
+        <tr><th scope="col">Risk</th><th scope="col">Response</th><th scope="col">Level</th></tr>
+      </thead>
+      <tbody id="risk-rows"></tbody>
+    </table>
+  </section>
+
+  <footer>
+    <p><strong style="font-weight:400;color:var(--ink)">We are not affiliated with Eastern New Mexico University.</strong> Any partnership described here is proposed, not agreed. Nothing in this document represents a commitment by the university.</p>
+    <p id="stamp"></p>
+  </footer>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   THE PLAN — this is the only part you edit.
+   status: "done" | "active" | "open" | "blocked"
+   note:   shown to everyone.  internal: true  hides it in presentation
+           mode and in print, so you can keep candid notes here.
+   ══════════════════════════════════════════════════════════════════ */
+
+const TARGET_OPENING = "2027-04-16";   // placeholder until a venue is confirmed
+const ORG_SHORT      = "Portales Community Theater";
+
+const PLAN = [
+  {
+    name: "Organization",
+    items: [
+      { t: "Founding group meeting regularly",        status: "active", due: "2026-09-17" },
+      { t: "Working name agreed",                     status: "active", due: "2026-09-24" },
+      { t: "Mission and community-needs statement",   status: "open",   due: "2026-10-01" },
+      { t: "Legal structure decided",                 status: "open",   due: "2026-10-01",
+        note: "Own nonprofit vs. fiscally sponsored project. Review with an attorney." },
+      { t: "Articles of incorporation filed (NM)",    status: "open",   due: "2026-10-29" },
+      { t: "EIN obtained",                            status: "open",   due: "2026-11-05" },
+      { t: "General liability insurance bound",       status: "open",   due: "2026-11-19",
+        note: "Likely required by both the venue and any fiscal sponsor. Gates several other items." },
+      { t: "Bylaws and conflict-of-interest policy",  status: "open",   due: "2026-11-12" }
+    ]
+  },
+  {
+    name: "Venue and partnership",
+    items: [
+      { t: "Identify the right ENMU contact",         status: "active", due: "2026-09-17" },
+      { t: "Initial outreach sent",                   status: "open",   due: "2026-09-17" },
+      { t: "First meeting held",                      status: "open",   due: "2026-10-22" },
+      { t: "Venue and dates confirmed in writing",    status: "open",   due: "2026-12-03",
+        note: "Everything downstream depends on this. No slack." },
+      { t: "Requirements documented",                 status: "open",   due: "2026-12-10",
+        note: "Insurance, technical staffing, deposits, box office, custodial." },
+      { t: "Fallback venue identified",               status: "open",   due: "2026-11-15",
+        note: "Internal: do not raise unprompted in the meeting.", internal: true }
+    ]
+  },
+  {
+    name: "Funding",
+    items: [
+      { t: "Preliminary budget range",                status: "open",   due: "2026-10-08" },
+      { t: "Sponsorship packet written",              status: "open",   due: "2027-01-07" },
+      { t: "First 20 sponsor conversations",          status: "open",   due: "2027-01-21",
+        note: "Local business support is the realistic basis for a first production." },
+      { t: "Individual founding-donor campaign",      status: "open",   due: "2027-01-21" },
+      { t: "City lodgers' tax application",           status: "open",   due: "2027-01-14",
+        note: "Rolling deadline; marketing costs only. Apply a week before the board meets." },
+      { t: "FY2028 grant calendar built",             status: "open",   due: "2027-06-18",
+        note: "Eligibility opens once the organization exists and has a season behind it." }
+    ]
+  },
+  {
+    name: "Production",
+    items: [
+      { t: "Candidate shows shortlisted",             status: "open",   due: "2026-11-19" },
+      { t: "Show selected",                           status: "open",   due: "2026-12-10" },
+      { t: "Performance rights secured",              status: "open",   due: "2027-01-07",
+        note: "Hard gate — no auditions can be scheduled before a signed licence." },
+      { t: "Director and stage manager confirmed",    status: "open",   due: "2027-01-14" },
+      { t: "Auditions held",                          status: "open",   due: "2027-02-04" },
+      { t: "Casting complete",                        status: "open",   due: "2027-02-11" },
+      { t: "Rehearsals begin",                        status: "open",   due: "2027-02-23" },
+      { t: "Technical and dress rehearsals",          status: "open",   due: "2027-04-08" }
+    ]
+  },
+  {
+    name: "Community and continuation",
+    items: [
+      { t: "Public information page live",            status: "done",   due: "2026-09-03" },
+      { t: "Volunteer interest list started",         status: "active", due: "2026-10-15" },
+      { t: "Marketing and ticketing plan",            status: "open",   due: "2027-03-04" },
+      { t: "Post-production financial closeout",      status: "open",   due: "2027-05-07" },
+      { t: "Lessons learned recorded",                status: "open",   due: "2027-05-21" },
+      { t: "Second production decision",              status: "open",   due: "2027-06-11",
+        note: "The point of the first show is that there is a second one." }
+    ]
+  }
+];
+
+const RISKS = [
+  { r: "The venue isn't available in spring 2027",
+    m: "Asking early rather than assuming. Willing to move the date to fit the university's season.",
+    lvl: "High" },
+  { r: "Performance rights are refused or unavailable regionally",
+    m: "Carrying genuine second and third choices, not a favourite and two placeholders.",
+    lvl: "High" },
+  { r: "Local fundraising falls short",
+    m: "Scope the production to what is raised. A modest show that happens beats an ambitious one that doesn't.",
+    lvl: "High" },
+  { r: "Too few people audition",
+    m: "Early publicity, no experience required, and a show chosen partly for a manageable cast size.",
+    lvl: "Medium" },
+  { r: "The work depends on one or two people",
+    m: "Separating director, producer, and stage manager roles from the start. Documenting as we go.",
+    lvl: "Medium" },
+  { r: "The organization doesn't outlast the first show",
+    m: "Closeout, lessons learned, and a second-production decision are in the plan, not left to afterwards.",
+    lvl: "Medium" }
+];
+
+/* ══════════════════════════════════════════════════════════════════
+   Below here is rendering. You shouldn't need to change it.
+   ══════════════════════════════════════════════════════════════════ */
+
+(function () {
+  const MARKS = { done: "\u25CF", active: "\u25D0", open: "\u25CB", blocked: "\u25A0" };
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const target = new Date(TARGET_OPENING + "T00:00:00");
+
+  const fmt = d => d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+
+  // Counters
+  const days = Math.ceil((target - today) / 86400000);
+  const all = PLAN.flatMap(s => s.items);
+  const done = all.filter(i => i.status === "done").length;
+  const active = all.filter(i => i.status === "active").length;
+
+  document.getElementById("c-days").textContent  = days > 0 ? days.toLocaleString() : "—";
+  document.getElementById("c-ready").textContent = Math.round((done / all.length) * 100) + "%";
+  document.getElementById("c-open").textContent  = active;
+  document.getElementById("c-date").textContent  =
+    target.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+
+  // Workstreams
+  document.getElementById("streams").innerHTML = PLAN.map(s => {
+    const d = s.items.filter(i => i.status === "done").length;
+    const rows = s.items.map(i => {
+      const due = new Date(i.due + "T00:00:00");
+      const late = i.status !== "done" && due < today;
+      const note = i.note
+        ? `<span class="note${i.internal ? " internal" : ""}">${esc(i.note)}</span>` : "";
+      return `<li>
+        <span class="mark ${i.status}" aria-hidden="true">${MARKS[i.status]}</span>
+        <span class="item-body">
+          <span class="t${i.status === "done" ? " struck" : ""}">${esc(i.t)}</span>${note}
+        </span>
+        <span class="when${late ? " late" : ""}">${fmt(due)}</span>
+      </li>`;
+    }).join("");
+
+    return `<div class="stream">
+      <div class="stream-head">
+        <h3>${esc(s.name)}</h3>
+        <span class="frac">${d} of ${s.items.length} complete</span>
+      </div>
+      <ul class="items">${rows}</ul>
+    </div>`;
+  }).join("");
+
+  // Risks
+  document.getElementById("risk-rows").innerHTML = RISKS.map(x => `<tr>
+    <td>${esc(x.r)}</td>
+    <td>${esc(x.m)}</td>
+    <td class="sev ${x.lvl === "High" ? "high" : ""}">${esc(x.lvl)}</td>
+  </tr>`).join("");
+
+  document.getElementById("stamp").textContent =
+    ORG_SHORT + " \u2014 planning status as of " + fmt(today) + ".";
+
+  // Presentation toggle
+  const btn = document.getElementById("present");
+  btn.addEventListener("click", () => {
+    const on = document.body.classList.toggle("present");
+    btn.textContent = on ? "Exit presentation mode" : "Presentation mode";
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && document.body.classList.contains("present")) btn.click();
+  });
+})();
+</script>
+</body>
+</html>

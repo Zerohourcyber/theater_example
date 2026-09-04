@@ -1,130 +1,56 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
 import { navLinks, siteConfig } from "@/config/site";
+import { Container } from "@/components/layout/container";
 import { cn } from "@/lib/utils";
-import { Container } from "./container";
 
 /**
- * Sticky navbar: transparent at the top of the page, translucent blur once
- * scrolled. Collapses to a toggle menu below md.
+ * index.html's masthead, extended for a multi-page site. Four links wrap onto
+ * a second row on narrow screens rather than collapsing into a menu — with
+ * this few destinations a disclosure widget costs more than it saves.
  */
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Mobile menu closes via onClick on each link (see below) rather than a
-  // pathname effect, which would set state synchronously inside an effect.
-  const closeMenu = () => setOpen(false);
-
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
-        scrolled || open
-          ? "border-b border-border/60 bg-background/80 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent"
-      )}
-    >
-      <Container className="flex h-16 items-center justify-between">
-        <Link
-          href="/"
-          className="font-display text-xl tracking-wide text-foreground transition-colors hover:text-primary"
-        >
-          <span aria-hidden className="mr-2 text-primary">
-            ✦
-          </span>
-          {siteConfig.name}
+    <header>
+      <Container className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 pb-2 pt-8">
+        <Link href="/" className="no-underline">
+          <p className="m-0 text-[1.0625rem] font-medium leading-tight tracking-[0.01em]">
+            {siteConfig.name}
+            <span className="block text-[0.8125rem] font-light italic tracking-normal text-bone-dim">
+              {siteConfig.nameQualifier}
+            </span>
+          </p>
         </Link>
 
-        {/* Desktop nav */}
-        <nav aria-label="Main" className="hidden items-center gap-0.5 md:flex">
-          {navLinks.map((link) => {
-            const active =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(link.href);
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                aria-current={active ? "page" : undefined}
-                className={cn(
-                  "rounded-full px-3 py-2 text-sm transition-colors",
-                  active
-                    ? "font-medium text-foreground"
-                    : "text-muted hover:text-foreground"
-                )}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-          <Link
-            href="/productions"
-            className="ml-3 inline-flex h-9 items-center rounded-full bg-foreground px-4 text-sm font-medium text-background transition-colors hover:bg-foreground/85"
-          >
-            Get Tickets
-          </Link>
-        </nav>
-
-        {/* Mobile toggle */}
-        <button
-          type="button"
-          className="inline-flex size-10 items-center justify-center rounded-md text-foreground hover:bg-surface md:hidden"
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X aria-hidden /> : <Menu aria-hidden />}
-        </button>
-      </Container>
-
-      {/* Mobile nav */}
-      {open ? (
-        <nav
-          id="mobile-nav"
-          aria-label="Main"
-          className="border-t border-border/60 bg-background/95 backdrop-blur-md md:hidden"
-        >
-          <Container className="flex flex-col gap-1 py-4">
+        <nav aria-label="Primary">
+          <ul className="m-0 flex list-none flex-wrap items-baseline gap-x-6 gap-y-2 p-0">
             {navLinks.map((link) => {
               const active =
-                link.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(link.href);
+                pathname === link.href || pathname.startsWith(`${link.href}/`);
               return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={closeMenu}
-                  aria-current={active ? "page" : undefined}
-                  className={cn(
-                    "rounded-md px-3 py-3 text-base transition-colors",
-                    active
-                      ? "font-medium text-foreground"
-                      : "text-muted hover:text-foreground"
-                  )}
-                >
-                  {link.label}
-                </Link>
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "border-b pb-px text-[0.9375rem] no-underline transition-colors",
+                      active
+                        ? "border-wheat-bright text-bone"
+                        : "border-transparent text-bone-dim hover:border-rule-dark hover:text-bone"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
               );
             })}
-          </Container>
+          </ul>
         </nav>
-      ) : null}
+      </Container>
     </header>
   );
 }

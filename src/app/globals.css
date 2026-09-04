@@ -1,220 +1,202 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ */
-/* Design tokens — light "paper & aurora" theme (sticklight-inspired)  */
+/* Design tokens                                                       */
+/*                                                                     */
+/* One system, two grounds. The light ground is the shared palette     */
+/* from plan.html / funding.html; the dark ground is index.html's      */
+/* inversion of the same system, whose values are already tuned for    */
+/* legibility on near-black.                                           */
 /* ------------------------------------------------------------------ */
 
 @theme {
-  /* Colors */
-  --color-background: #f6f5f1; /* warm paper */
-  --color-surface: #ffffff; /* white cards */
-  --color-primary: #2e6be6; /* link/interactive blue */
-  --color-primary-hover: #1e56c4;
-  --color-accent: #7a5af8; /* violet, sparingly (kickers, icons) */
-  --color-foreground: #1b1b18; /* ink */
-  --color-muted: #63635e;
-  --color-border: #e4e2db; /* hairline */
-  --color-danger: #c4444e; /* functional error color (not branding) */
+  /* Light ground */
+  --color-paper: #f7f4ee;
+  --color-paper-2: #efeae1;
+  --color-ink: #16202b;
+  --color-ink-2: #2e3b47;
+  --color-ink-dim: #5c6873;
+  --color-rule: #dad3c7;
+  --color-wheat: #9a7211;
 
-  /* Typography — clean sans throughout */
-  --font-display: var(--font-inter), Inter, system-ui, sans-serif;
-  --font-sans: var(--font-inter), Inter, system-ui, sans-serif;
+  /* Dark ground */
+  --color-ink-deep: #101821;
+  --color-ink-raised: #17212c;
+  --color-bone: #e8e3d9;
+  --color-bone-dim: #9aa3ac;
+  --color-wheat-bright: #cba344;
+  --color-rule-dark: #2a3642;
 
-  /* Type scale: 12/14/16/18/24/32/48/64 */
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 2rem;
-  --text-5xl: 3rem;
-  --text-6xl: 4rem;
+  /* Semantic — go/stop from packet.html and funding.html */
+  --color-go: #4a6b52;
+  --color-stop: #a3452b;
 
-  /* Motion */
-  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
 
-  --animate-marquee: marquee 40s linear infinite;
-  --animate-accordion-down: accordion-down 250ms var(--ease-out-soft);
-  --animate-accordion-up: accordion-up 250ms var(--ease-out-soft);
+  --ease-rise: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
 
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
+/* ------------------------------------------------------------------ */
+/* Base                                                               */
+/*                                                                    */
+/* These must sit inside @layer base. Unlayered rules outrank every    */
+/* cascade layer, so element defaults declared at the top level would  */
+/* silently beat the utilities applied to those same elements — a      */
+/* `leading-[1.1]` on an <h1> would lose to a bare `line-height` here. */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  /* Prose stays narrow; grids get the wider column. */
+  :root {
+    --measure: 34rem;
+    --measure-wide: 40rem;
   }
 
-  @keyframes accordion-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-    }
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
   }
 
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-    to {
-      height: 0;
-    }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: clamp(1.0625rem, 0.98rem + 0.4vw, 1.1875rem);
+    font-weight: 300;
+    line-height: 1.68;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 400;
+    letter-spacing: -0.014em;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-wheat);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  /* On dark bands the light-ground gold is too dim for a focus ring. */
+  .on-dark :focus-visible {
+    outline-color: var(--color-wheat-bright);
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-wheat) 22%, transparent);
   }
 }
 
 /* ------------------------------------------------------------------ */
-/* Base                                                                */
+/* Utilities                                                           */
 /* ------------------------------------------------------------------ */
 
-html {
-  scroll-behavior: smooth;
+@utility measure {
+  max-width: var(--measure);
+}
+
+@utility measure-wide {
+  max-width: var(--measure-wide);
+}
+
+/* Tabular figures for ledgers, counters, timelines and money columns. */
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * One orchestrated load moment, carried over from index.html. Stagger is
+ * applied per-child by the caller via --rise-delay.
+ */
+@utility rise {
+  opacity: 0;
+  transform: translateY(0.6rem);
+  animation: rise 0.75s var(--ease-rise) forwards;
+  animation-delay: var(--rise-delay, 0s);
+}
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-}
-
-body {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-sans);
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-}
-
-h1,
-h2,
-h3 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  text-wrap: balance;
-}
-
-/* Visible focus ring on all interactive elements (a11y) */
-:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
-
-::selection {
-  background: color-mix(in srgb, var(--color-primary) 25%, transparent);
-  color: var(--color-foreground);
+  .rise {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
 /* ------------------------------------------------------------------ */
-/* Signature utilities                                                 */
+/* Print — drives the /proposal leave-behind PDF                       */
 /* ------------------------------------------------------------------ */
 
-@utility aurora {
-  /* Pastel iridescent glow for hero/headline backdrops */
-  background-image:
-    radial-gradient(
-      ellipse 45% 60% at 38% 40%,
-      rgba(255, 190, 224, 0.55),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 45% 60% at 62% 45%,
-      rgba(167, 199, 255, 0.6),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 35% 50% at 50% 60%,
-      rgba(199, 178, 255, 0.5),
-      transparent 70%
-    );
-  filter: blur(24px);
-}
-
-@utility spotlight {
-  /* Faint aurora wash for page-header bands */
-  background-image:
-    radial-gradient(
-      ellipse 55% 70% at 30% 0%,
-      rgba(216, 203, 255, 0.35),
-      transparent 65%
-    ),
-    radial-gradient(
-      ellipse 55% 70% at 70% 0%,
-      rgba(191, 224, 255, 0.4),
-      transparent 65%
-    );
-}
-
-@utility spotlight-band {
-  /* Softer pool of pastel light for CTA bands */
-  background-image: radial-gradient(
-    ellipse 55% 90% at 50% 50%,
-    rgba(199, 178, 255, 0.22),
-    transparent 75%
-  );
-}
-
-@utility text-brand-gradient {
-  /* Ink → blue → violet display gradient (works on paper) */
-  background-image: linear-gradient(
-    100deg,
-    var(--color-primary) 0%,
-    #6d5ae6 55%,
-    var(--color-accent) 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-@utility brand-rule {
-  /* Thin rule that fades at the edges */
-  background-image: linear-gradient(
-    to right,
-    transparent,
-    color-mix(in srgb, var(--color-foreground) 25%, transparent),
-    transparent
-  );
-  height: 1px;
-}
-
-@utility card-lift {
-  transition:
-    transform 250ms var(--ease-out-soft),
-    border-color 250ms var(--ease-out-soft),
-    box-shadow 250ms var(--ease-out-soft);
-  box-shadow: 0 1px 2px rgba(27, 27, 24, 0.05);
-  &:hover {
-    transform: translateY(-2px);
-    border-color: color-mix(in srgb, var(--color-foreground) 25%, transparent);
-    box-shadow: 0 10px 28px -8px rgba(27, 27, 24, 0.16);
+@media print {
+  @page {
+    margin: 1.6cm;
   }
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-    &:hover {
-      transform: none;
-    }
-  }
-}
 
-@utility film-grain {
-  /* Low-opacity noise texture (kept subtle on paper) */
-  position: relative;
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 10.5pt;
+    line-height: 1.5;
   }
-}
 
-@utility vignette {
-  /* Legacy no-op on light theme (kept so stray usages stay harmless) */
-  background-image: none;
+  .no-print {
+    display: none !important;
+  }
+
+  /* Dark bands invert to plain paper so they don't burn a page of toner. */
+  .on-dark,
+  .on-dark * {
+    background: #fff !important;
+    color: #000 !important;
+    border-color: #999 !important;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: none;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  /*
+   * Deliberately not `section`. A proposal section is usually taller than a
+   * page, and forcing it whole pushes it to the next sheet and orphans its
+   * last line. Keep breaks off the things that are genuinely atomic.
+   */
+  tr,
+  li,
+  figure,
+  p,
+  table {
+    break-inside: avoid;
+  }
 }

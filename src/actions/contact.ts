@@ -5,6 +5,7 @@ import { contactSubjects } from "@/config/contact";
 import { siteConfig } from "@/config/site";
 import { contactNotificationHtml } from "@/lib/email/contact-notification";
 import { fromEmail, getResend } from "@/lib/resend";
+import { recordSubmission } from "@/lib/submissions";
 
 export interface ContactState {
   status: "idle" | "success" | "error";
@@ -17,15 +18,15 @@ const schema = z.object({
   name: z.string().min(2, "Please tell us your name."),
   email: z.email("Please enter a valid email address."),
   subject: z.enum(contactSubjects, "Please choose a subject."),
-  message: z.string().min(10, "Please write a few words about your question."),
+  message: z.string().min(10, "Please write a few words so we can help."),
   /** Honeypot — real users leave this empty. */
   company: z.string().max(0).optional().or(z.literal("")),
 });
 
 /**
- * Contact form submission: zod validation + honeypot, then a Resend
- * notification to CONTACT_INBOX_EMAIL. Degrades gracefully (still succeeds,
- * logs a warning) when email env vars are absent.
+ * Contact form submission: zod validation and a honeypot, then the enquiry is
+ * recorded and a notification goes to CONTACT_INBOX_EMAIL. Recording happens
+ * first and independently of email, so a Resend outage cannot lose a lead.
  */
 export async function submitContactForm(
   _prev: ContactState,
@@ -52,9 +53,9 @@ export async function submitContactForm(
         errors[field] ??= issue.message;
       }
     }
-    // Silently accept honeypot-only failures so bots learn nothing.
+    // A honeypot-only failure returns success so bots learn nothing.
     if (Object.keys(errors).length === 0) {
-      return { status: "success", message: "Thanks for reaching out!" };
+      return { status: "success", message: "Thanks for reaching out." };
     }
     return {
       status: "error",
@@ -64,6 +65,15 @@ export async function submitContactForm(
   }
 
   const { name, email, subject, message } = parsed.data;
+
+  await recordSubmission({
+    receivedAt: new Date().toISOString(),
+    name,
+    email,
+    subject,
+    message,
+  });
+
   const resend = getResend();
   const inbox = process.env.CONTACT_INBOX_EMAIL;
 
@@ -73,26 +83,28 @@ export async function submitContactForm(
         from: `${siteConfig.name} <${fromEmail()}>`,
         to: inbox,
         replyTo: email,
-        subject: `[Contact] ${subject} — ${name}`,
+        subject: `[${subject}] ${name}`,
         html: contactNotificationHtml({ name, email, subject, message }),
       });
     } catch (error) {
+      // The enquiry is already recorded, so this is a delivery problem rather
+      // than a lost lead. Still worth telling the sender, since they are
+      // waiting on a reply that may now be slower.
       console.error("[resend] contact notification failed:", error);
       return {
         status: "error",
         message:
-          "We couldn't send your message just now. Please try again, or email us directly.",
+          "We saved your message but couldn't send the notification. Please email us directly so we can reply quickly.",
       };
     }
   } else {
     console.warn(
-      "[contact] Resend/CONTACT_INBOX_EMAIL not configured; submission logged only:",
-      { name, email, subject }
+      "[contact] Resend or CONTACT_INBOX_EMAIL not configured; enquiry recorded only."
     );
   }
 
   return {
     status: "success",
-    message: "Thanks for reaching out — we'll reply within a few days.",
+    message: "Thanks for reaching out — someone will reply within a few days.",
   };
 }

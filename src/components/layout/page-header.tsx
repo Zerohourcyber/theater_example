@@ -1,35 +1,37 @@
 import { Container } from "@/components/layout/container";
+import { DarkBand } from "@/components/ui/section";
 
-interface PageHeaderProps {
+type PageHeaderProps = {
   eyebrow?: string;
   title: string;
-  description?: string;
-}
+  standfirst?: string;
+};
 
 /**
- * Interior-page header band: slash-prefixed kicker, oversized editorial
- * display title, description offset to the right on wide screens.
+ * packet.html's cover block, reused as the header for every interior page.
+ * It renders directly below the navbar on the same ink ground so the two read
+ * as one masthead band.
  */
-export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
+export function PageHeader({ eyebrow, title, standfirst }: PageHeaderProps) {
   return (
-    <div className="spotlight border-b border-border pb-14 pt-36">
+    <DarkBand>
       <Container>
-        {eyebrow ? (
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-            {eyebrow}
-          </p>
-        ) : null}
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
-          <h1 className="max-w-3xl text-5xl tracking-tight sm:text-6xl">
+        <div className="pb-[clamp(2.75rem,7vh,4rem)] pt-[clamp(2rem,5vh,3rem)]">
+          {eyebrow ? (
+            <p className="m-0 mb-5 text-[0.9375rem] italic text-bone-dim">
+              {eyebrow}
+            </p>
+          ) : null}
+          <h1 className="max-w-[19ch] text-[clamp(2.125rem,1.3rem+3.6vw,3.5rem)] leading-[1.1]">
             {title}
           </h1>
-          {description ? (
-            <p className="max-w-md shrink-0 text-lg leading-relaxed text-muted lg:pb-2">
-              {description}
+          {standfirst ? (
+            <p className="m-0 mt-6 max-w-[46ch] text-[clamp(1.125rem,1.05rem+0.4vw,1.3125rem)] font-extralight text-bone-dim">
+              {standfirst}
             </p>
           ) : null}
         </div>
       </Container>
-    </div>
+    </DarkBand>
   );
 }

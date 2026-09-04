@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Funding Research — Portales Community Theater</title>
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..700;1,6..72,200..600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper:#F7F4EE; --paper-2:#EFEAE1; --ink:#16202B; --ink-dim:#5C6873;
+    --rule:#DAD3C7; --wheat:#9A7211; --go:#4A6B52; --stop:#A3452B;
+    --gutter: clamp(1.25rem,4vw,4rem);
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;font-optical-sizing:auto;
+    font-size:1.0625rem;font-weight:300;line-height:1.6}
+  .wrap{max-width:66rem;margin:0 auto;padding-inline:var(--gutter)}
+  :focus-visible{outline:2px solid var(--wheat);outline-offset:3px}
+  h1,h2,h3,h4{font-weight:400;letter-spacing:-.012em;margin:0}
+  a{color:var(--wheat)}
+
+  /* controls */
+  .controls{position:sticky;top:0;z-index:30;background:var(--ink);color:var(--paper);padding-block:.6rem}
+  .controls .wrap{display:flex;flex-wrap:wrap;gap:.6rem 1.25rem;align-items:center;justify-content:space-between}
+  .controls p{margin:0;font-size:.875rem;opacity:.75}
+  .controls div{display:flex;gap:.6rem}
+  .ctl{font-family:inherit;font-size:.875rem;background:none;color:var(--paper);
+    border:1px solid rgba(247,244,238,.35);padding:.35rem .9rem;cursor:pointer}
+  .ctl:hover{background:rgba(247,244,238,.12);border-color:var(--paper)}
+  body.present .controls{display:none}
+
+  header.top{padding-block:clamp(2rem,5vh,3.25rem) 0}
+  .eyebrow{font-size:.9375rem;font-style:italic;color:var(--ink-dim);margin:0 0 .5rem}
+  header.top h1{font-size:clamp(1.875rem,1.3rem + 2.4vw,2.75rem);line-height:1.15;max-width:22ch;margin-bottom:.85rem}
+  header.top .sub{color:var(--ink-dim);max-width:50ch;margin:0}
+
+  .counters{display:grid;gap:1.25rem 2.5rem;grid-template-columns:repeat(auto-fit,minmax(8.5rem,1fr));
+    border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);padding-block:1.5rem;margin-top:2.25rem}
+  .counters p{margin:0}
+  .counters .n{font-size:clamp(1.625rem,1.35rem + 1.4vw,2.25rem);line-height:1}
+  .counters .n.zero{color:var(--ink-dim)}
+  .counters .l{font-size:.8125rem;color:var(--ink-dim);margin-top:.35rem;line-height:1.35}
+
+  section{padding-block:clamp(2.25rem,5vh,3.25rem);border-bottom:1px solid var(--rule)}
+  section:last-of-type{border-bottom:0}
+  section>h2{font-size:clamp(1.375rem,1.15rem + 1vw,1.75rem);margin-bottom:.5rem}
+  .lede{color:var(--ink-dim);max-width:54ch;margin:0 0 1.75rem}
+
+  .callout{background:var(--paper-2);border-left:3px solid var(--wheat);
+    padding:clamp(1.25rem,3vw,1.75rem);margin-bottom:2rem}
+  .callout h3{font-size:1.125rem;font-weight:500;margin-bottom:.6rem}
+  .callout p{margin:0 0 .8rem;max-width:56ch}
+  .callout p:last-child{margin-bottom:0}
+
+  /* answers */
+  ol.answers{list-style:none;counter-reset:a;margin:0;padding:0}
+  ol.answers li{counter-increment:a;display:grid;grid-template-columns:2.25rem 1fr;gap:0 .75rem;
+    padding-block:.95rem;border-bottom:1px solid var(--rule)}
+  ol.answers li::before{content:counter(a);font-size:1.125rem;color:var(--wheat);line-height:1.5}
+  ol.answers h4{font-size:1.0625rem;font-weight:500;margin-bottom:.15rem}
+  ol.answers p{margin:0;font-size:1rem;color:var(--ink-dim);max-width:58ch}
+
+  /* scenarios */
+  .scenarios{display:grid;gap:1.5rem;grid-template-columns:1fr}
+  @media(min-width:52rem){.scenarios{grid-template-columns:repeat(3,1fr)}}
+  .scen{border-top:2px solid var(--ink);padding-top:.9rem}
+  .scen h3{font-size:1.125rem;font-weight:500}
+  .scen .tot{font-size:1.5rem;margin:.35rem 0 .15rem}
+  .scen .cap{font-size:.8125rem;font-style:italic;color:var(--ink-dim);margin:0 0 .9rem}
+  .bar{display:flex;height:.5rem;margin-bottom:.9rem;overflow:hidden}
+  .bar span{display:block}
+  .mix{list-style:none;margin:0;padding:0;font-size:.9375rem}
+  .mix li{display:flex;justify-content:space-between;gap:1rem;padding-block:.28rem;border-bottom:1px solid var(--rule)}
+  .mix li span:last-child{color:var(--ink-dim);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .key{display:flex;flex-wrap:wrap;gap:.4rem 1.1rem;margin-top:1.25rem;font-size:.8125rem;color:var(--ink-dim)}
+  .key i{display:inline-block;width:.65rem;height:.65rem;margin-right:.35rem;vertical-align:baseline}
+
+  /* filters */
+  .filters{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.5rem}
+  .filters button{font-family:inherit;font-size:.875rem;background:none;color:var(--ink-dim);
+    border:1px solid var(--rule);padding:.32rem .8rem;cursor:pointer}
+  .filters button:hover{border-color:var(--ink);color:var(--ink)}
+  .filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  body.present .filters, body.present .controls{display:none}
+
+  /* opportunity cards */
+  .opp{border-top:1px solid var(--rule);padding-block:1.1rem}
+  .opp:first-of-type{border-top:2px solid var(--ink)}
+  .opp-head{display:grid;gap:.2rem 1.5rem;grid-template-columns:1fr auto;align-items:baseline}
+  .opp h3{font-size:1.0625rem;font-weight:500}
+  .opp .funder{font-size:.9375rem;color:var(--ink-dim);display:block;margin-top:.1rem}
+  .verdict{font-size:.875rem;white-space:nowrap;font-style:italic;color:var(--ink-dim)}
+  .verdict.no{color:var(--stop);font-style:normal}
+  .verdict.yes{color:var(--go);font-style:normal}
+  .opp .sum{margin:.6rem 0 0;font-size:1rem;max-width:60ch}
+  details{margin-top:.7rem}
+  summary{font-size:.9375rem;color:var(--wheat);cursor:pointer;width:fit-content}
+  summary:hover{text-decoration:underline}
+  .detail{margin-top:.8rem;padding-left:1rem;border-left:2px solid var(--rule)}
+  .detail dl{display:grid;gap:.15rem 1.25rem;grid-template-columns:1fr;margin:0}
+  @media(min-width:38rem){.detail dl{grid-template-columns:9.5rem 1fr}}
+  .detail dt{font-size:.875rem;color:var(--ink-dim);padding-top:.42rem}
+  .detail dd{margin:0;font-size:.9375rem;padding-block:.42rem;border-bottom:1px solid var(--rule);max-width:56ch}
+  @media(max-width:38rem){.detail dt{padding-top:.5rem;border:0}.detail dd{padding-top:0}}
+
+  /* timing */
+  .timing{border-top:2px solid var(--ink)}
+  .timing div{display:grid;gap:.15rem 1.5rem;grid-template-columns:1fr auto;
+    padding-block:.8rem;border-bottom:1px solid var(--rule);align-items:baseline}
+  .timing dt{font-size:1rem}
+  .timing dt small{display:block;font-size:.875rem;font-style:italic;color:var(--ink-dim);margin-top:.1rem}
+  .timing dd{margin:0;font-size:.9375rem;white-space:nowrap}
+  .timing dd.in{color:var(--go)}
+  .timing dd.out{color:var(--stop)}
+
+  /* actions */
+  table.acts{width:100%;border-collapse:collapse}
+  table.acts th{text-align:left;font-weight:500;font-size:.875rem;border-bottom:2px solid var(--ink);
+    padding:0 1rem .4rem 0}
+  table.acts td{vertical-align:top;padding:.7rem 1rem .7rem 0;border-bottom:1px solid var(--rule);font-size:1rem}
+  table.acts th:last-child,table.acts td:last-child{padding-right:0}
+  table.acts .w{white-space:nowrap;font-size:.9375rem;color:var(--ink-dim)}
+  table.acts .p1{color:var(--stop)}
+  @media(max-width:48rem){
+    table.acts thead{position:absolute;left:-9999px}
+    table.acts tr{display:block;border-bottom:1px solid var(--rule);padding-block:.8rem}
+    table.acts td{display:block;border:0;padding:0 0 .3rem}
+  }
+
+  .cols{display:grid;gap:clamp(1.75rem,4vw,3rem);grid-template-columns:1fr}
+  @media(min-width:52rem){.cols{grid-template-columns:1fr 1fr}}
+  .cols h3{font-size:1.125rem;font-weight:500;margin-bottom:.55rem}
+  .cols p,.cols ul{margin:0 0 .85rem;max-width:52ch}
+  .cols ul{padding-left:1.15rem}
+  .cols li{margin-bottom:.35rem}
+
+  footer{padding-block:2rem 3rem;font-size:.875rem;color:var(--ink-dim);line-height:1.6}
+  footer p{margin:0 0 .5rem;max-width:56rem}
+
+  body.present{font-size:1.125rem}
+  body.present .internal-only{display:none}
+
+  @media print{
+    .controls,.filters,.internal-only{display:none!important}
+    body{background:#fff;font-size:10pt;line-height:1.42}
+    .wrap{max-width:none;padding-inline:0}
+    section{padding-block:.7rem;break-inside:avoid}
+    .scen,.opp,.callout,table.acts{break-inside:avoid}
+    details{display:block}
+    details summary{display:none}
+    .detail{border-left:1px solid #ccc}
+    a{color:inherit;text-decoration:none}
+    @page{margin:1.5cm}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<div class="controls internal-only">
+  <div class="wrap">
+    <p>Funding research — internal working document</p>
+    <div>
+      <button class="ctl" id="present" type="button">Presentation mode</button>
+      <button class="ctl" type="button" onclick="window.print()">Print / PDF</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">Portales Community Theater — working name, group in formation</p>
+  <h1>How a first production gets paid for</h1>
+  <p class="sub">Funding research for a spring 2027 founding production. Every opportunity below links to its official source and carries the date it was checked. Nothing here is secured.</p>
+
+  <div class="counters">
+    <div><p class="n" id="c-days">—</p><p class="l">days to target opening</p></div>
+    <div><p class="n zero">$0</p><p class="l">secured</p></div>
+    <div><p class="n zero">$0</p><p class="l">requested</p></div>
+    <div><p class="n" id="c-opps">—</p><p class="l">opportunities researched</p></div>
+    <div><p class="n" id="c-live">—</p><p class="l">usable for April 2027</p></div>
+  </div>
+</header>
+
+<section>
+  <h2>The short answer</h2>
+  <p class="lede">A new, unincorporated group cannot reach April 2027 on grant money. The eligibility rules and award calendars both rule it out. What's left is local, and it's enough.</p>
+
+  <div class="callout">
+    <h3>Why grants won't work for this show</h3>
+    <p>Three separate walls, each sufficient on its own. <strong>Status:</strong> New Mexico Arts, the NEA and NM Tourism all require 501(c)(3) status or a government applicant at the time of application. <strong>Calendar:</strong> New Mexico Arts approves awards in July and pays by reimbursement; the state tourism programs run on the July fiscal year. An application filed this December produces money three months after opening night. <strong>History:</strong> the NEA additionally requires years of prior programming and won't accept a fiscally sponsored applicant.</p>
+    <p>None of this is a reason for discouragement. It's a reason to spend the autumn on sponsors and formation rather than on grant applications that can't pay for this show. The formation work is also what makes the group eligible for the FY2028 cycle.</p>
+  </div>
+
+  <h3 style="font-size:1.125rem;font-weight:500;margin-bottom:.9rem">Five realistic paths, in order</h3>
+  <ol class="answers">
+    <li><div><h4>Local business sponsorship</h4><p>The backbone. No nonprofit status required, no application cycle, decisions made by people you can meet. Peanut and dairy operations, banks, the utilities, healthcare, and auto dealers are the categories with local budgets. Expect this to carry the largest share.</p></div></li>
+    <li><div><h4>Ticket revenue</h4><p>Probably the single largest line, and the most predictable. See the arithmetic below — a full house is not required, but occupancy assumptions need to be conservative in a city of 12,000.</p></div></li>
+    <li><div><h4>In-kind support</h4><p>Every donated flat, borrowed light, free print run and lent rehearsal room is a dollar you don't have to raise. Also counts as match for several grants later. Track it in the budget as real value.</p></div></li>
+    <li><div><h4>Individual founding donors</h4><p>Founding-supporter framing works only once, and this is the year. Not tax-deductible until the group has 501(c)(3) status or a fiscal sponsor — say so plainly when asking.</p></div></li>
+    <li><div><h4>City of Portales lodgers' tax</h4><p>The one nearby public source on a rolling calendar rather than an annual cycle. Restricted to advertising and promotion, so it pays the marketing line, not the production.</p></div></li>
+  </ol>
+</section>
+
+<section>
+  <h2>What it might cost, and where it comes from</h2>
+  <p class="lede">Three planning scenarios. Every figure is an estimate for discussion — none is a quote, a budget, or a commitment. Replace them as real numbers arrive.</p>
+  <div class="scenarios" id="scenarios"></div>
+  <div class="key" id="mixkey"></div>
+
+  <div class="callout" style="margin-top:2rem">
+    <h3>The ticket arithmetic</h3>
+    <p id="ticket-math"></p>
+    <p>Portales has about 12,100 residents; Roosevelt County about 19,200. Three performances in the larger university house would seat roughly a tenth of the city. That's achievable for a well-publicised community production, but it means occupancy assumptions above 70% should be treated as optimistic rather than planned on.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Every opportunity researched</h2>
+  <p class="lede">Checked 3 September 2026. Re-verify against the official source before applying — deadlines and eligibility change without notice.</p>
+  <div class="filters" id="filters" role="group" aria-label="Filter opportunities"></div>
+  <div id="opps"></div>
+  <p id="noresults" style="display:none;color:var(--ink-dim);font-style:italic;padding-block:2rem">No opportunities match those filters.</p>
+</section>
+
+<section>
+  <h2>Can the money arrive before April 2027?</h2>
+  <p class="lede">The question that decides where effort goes this autumn.</p>
+  <dl class="timing" id="timing"></dl>
+</section>
+
+<section>
+  <h2>The next 90 days</h2>
+  <p class="lede">Ordered by what unblocks the most. Owner roles are suggestions until the founding group assigns them.</p>
+  <table class="acts">
+    <thead><tr><th scope="col">Action</th><th scope="col">Why it matters</th><th scope="col">By</th></tr></thead>
+    <tbody id="actions"></tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Sponsor prospects</h2>
+  <p class="lede">Categories grounded in the local economy, not a list of businesses that have expressed interest. None has been approached. The founding group knows this town far better than any research can — treat these as starting categories.</p>
+  <div id="sponsors"></div>
+
+  <div class="callout" style="margin-top:2rem">
+    <h3>One introduction worth more than the rest</h3>
+    <p>The Roosevelt County Community Development Corporation is a local 501(c)(3) whose primary funders are the City of Portales, Roosevelt County and Eastern New Mexico University. That is the one table where all three of your targets already sit together, and a conversation there may open the university door more warmly than a cold email. Source: <a href="https://rooseveltcdc.org/">rooseveltcdc.org</a>, checked 3 Sep 2026.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Fiscal sponsorship: worth it?</h2>
+  <p class="lede">Research and planning guidance. Not legal or tax advice — confirm with an attorney or accountant before deciding.</p>
+  <div class="cols">
+    <div>
+      <h3>What it is, and what it isn't</h3>
+      <p>A fiscal sponsor is an existing 501(c)(3) that receives donations and grants on your behalf and passes them through as restricted charitable gifts. Donors get their deduction; you get eligibility for funders that require tax-exempt status.</p>
+      <p>What it isn't is a shortcut around forming an organization. The New Mexico Foundation requires sponsored projects to be separate legal entities with an FEIN and general liability insurance <em>before</em> reviewing a letter of inquiry, then routes applications through a committee that meets monthly, then takes 10% of all incoming money. Source: <a href="https://nmcf.org/for-nonprofits/fiscal-sponsorship/">nmcf.org</a>, checked 3 Sep 2026.</p>
+      <p>So the sequence is: incorporate, get the EIN, bind insurance, submit the inquiry, wait for the committee. Budget two to four months.</p>
+    </div>
+    <div>
+      <h3>Does it help this show?</h3>
+      <p>Honestly, not much — and this is the surprise. It unlocks New Mexico Arts, whose money arrives in July 2027 regardless. It does not unlock the NEA, which excludes sponsored applicants outright. It does not unlock the Humanities Council, whose subrecipients must manage funds through their own accounts.</p>
+      <p>What it does do is make individual gifts tax-deductible immediately, which matters for larger donors, and it buys back-office support while the board learns.</p>
+      <h3 style="margin-top:1.25rem">Ask any prospective sponsor</h3>
+      <ul>
+        <li>What is the fee, and does it apply to in-kind and to grants?</li>
+        <li>How quickly are funds released after a request?</li>
+        <li>Who signs grant applications and who owns the relationship?</li>
+        <li>What reporting is required, and how often?</li>
+        <li>What happens to unspent funds if we part ways?</li>
+        <li>Have you sponsored an arts project before?</li>
+      </ul>
+      <p><strong style="font-weight:400">Decide by:</strong> end of October 2026, so the paperwork clears before the sponsorship campaign begins.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>What we can't find out online</h2>
+  <p class="lede">These require a phone call, an email or a meeting. Until they're answered, parts of this plan are guesses.</p>
+  <div id="unknowns"></div>
+</section>
+
+<footer>
+  <p><strong style="font-weight:400;color:var(--ink)">We are not affiliated with Eastern New Mexico University.</strong> Any partnership described is proposed, not agreed. No funder, sponsor or organisation named here has been approached, has expressed interest, or has made any commitment.</p>
+  <p>All dollar figures are planning estimates for discussion. All research was checked on 3 September 2026 and must be re-verified against official sources before any application. Nothing here is legal, tax or accounting advice.</p>
+  <p id="stamp"></p>
+</footer>
+
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   DATA — edit here. Structured for later migration to a database.
+   verdict: "yes" = usable for April 2027 | "later" = future cycle
+            "no"  = not eligible
+   ═══════════════════════════════════════════════════════════════════ */
+
+const TARGET_OPENING = "2027-04-16";
+const VERIFIED_ON    = "2026-09-03";
+
+const CAPACITY = 419, PERFORMANCES = 3, TICKET = 15;
+
+const SCENARIOS = [
+  { name:"Lean", total:11000,
+    cap:"A play, donated venue, borrowed technical kit, volunteer everything.",
+    mix:[["Ticket revenue",4700],["Sponsorship",3000],["Individual gifts",1500],["In-kind (valued)",1000],["Contingency",800]] },
+  { name:"Moderate", total:24000,
+    cap:"A play or small musical, some rentals, paid technical help, real marketing.",
+    mix:[["Ticket revenue",7500],["Sponsorship",9000],["Individual gifts",3000],["Fundraising event",1500],["In-kind (valued)",1000],["Contingency",2000]] },
+  { name:"Expanded", total:52000,
+    cap:"A musical with rights and orchestra, full rentals, paid key staff.",
+    mix:[["Ticket revenue",11300],["Sponsorship",22000],["Individual gifts",7000],["Fundraising event",4000],["In-kind (valued)",3200],["Contingency",4500]] }
+];
+
+const MIXCOLORS = {
+  "Ticket revenue":"#4A6B52", "Sponsorship":"#9A7211", "Individual gifts":"#5C6873",
+  "Fundraising event":"#8A6E4B", "In-kind (valued)":"#A9A093", "Contingency":"#C9C1B4"
+};
+
+const OPPS = [
+  { id:"portales-lodgers", funder:"City of Portales", program:"Lodgers' Tax funding",
+    cat:["Local","In-kind / cash"], verdict:"yes", verdictLabel:"Usable for April 2027",
+    sum:"The only nearby public source on a rolling calendar. Restricted by state statute to advertising, publicising and promoting — so it pays the marketing budget, not the production.",
+    url:"https://portalesnm.gov/services/departments_a-f/finance/lodger_s_tax.php",
+    fields:{
+      "Eligibility":"Not stated on the city page. Confirm whether an unincorporated group or fiscally sponsored project may apply.",
+      "Deadline":"Rolling. Applications must be complete and submitted at least one week before the advisory board meets.",
+      "Amount":"Not published. Ask what a typical award looks like.",
+      "Allowed":"Advertising, publicising and promoting, under the NM Lodgers' Tax Act (§§3-38-13 to 3-38-24 NMSA 1978).",
+      "Not allowed":"Production costs, rights, sets, salaries. This is not general operating support.",
+      "Reporting":"Summary report due within 30 days of the event. Failure to file may bar future funding.",
+      "Effort":"Low — an online form.",
+      "Next action":"Call the city and ask for the advisory board meeting schedule and eligibility.",
+      "Confidence":"High that the programme exists and is rolling. Unknown whether this group qualifies."
+    }},
+
+  { id:"nm-arts", funder:"New Mexico Arts", program:"Grants Program",
+    cat:["State","Future capacity"], verdict:"later", verdictLabel:"Future cycle — FY2028",
+    sum:"The main state arts programme. Allows fiscal sponsorship with a formal agreement, which makes it reachable — but the award calendar puts money in hand three months after opening night.",
+    url:"https://nmarts.org/grants/grants-information/",
+    fields:{
+      "Eligibility":"501(c)(3), units of government, schools, colleges, universities, tribal entities. Fiscal sponsorship permitted with a formal written agreement.",
+      "Cycle":"Guidelines September · advance review October · applications close December · panel April · Arts Commission approves July · notification late July.",
+      "Timing verdict":"Money arrives July 2027, after an April 2027 opening. Apply anyway — it funds the second production.",
+      "Two-year cycle":"NM Arts moved to a two-year cycle for FY2026. An organisation that missed FY2026 waits until September 2026 to next apply — which is now.",
+      "Also required":"A Unique Entity Identifier from SAM.gov. Registration expires annually.",
+      "Payment":"Reimbursement basis — spend first, claim after.",
+      "Scoring":"Applicants must score 65+ to be eligible. Awards are a percentage of the request; most receive less than asked.",
+      "Effort":"High.",
+      "Next action":"Check whether the September 2026 guidelines have posted. Decide the fiscal sponsorship question first.",
+      "Confidence":"High — verified on the official page."
+    }},
+
+  { id:"nmhc", funder:"New Mexico Humanities Council", program:"Subaward Grants",
+    cat:["State","Future capacity"], verdict:"later", verdictLabel:"Scope-limited",
+    sum:"Cannot fund the production itself — NMHC does not fund performance art or the creation of art forms. It can fund a scholar-led companion programme: a talkback, a local-history exhibit, a community dialogue tied to the play's themes.",
+    url:"https://newmexicohumanities.org/grants/",
+    fields:{
+      "Eligibility":"Humanities-focused nonprofits, tribal governments, governmental institutions. Subrecipients must manage funds through their own bank account and cannot act as a pass-through — which effectively rules out fiscal sponsorship.",
+      "Match":"1:1, and can be satisfied entirely with in-kind contributions.",
+      "Consultation":"Required before applying, for new and returning applicants. grants@nmhumanities.org · (505) 633-7370.",
+      "Burden":"Federal pass-through funds. Receipts and documentation retained three years for audit.",
+      "Deadline":"Not confirmed on an official page. Aggregators reference an August date — do not rely on it.",
+      "Effort":"High relative to award size.",
+      "Next action":"Book the consultation and ask whether a companion programme around a production would qualify.",
+      "Confidence":"Medium — the site appears to be mid-migration between two domains."
+    }},
+
+  { id:"nmtd-coop", funder:"New Mexico Tourism Department", program:"Cooperative Marketing (CoOp)",
+    cat:["State","Future capacity"], verdict:"later", verdictLabel:"Future cycle — FY2028",
+    sum:"Co-branded marketing money at a 2-to-1 match. Requires an IRS determination letter and media that reaches beyond a 60-mile radius, so a Portales-only campaign doesn't qualify — Clovis, Roswell, Lubbock and Amarillo do.",
+    url:"https://www.newmexico.org/industry/work-together/grants/co-op-marketing/",
+    fields:{
+      "Eligibility":"Tourism-related NM nonprofits, local and tribal governments. A copy of the IRS status letter must accompany the application. State designation is not accepted.",
+      "Match":"2-to-1 in the most recent cycle — $2 of grant for every $1 committed. Confirm; matching levels have depended on legislative outcomes.",
+      "Geographic rule":"All media must reach beyond 60 miles of the applicant's location.",
+      "Cycle":"Spring application window; funds follow the July fiscal year. The FY27 round is closed and awarded.",
+      "Watch for":"A mandatory pre-application survey precedes the application. Missing it disqualifies an otherwise eligible applicant.",
+      "Related":"The Tourism Event Growth & Sustainability programme supports events specifically and may fit a recurring production better.",
+      "Effort":"Medium-high.",
+      "Next action":"Diary the FY2028 pre-application survey window for early 2027.",
+      "Confidence":"High."
+    }},
+
+  { id:"nea-gap", funder:"National Endowment for the Arts", program:"Grants for Arts Projects",
+    cat:["Federal","Future capacity"], verdict:"no", verdictLabel:"Not eligible",
+    sum:"Recorded so nobody spends a week rediscovering it. Three independent disqualifiers, and fiscal sponsorship does not solve any of them.",
+    url:"https://www.arts.gov/grants/grants-for-arts-projects/eligibility",
+    fields:{
+      "Eligibility":"501(c)(3) at the time of application, units of government, or federally recognised tribes.",
+      "Excluded":"Individuals, applications through a fiscal sponsor or agent, and state arts agencies. Organisations must apply directly on their own behalf.",
+      "History":"A multi-year record of prior arts programming is required. Official pages currently conflict — the programme page states five years plus a $20,000 minimum operating expense, the eligibility subpage states three. Resolve against the current fiscal-year guidelines PDF.",
+      "Also required":"Active SAM.gov registration and a Unique Entity Identifier.",
+      "The useful part":"The history clock counts programming, not incorporation. April 2027 starts it.",
+      "Next action":"Revisit after two or three seasons. Nothing to do now.",
+      "Confidence":"High on the conclusion. The years requirement needs resolving before any future attempt."
+    }},
+
+  { id:"nmf-fiscal", funder:"New Mexico Foundation", program:"Fiscal Sponsorship (Model C)",
+    cat:["Foundation","April 2027"], verdict:"yes", verdictLabel:"Available — with conditions",
+    sum:"Not a grant. A route to tax-deductible giving and to funders that require exempt status. Requires a legal entity, an EIN and insurance first, then a monthly committee.",
+    url:"https://nmcf.org/for-nonprofits/fiscal-sponsorship/",
+    fields:{
+      "Requirements":"Sponsored organisations must be separate legal entities with an FEIN and general liability insurance.",
+      "Fee":"10% of all incoming money.",
+      "Process":"Letter of inquiry → invited application → Program and Grants Committee, which meets monthly.",
+      "Realistic timeline":"Two to four months from incorporation.",
+      "What it unlocks":"Tax-deductible individual gifts, and New Mexico Arts eligibility. Not the NEA. Not the Humanities Council.",
+      "Effort":"Medium.",
+      "Next action":"Compare against other sponsors — an arts-specific sponsor may charge less than 10%. See fiscalsponsordirectory.org.",
+      "Confidence":"High — verified on the official page."
+    }},
+
+  { id:"local-sponsorship", funder:"Local and regional businesses", program:"Production sponsorship",
+    cat:["Business","April 2027"], verdict:"yes", verdictLabel:"Primary source",
+    sum:"No eligibility gate, no application cycle, no nonprofit status required. Decisions made locally by people who can be met in person. This is what pays for the show.",
+    url:"https://www.portales.com/",
+    fields:{
+      "Structure":"Tiered — programme advertising at the low end, production or performance sponsorship at the top. Include seat and scene sponsorships as mid-tier options.",
+      "Deductibility":"Sponsorship is often a marketing expense for a business rather than a charitable gift, which can make it easier before 501(c)(3) status exists. Businesses should confirm with their own accountant.",
+      "Deadline pressure":"The programme print date is the real deadline. Tell sponsors early and hold to it.",
+      "Effort":"Low per ask, high in aggregate. Twenty conversations is a realistic first round.",
+      "Next action":"Build the packet, then work the list systematically rather than opportunistically.",
+      "Confidence":"High that this is the right channel. No business has been approached."
+    }},
+
+  { id:"tickets", funder:"Audience", program:"Ticket revenue and presales",
+    cat:["Community","April 2027"], verdict:"yes", verdictLabel:"Largest single line",
+    sum:"The most predictable money available, and the only source that also proves demand to next year's funders.",
+    url:"https://www.enmu.edu/about/campus-facilities/campus-buildings/academic-general-facilities/university-theatre-center",
+    fields:{
+      "Capacity":"ENMU's published figures: a 419-seat proscenium and a 125-seat black box. Venue not confirmed — treat as planning assumption.",
+      "Presales":"Early presales fund production costs before opening. Worth launching well before the show.",
+      "Pricing":"$15 assumed for planning. Consider a lower community rate and a supporter rate rather than one price.",
+      "Risk":"Occupancy is the assumption most likely to be wrong. Model 50% as well as 70%.",
+      "Effort":"Low to set up, ongoing to fill seats.",
+      "Next action":"Choose a ticketing platform once the venue and dates are confirmed. The venue may require its own box office.",
+      "Confidence":"High on method. Capacity depends on an unconfirmed venue."
+    }},
+
+  { id:"individual", funder:"Individual supporters", program:"Founding donor campaign",
+    cat:["Community","April 2027"], verdict:"yes", verdictLabel:"Usable for April 2027",
+    sum:"Founding-supporter framing is available exactly once. Not deductible until 501(c)(3) status or a fiscal sponsor is in place — say so when asking.",
+    url:"",
+    fields:{
+      "Structures":"Founding memberships, monthly giving, patron tiers, seat sponsorship, matching gifts through employers.",
+      "Deductibility":"Not deductible without exempt status or a sponsor. Being upfront about this protects credibility.",
+      "Effort":"Medium.",
+      "Next action":"Decide the fiscal sponsorship question before launching, so the ask can be clear about deductibility.",
+      "Confidence":"High on method."
+    }},
+
+  { id:"inkind", funder:"Local businesses, ENMU, individuals", program:"In-kind support",
+    cat:["In-kind","April 2027"], verdict:"yes", verdictLabel:"Reduces cash need directly",
+    sum:"Rehearsal space, technical equipment, printing, advertising, lumber, storage, transport, photography, accounting and legal help. Every donated item is a dollar not raised — and later counts as match for grants requiring one.",
+    url:"",
+    fields:{
+      "Highest value":"Venue and rehearsal space, technical equipment, printing and advertising. These are the largest cash lines in a small production.",
+      "Track it":"Record fair value in the budget as a real line. It demonstrates community backing to funders and satisfies match requirements.",
+      "Professional services":"Accounting and legal assistance are often donated by local firms and are worth asking for directly.",
+      "Effort":"Low per ask.",
+      "Next action":"Build the in-kind wish list alongside the sponsorship packet, so every conversation can offer two ways to say yes.",
+      "Confidence":"High on method. Nothing has been offered."
+    }}
+];
+
+const TIMING = [
+  ["Local business sponsorship","No cycle. Decisions made locally.","in","Yes"],
+  ["Ticket presales and revenue","Begins as soon as tickets go on sale.","in","Yes"],
+  ["In-kind donations","Immediate, once asked for.","in","Yes"],
+  ["Individual founding gifts","Immediate. Deductibility depends on status.","in","Yes"],
+  ["City lodgers' tax","Rolling — one week before the board meets.","in","Likely"],
+  ["Fiscal sponsorship","Two to four months after incorporation. Not money, but access.","in","If started now"],
+  ["New Mexico Arts","Approved July 2027, paid by reimbursement.","out","No — funds season two"],
+  ["NM Tourism CoOp","FY2028 cycle. Applications spring 2027, funds from July.","out","No"],
+  ["NM Humanities Council","Cannot fund the production itself.","out","Not for the show"],
+  ["NEA Grants for Arts Projects","Not eligible for several years.","out","No"]
+];
+
+const ACTIONS = [
+  ["Contact ENMU about venue availability","Every other date depends on it. Ask before choosing a show.","p1","Week 1"],
+  ["Decide: own nonprofit, or fiscal sponsorship","Gates insurance, deductible giving and every grant path.","p1","Week 3"],
+  ["Draft a one-page case for support","Needed before any sponsor conversation. Nothing else can start without it.","p1","Week 3"],
+  ["Call the City about lodgers' tax eligibility","Cheapest question with the fastest possible answer.","p1","Week 3"],
+  ["File articles of incorporation","Starts the clock on EIN, insurance and sponsorship.","p1","Week 6"],
+  ["Build the sponsorship packet and tier structure","Turns twenty conversations into a repeatable ask.","","Week 6"],
+  ["Meet the Roosevelt County CDC","City, county and ENMU all fund it. A warm route to all three.","","Week 6"],
+  ["Obtain EIN and quote general liability insurance","Both gate fiscal sponsorship and probably the venue.","p1","Week 8"],
+  ["Build the in-kind wish list","Lets every sponsor conversation offer two ways to say yes.","","Week 8"],
+  ["Open the first twenty sponsor conversations","The single highest-value fundraising activity available.","p1","Week 10"],
+  ["Check whether NM Arts guidelines have posted","Won't fund this show. Will fund the next one.","","Week 10"],
+  ["Book the NM Humanities consultation","Required before applying, and slow to schedule.","","Week 12"],
+  ["Set a working production budget","Turns these estimates into a plan you can hold sponsors against.","","Week 12"]
+];
+
+const SPONSORS = [
+  ["Agriculture and dairy","The dominant local industry — Valencia peanuts, roughly 40 dairies and a major dairy solids plant. Deep local roots and a reason to be seen backing community life.","Production or performance sponsorship"],
+  ["Banks and credit unions","Community Reinvestment Act activity and established local giving. Usually have a defined sponsorship process and an annual budget cycle.","Programme advertising, tier sponsorship"],
+  ["Utilities and energy","Xcel Energy/SPS and Roosevelt County Electric Cooperative serve the area, and wind generation has a growing presence. Utility and co-op foundations often fund rural community projects.","Grant or sponsorship — check for a foundation"],
+  ["Healthcare","Regional employers with community-benefit obligations and an interest in visible local partnership.","Sponsorship, in-kind advertising"],
+  ["Auto dealerships and insurance agencies","Reliable local event sponsors in towns this size. Decisions made by an owner you can meet.","Mid-tier sponsorship, programme ads"],
+  ["Restaurants, grocers and hotels","Best approached for in-kind — hospitality, concessions, cast meals, opening-night reception — and for restaurant partnership nights.","In-kind, partnership night"],
+  ["Media and printing","Radio, local press and print shops. Often trade in-kind advertising for programme recognition.","In-kind advertising and printing"],
+  ["Law and accounting firms","Frequently donate professional services to new nonprofits. Worth asking directly rather than hoping.","Donated professional services"]
+];
+
+const UNKNOWNS = [
+  ["Is the ENMU venue available in spring 2027, and at what cost?","ENMU — Department of Theatre and Digital Filmmaking, plus whoever schedules the facility","Everything downstream depends on this"],
+  ["What does ENMU require — insurance minimums, technical staffing, deposits, box office, custodial?","ENMU facilities or events office","Determines a large share of the budget"],
+  ["Can an unincorporated or fiscally sponsored group apply for Portales lodgers' tax?","City of Portales finance department","Decides whether the marketing budget has a public source"],
+  ["When does the Lodgers' Tax Advisory Board meet?","City of Portales","Applications close a week before each meeting"],
+  ["Does Roosevelt County operate its own lodgers' tax or community funding?","Roosevelt County administration","A second possible public source"],
+  ["Does New Mexico require charitable solicitation registration before soliciting donations?","NM Attorney General's office, or a nonprofit attorney","Easy to miss, and it gates fundraising"],
+  ["Current NM Secretary of State filing fees","sos.nm.gov","Sources conflict — confirm before budgeting"],
+  ["Have the September 2026 New Mexico Arts guidelines posted?","nmarts.org","The FY2028 window may be open now"],
+  ["Does NM Humanities consider a companion programme around a production eligible?","NMHC — consultation required before applying","Determines whether that path is worth the effort"],
+  ["What are performance rights likely to cost for candidate shows?","Concord Theatricals, Dramatists Play Service, MTI and similar","Often the largest single fixed cost"],
+  ["Do the local utilities or co-op have a community grant programme?","Xcel Energy/SPS and Roosevelt County Electric Cooperative","Unverified but plausible"],
+  ["Which local firms would donate accounting or legal help?","Local professional firms","Reduces startup cost materially"]
+];
+
+/* ═══════════════════════════════════════════════════════════════════ */
+
+(function(){
+  const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const money = n => "$" + n.toLocaleString("en-US");
+  const today = new Date(); today.setHours(0,0,0,0);
+  const target = new Date(TARGET_OPENING+"T00:00:00");
+
+  // counters
+  const days = Math.ceil((target-today)/86400000);
+  document.getElementById("c-days").textContent = days>0?days.toLocaleString():"—";
+  document.getElementById("c-opps").textContent = OPPS.length;
+  document.getElementById("c-live").textContent = OPPS.filter(o=>o.verdict==="yes").length;
+
+  // scenarios
+  document.getElementById("scenarios").innerHTML = SCENARIOS.map(s=>{
+    const bar = s.mix.map(([k,v])=>
+      `<span style="width:${(v/s.total*100).toFixed(1)}%;background:${MIXCOLORS[k]||"#999"}"></span>`).join("");
+    const rows = s.mix.map(([k,v])=>
+      `<li><span>${esc(k)}</span><span>${money(v)}</span></li>`).join("");
+    return `<div class="scen">
+      <h3>${esc(s.name)}</h3>
+      <p class="tot">${money(s.total)}</p>
+      <p class="cap">${esc(s.cap)}</p>
+      <div class="bar" role="img" aria-label="Funding mix for the ${esc(s.name)} scenario">${bar}</div>
+      <ul class="mix">${rows}</ul>
+    </div>`;
+  }).join("");
+
+  document.getElementById("mixkey").innerHTML =
+    Object.entries(MIXCOLORS).map(([k,c])=>
+      `<span><i style="background:${c}"></i>${esc(k)}</span>`).join("");
+
+  // ticket math
+  const seats = CAPACITY*PERFORMANCES;
+  document.getElementById("ticket-math").innerHTML =
+    `At ENMU's published ${CAPACITY}-seat house, ${PERFORMANCES} performances offer ${seats.toLocaleString()} seats. `+
+    `At $${TICKET} a ticket: <strong>${money(Math.round(seats*TICKET*0.5))}</strong> at 50% occupancy, `+
+    `<strong>${money(Math.round(seats*TICKET*0.7))}</strong> at 70%, `+
+    `<strong>${money(seats*TICKET)}</strong> at a sell-out. `+
+    `The 125-seat black box yields ${money(Math.round(125*PERFORMANCES*TICKET*0.7))} at 70% — `+
+    `a much lower ceiling, but a far easier room to fill and a smaller production to fund.`;
+
+  // filters + opportunities
+  const cats = [...new Set(OPPS.flatMap(o=>o.cat))].sort();
+  const state = new Set();
+  const fbox = document.getElementById("filters");
+  fbox.innerHTML = `<button type="button" data-f="*" aria-pressed="true">All (${OPPS.length})</button>` +
+    cats.map(c=>`<button type="button" data-f="${esc(c)}" aria-pressed="false">${esc(c)}</button>`).join("");
+
+  function render(){
+    const list = state.size===0 ? OPPS : OPPS.filter(o=>o.cat.some(c=>state.has(c)));
+    document.getElementById("noresults").style.display = list.length?"none":"block";
+    document.getElementById("opps").innerHTML = list.map(o=>{
+      const rows = Object.entries(o.fields).map(([k,v])=>
+        `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("");
+      const link = o.url
+        ? `<dt>Official source</dt><dd><a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.url.replace(/^https?:\/\//,"").split("/")[0])}</a> — checked ${VERIFIED_ON}</dd>`
+        : `<dt>Source</dt><dd>No single official source — this is a fundraising method rather than a programme.</dd>`;
+      return `<article class="opp">
+        <div class="opp-head">
+          <div><h3>${esc(o.program)}</h3><span class="funder">${esc(o.funder)}</span></div>
+          <span class="verdict ${o.verdict}">${esc(o.verdictLabel)}</span>
+        </div>
+        <p class="sum">${esc(o.sum)}</p>
+        <details><summary>Full research</summary>
+          <div class="detail"><dl>${rows}${link}</dl></div>
+        </details>
+      </article>`;
+    }).join("");
+  }
+
+  fbox.addEventListener("click", e => {
+    const b = e.target.closest("button"); if(!b) return;
+    const f = b.dataset.f;
+    if(f==="*"){ state.clear(); }
+    else { state.has(f) ? state.delete(f) : state.add(f); }
+    fbox.querySelectorAll("button").forEach(x=>{
+      x.setAttribute("aria-pressed",
+        x.dataset.f==="*" ? String(state.size===0) : String(state.has(x.dataset.f)));
+    });
+    render();
+  });
+  render();
+
+  // timing
+  document.getElementById("timing").innerHTML = TIMING.map(([t,n,cls,v])=>
+    `<div><dt>${esc(t)}<small>${esc(n)}</small></dt><dd class="${cls}">${esc(v)}</dd></div>`).join("");
+
+  // actions
+  document.getElementById("actions").innerHTML = ACTIONS.map(([a,w,p,when])=>
+    `<tr><td>${esc(a)}</td><td style="color:var(--ink-dim)">${esc(w)}</td>
+     <td class="w ${p}">${esc(when)}</td></tr>`).join("");
+
+  // sponsors
+  document.getElementById("sponsors").innerHTML =
+    `<table class="acts"><thead><tr><th scope="col">Category</th><th scope="col">Why it fits Portales</th><th scope="col">Ask</th></tr></thead><tbody>` +
+    SPONSORS.map(([c,w,a])=>
+      `<tr><td>${esc(c)}</td><td style="color:var(--ink-dim)">${esc(w)}</td><td class="w">${esc(a)}</td></tr>`).join("") +
+    `</tbody></table>`;
+
+  // unknowns
+  document.getElementById("unknowns").innerHTML =
+    `<table class="acts"><thead><tr><th scope="col">Question</th><th scope="col">Who can answer it</th><th scope="col">Why it matters</th></tr></thead><tbody>` +
+    UNKNOWNS.map(([q,who,why])=>
+      `<tr><td>${esc(q)}</td><td style="color:var(--ink-dim)">${esc(who)}</td><td class="w">${esc(why)}</td></tr>`).join("") +
+    `</tbody></table>`;
+
+  document.getElementById("stamp").textContent =
+    "Funding research compiled " + today.toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"}) + ".";
+
+  const btn = document.getElementById("present");
+  btn.addEventListener("click", ()=>{
+    const on = document.body.classList.toggle("present");
+    btn.textContent = on ? "Exit presentation mode" : "Presentation mode";
+    if(on) document.querySelectorAll("details").forEach(d=>d.open=false);
+  });
+  document.addEventListener("keydown", e=>{
+    if(e.key==="Escape" && document.body.classList.contains("present")) btn.click();
+  });
+})();
+</script>
+</body>
+</html>

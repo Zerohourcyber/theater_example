@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Newsreader } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+/*
+ * The source files loaded Newsreader from a Google Fonts <link>, which blocks
+ * render. next/font self-hosts it and inlines the face declarations instead.
+ * Italic is included because the display headings and ledger notes use it.
+ */
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
+  weight: ["200", "300", "400", "500"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -22,6 +29,7 @@ export const metadata: Metadata = {
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
     url: siteConfig.url,
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
@@ -36,8 +44,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col">{children}</body>
+    <html lang="en" className={`${newsreader.variable} h-full`}>
+      <body className="flex min-h-full flex-col antialiased">{children}</body>
     </html>
   );
 }

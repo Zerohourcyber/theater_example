@@ -1,38 +1,22 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Footer } from "@/components/layout/footer";
-import { Navbar } from "@/components/layout/navbar";
-import { SkipLink } from "@/components/layout/skip-link";
+import { Container } from "@/components/layout/container";
+import { Cta } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
-    <>
-      <SkipLink />
-      <Navbar />
-      <main
-        id="main-content"
-        className="spotlight flex flex-1 flex-col items-center justify-center px-4 py-40 text-center"
-      >
-        <p className="text-sm font-medium uppercase tracking-[0.3em] text-accent">
-          404 — Dark stage
-        </p>
-        <h1 className="mt-4 text-5xl sm:text-6xl">
-          This page missed its <span className="text-brand-gradient">cue</span>
+    <Container>
+      <div className="flex min-h-[60vh] flex-col justify-center py-24">
+        <p className="tnum m-0 mb-4 text-[0.8125rem] text-wheat">404</p>
+        <h1 className="mb-5 max-w-[18ch] text-[clamp(1.875rem,1.4rem+2vw,2.75rem)]">
+          There&rsquo;s nothing at this address.
         </h1>
-        <p className="mt-4 max-w-md text-muted">
-          The page you’re looking for isn’t in tonight’s program. Let’s get you
-          back to your seat.
+        <p className="measure m-0 mb-9 text-ink-dim">
+          The page may have moved, or the link may be mistyped. The home page
+          has everything.
         </p>
-        <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <Button asChild>
-            <Link href="/">Back to home</Link>
-          </Button>
-          <Button asChild variant="outline">
-            <Link href="/productions">See productions</Link>
-          </Button>
+        <div>
+          <Cta href="/">Back to the start</Cta>
         </div>
-      </main>
-      <Footer />
-    </>
+      </div>
+    </Container>
   );
 }

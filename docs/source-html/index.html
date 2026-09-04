@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ══════════════════════════════════════════════════════════════
+     EDIT THESE FOUR THINGS AND NOTHING ELSE
+     1. The name — search for CHANGE-NAME (appears 4 times)
+     2. The email — search for CHANGE-EMAIL (appears 4 times)
+     3. The target date — search for CHANGE-DATE
+     4. The status rows — see the "Where things stand" section
+     Everything else can wait.
+     ══════════════════════════════════════════════════════════════ -->
+
+<title>Portales Community Theater — a proposal</title>
+<meta name="description" content="A group of neighbors working to start a community theater in Portales, New Mexico, with a first production in spring 2027.">
+
+<meta property="og:title" content="Portales Community Theater — a proposal">
+<meta property="og:description" content="A group of neighbors working to start a community theater in Portales, New Mexico.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..700;1,6..72,200..600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink:        #101821;
+    --ink-raised: #17212C;
+    --bone:       #E8E3D9;
+    --bone-dim:   #9AA3AC;
+    --wheat:      #CBA344;
+    --rule:       #2A3642;
+
+    --measure: 34rem;
+    --gutter: clamp(1.5rem, 5vw, 6rem);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--bone);
+    font-family: "Newsreader", Georgia, serif;
+    font-optical-sizing: auto;
+    font-size: clamp(1.0625rem, 0.98rem + 0.4vw, 1.1875rem);
+    font-weight: 300;
+    line-height: 1.72;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: inherit; }
+
+  :focus-visible {
+    outline: 2px solid var(--wheat);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  .skip {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--wheat);
+    color: var(--ink);
+    padding: 0.75rem 1.25rem;
+    z-index: 10;
+  }
+  .skip:focus { left: 0; }
+
+  .wrap {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* ── Masthead ───────────────────────────────────────────── */
+
+  .masthead {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-block: 2rem 0;
+  }
+
+  .wordmark {
+    font-size: 1.0625rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    margin: 0;
+  }
+
+  .wordmark span {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--bone-dim);
+    letter-spacing: 0;
+  }
+
+  .masthead a {
+    font-size: 0.9375rem;
+    color: var(--bone-dim);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .masthead a:hover { color: var(--bone); border-color: var(--wheat); }
+
+  /* ── Hero ───────────────────────────────────────────────── */
+
+  .hero { padding-block: clamp(4rem, 12vh, 8.5rem) clamp(3rem, 8vh, 5rem); }
+
+  .hero h1 {
+    font-size: clamp(2.25rem, 1.3rem + 4.2vw, 4.25rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+    margin: 0 0 1.75rem;
+    max-width: 20ch;
+    text-wrap: balance;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--wheat);
+  }
+
+  .hero p {
+    max-width: var(--measure);
+    margin: 0 0 1.25rem;
+    color: var(--bone-dim);
+  }
+
+  .hero p strong {
+    font-weight: 400;
+    color: var(--bone);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem 1.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .btn {
+    display: inline-block;
+    background: var(--wheat);
+    color: var(--ink);
+    font-size: 1.0625rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0.8125rem 1.75rem;
+    transition: background 0.2s;
+  }
+  .btn:hover { background: #DDB65B; }
+
+  .actions .plain {
+    font-size: 0.9375rem;
+    color: var(--bone-dim);
+  }
+  .actions .plain a { color: var(--bone); text-decoration-color: var(--rule); }
+  .actions .plain a:hover { text-decoration-color: var(--wheat); }
+
+  /* ── Sections ───────────────────────────────────────────── */
+
+  section { padding-block: clamp(3rem, 7vh, 4.75rem); }
+
+  h2 {
+    font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -0.012em;
+    margin: 0 0 1.5rem;
+  }
+
+  .prose p {
+    max-width: var(--measure);
+    margin: 0 0 1.25rem;
+  }
+  .prose p:last-child { margin-bottom: 0; }
+
+  .two-col {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 56rem) {
+    .two-col { grid-template-columns: 1.15fr 1fr; align-items: start; }
+  }
+
+  /* ── Status ledger — the centrepiece ────────────────────── */
+
+  .ledger {
+    border-top: 1px solid var(--rule);
+    margin-top: 0.5rem;
+  }
+
+  .ledger div {
+    display: grid;
+    gap: 0.15rem 2rem;
+    grid-template-columns: 1fr;
+    padding-block: 1.0625rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  @media (min-width: 40rem) {
+    .ledger div { grid-template-columns: 1fr auto; align-items: baseline; }
+  }
+
+  .ledger dt {
+    font-size: 1.0625rem;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+
+  .ledger dd {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--bone-dim);
+    white-space: nowrap;
+  }
+
+  .ledger dd.open { color: var(--wheat); font-style: normal; }
+
+  .ledger-note {
+    max-width: var(--measure);
+    margin: 1.75rem 0 0;
+    font-size: 0.9375rem;
+    color: var(--bone-dim);
+  }
+
+  /* ── Ways to help ───────────────────────────────────────── */
+
+  .help {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    grid-template-columns: 1fr;
+    margin-top: 0.5rem;
+  }
+  @media (min-width: 48rem) { .help { grid-template-columns: repeat(3, 1fr); } }
+
+  .help h3 {
+    font-size: 1.1875rem;
+    font-weight: 500;
+    margin: 0 0 0.6rem;
+    color: var(--wheat);
+  }
+  .help p { margin: 0; font-size: 1rem; color: var(--bone-dim); }
+
+  /* ── Contact ────────────────────────────────────────────── */
+
+  .contact {
+    background: var(--ink-raised);
+    margin-top: clamp(2rem, 6vh, 4rem);
+  }
+
+  .contact .inner { padding-block: clamp(3rem, 7vh, 4.5rem); }
+
+  .contact p { max-width: var(--measure); color: var(--bone-dim); margin: 0 0 1.5rem; }
+
+  .email-lg {
+    font-size: clamp(1.375rem, 1.1rem + 1.2vw, 1.875rem);
+    font-weight: 400;
+    color: var(--bone);
+    text-decoration: none;
+    border-bottom: 1px solid var(--wheat);
+    padding-bottom: 2px;
+    word-break: break-word;
+  }
+  .email-lg:hover { color: var(--wheat); }
+
+  footer {
+    padding-block: 2.5rem 3.5rem;
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: var(--bone-dim);
+  }
+  footer p { max-width: 48rem; margin: 0 0 0.6rem; }
+  footer p:last-child { margin-bottom: 0; }
+
+  /* ── One orchestrated load moment ───────────────────────── */
+
+  .rise {
+    opacity: 0;
+    transform: translateY(0.6rem);
+    animation: rise 0.75s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  }
+  .rise:nth-child(1) { animation-delay: 0.05s; }
+  .rise:nth-child(2) { animation-delay: 0.20s; }
+  .rise:nth-child(3) { animation-delay: 0.32s; }
+  .rise:nth-child(4) { animation-delay: 0.44s; }
+
+  @keyframes rise {
+    to { opacity: 1; transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rise { animation: none; opacity: 1; transform: none; }
+    * { transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="wrap">
+  <header class="masthead">
+    <!-- CHANGE-NAME (1 of 4) -->
+    <p class="wordmark">
+      Portales Community Theater
+      <span>working name</span>
+    </p>
+    <!-- CHANGE-EMAIL (1 of 4) -->
+    <a href="mailto:hello@example.org">hello@example.org</a>
+  </header>
+</div>
+
+<main id="main">
+
+  <div class="wrap">
+    <div class="hero">
+      <h1 class="rise">Portales doesn't have a community theater. <em>We'd like to fix that.</em></h1>
+      <p class="rise">A few neighbors have started meeting about it. The idea is straightforward: build an organization that belongs to this town, and put a first production on stage in <strong>spring 2027</strong>.<!-- CHANGE-DATE --></p>
+      <p class="rise">Nothing is settled yet — not the venue, not the show, not the money. We're telling people now because a theater made by one small group isn't the point. It has to be made by enough of us.</p>
+      <div class="actions rise">
+        <!-- CHANGE-EMAIL (2 of 4) -->
+        <a class="btn" href="mailto:hello@example.org?subject=I'm%20interested%20in%20the%20Portales%20theater">Get in touch</a>
+        <span class="plain">Or write to <a href="mailto:hello@example.org">hello@example.org</a><!-- CHANGE-EMAIL (3 of 4) --></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section class="two-col">
+      <div class="prose">
+        <h2>What we're proposing</h2>
+        <p>A community theater is a company made of the people who live here. Not touring professionals — teachers, students, retirees, shift workers, anyone who wants to build a set or run a light board or stand on a stage for the first time at forty-five.</p>
+        <p>Roosevelt County has the audience for it. It has a university with a theater program and people who already know how this work is done. What it doesn't have is a company outside the university that anyone in town can join.</p>
+        <p>We want to start one, prove it with a single production, and build it to last past that first show. A theater that closes after opening night isn't a theater. It's an event.</p>
+      </div>
+
+      <div>
+        <h2>Where things stand</h2>
+        <dl class="ledger">
+          <div>
+            <dt>A first production</dt>
+            <dd>Target: spring 2027</dd>
+          </div>
+          <div>
+            <dt>A venue at the university</dt>
+            <dd class="open">Not yet discussed</dd>
+          </div>
+          <div>
+            <dt>The organization itself</dt>
+            <dd class="open">Not yet formed</dd>
+          </div>
+          <div>
+            <dt>Which show we'd stage</dt>
+            <dd class="open">Not yet chosen</dd>
+          </div>
+          <div>
+            <dt>Funding</dt>
+            <dd class="open">Not yet raised</dd>
+          </div>
+          <div>
+            <dt>The founding group</dt>
+            <dd>Forming now</dd>
+          </div>
+        </dl>
+        <p class="ledger-note">We'd rather be plain about this than sound further along than we are. If you're reading this early, that's on purpose — early is when your help counts most.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap">
+    <section>
+      <h2>Ways to be part of it</h2>
+      <div class="help">
+        <div>
+          <h3>Help start it</h3>
+          <p>We need people who'll sit in the founding meetings — and people who know bookkeeping, grant writing, carpentry, or how to run a rehearsal calendar.</p>
+        </div>
+        <div>
+          <h3>Support it</h3>
+          <p>A first production costs real money before it earns any. Local businesses and individual supporters are how a founding season gets paid for.</p>
+        </div>
+        <div>
+          <h3>Perform or crew</h3>
+          <p>Auditions aren't scheduled yet. Tell us you're interested and you'll hear when they are — no experience expected.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="contact">
+    <div class="wrap">
+      <div class="inner">
+        <h2>Talk to us</h2>
+        <p>Whether you want to help build it, support it, be on stage, or just ask what this is — write to us. Someone will answer.</p>
+        <!-- CHANGE-EMAIL (4 of 4) -->
+        <a class="email-lg" href="mailto:hello@example.org">hello@example.org</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<div class="wrap">
+  <footer>
+    <p><strong style="font-weight:400;color:var(--bone)">We are not affiliated with Eastern New Mexico University.</strong> A partnership is something we hope to propose. Nothing on this page should be read as a commitment by the university or by anyone else.</p>
+    <!-- CHANGE-NAME (2 of 4) -->
+    <p>Portales Community Theater is a working name for a group in formation in Portales, New Mexico. It is not yet an incorporated organization, and contributions are not yet tax-deductible.</p>
+  </footer>
+</div>
+
+</body>
+</html>

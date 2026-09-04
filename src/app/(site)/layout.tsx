@@ -1,18 +1,28 @@
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { PlaceholderNotice } from "@/components/layout/placeholder-notice";
 import { SkipLink } from "@/components/layout/skip-link";
+import { DarkBand } from "@/components/ui/section";
 
-/** Public site chrome: skip link, sticky navbar, footer. */
+/*
+ * The navbar sits on its own ink band. Every page then opens with a second
+ * ink band — a hero or a PageHeader — and because both use the same ground
+ * the seam is invisible, reproducing the masthead-into-cover composition the
+ * source files used.
+ */
 export default function SiteLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <>
       <SkipLink />
-      <Navbar />
-      <main id="main-content" className="flex-1">
+      <PlaceholderNotice />
+      <DarkBand>
+        <Navbar />
+      </DarkBand>
+      <main id="main" className="flex-1">
         {children}
       </main>
       <Footer />

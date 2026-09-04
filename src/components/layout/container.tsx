@@ -1,15 +1,27 @@
-import * as React from "react";
 import { cn } from "@/lib/utils";
 
-/** Consistent max-width + horizontal padding wrapper. */
+type ContainerProps = {
+  /** `wide` matches the proposal's sidebar layout; everything else uses the default. */
+  width?: "default" | "wide";
+  className?: string;
+  children: React.ReactNode;
+};
+
+/** Page gutter and max measure, carried over from the source files. */
 export function Container({
+  width = "default",
   className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+  children,
+}: ContainerProps) {
   return (
     <div
-      className={cn("mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8", className)}
-      {...props}
-    />
+      className={cn(
+        "mx-auto w-full px-[clamp(1.5rem,5vw,6rem)]",
+        width === "wide" ? "max-w-[78rem]" : "max-w-[68rem]",
+        className
+      )}
+    >
+      {children}
+    </div>
   );
 }

@@ -1,12 +1,14 @@
-# Limelight Youth Theater — Website (POC)
+# Portales Community Theater — support and buy-in site
 
-A proof-of-concept website for a youth-led community theater: Broadway-dark,
-stage-lighting-inspired, and fully demo-able **with zero environment variables
-configured**. Built with Next.js 16 (App Router, RSC), Tailwind CSS v4,
-Framer Motion, Sanity, Stripe Checkout (test mode), and Resend.
+One link to send a sponsor, a venue contact, a volunteer or a city official
+that explains what the group is building, why Portales needs it, and how to
+help. Built from the four standalone HTML files that preceded it, which are
+kept for reference in [`docs/source-html/`](docs/source-html/).
 
-> The org name is a placeholder. Change it once in
-> [`src/config/site.ts`](src/config/site.ts) and it updates everywhere.
+The organisation is youth-led: high school and first-year college students run
+the company, on stage and behind it. It is not yet incorporated, has no
+confirmed venue, and has raised no money — and the site says so throughout,
+because at this stage candour is the only credibility available.
 
 ## Quick start
 
@@ -15,132 +17,144 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000. With no env vars the site renders complete
-fallback content, ticketing shows "coming soon," and `/studio` shows a
-"not configured" screen — nothing crashes.
+Open http://localhost:3000. The site runs with no environment variables at
+all; the contact form validates and records enquiries, it just cannot send the
+notification email until Resend is configured.
 
-## Stack
+## Pages
 
-| Concern | Choice |
+| Route | Who it's for |
 |---|---|
-| Framework | Next.js 16 (App Router, TypeScript, React Server Components, Turbopack) |
-| Styling | Tailwind CSS v4 (CSS-first `@theme` tokens) + shadcn-style primitives |
-| Animation | Framer Motion, gated by `prefers-reduced-motion` |
-| CMS | Sanity, embedded Studio at `/studio` |
-| Payments | Stripe Checkout (hosted page, test mode) |
-| Email | Resend |
-| Hosting | Vercel |
+| `/` | Anyone. The pitch, and the status ledger |
+| `/plan` | Anyone weighing whether this is serious. Full narrative, timeline, risks |
+| `/support` | Sponsors and donors. How a first production gets paid for |
+| `/who-we-are` | Partners assessing the group. Structure, safeguarding, people |
+| `/contact` | Everyone. Form with subject presets, plus the email address |
+| `/proposal` | **Unlisted.** The tailored leave-behind — see below |
 
-## How content works (the fallback system)
+## Two things to get right before sending this to anyone
 
-Typed fetch helpers in [`src/lib/sanity/fetch.ts`](src/lib/sanity/fetch.ts)
-try Sanity first and fall back to local seed content in
-[`src/content/fallback/`](src/content/fallback/) when:
+### 1. The show cannot be named yet
 
-- `NEXT_PUBLIC_SANITY_PROJECT_ID` is unset,
-- the query errors, or
-- the query returns an empty result.
+MTI's performance licence forbids advertising, announcing, selling tickets, or
+**holding auditions** before a signed contract and deposit have cleared. Until
+that is done the site describes "our founding production" and never the title.
 
-GROQ queries project image URLs (`asset->url` + `alt`) so CMS data and
-fallback data render through the same components. Missing images render a
-branded gradient placeholder instead of broken tiles. Content pages use ISR
-(`revalidate = 60`).
+When the licence is in hand, set `productionAnnounced: true` in
+[`src/config/site.ts`](src/config/site.ts) and the title appears everywhere.
+Nothing else needs editing.
+
+### 2. Fill the placeholders
+
+Anything still unresolved is marked `TODO:` in
+[`src/config/site.ts`](src/config/site.ts), and a red banner lists them on
+every page in development and on Vercel previews. It never renders in
+production, so the banner is a reminder, not a safety net.
+
+Still needed:
+
+- A shared contact email at least two people can reach, not a personal account
+- Contact name, role and phone for the proposal cover
+- Three or four founding members in [`src/content/team.ts`](src/content/team.ts)
+- Confirmation of the target opening date
+- Verification that no other youth theater operates in Portales — it is stated
+  on `/plan` as our understanding, but being wrong about it in a meeting would
+  be costly
+
+**The founding team matters most.** Until someone is real, entries stay flagged
+`placeholder` and are never rendered publicly; `/who-we-are` and the proposal
+show an honest "still forming" state instead. A grid of cards reading "Name /
+Role in the founding group" would be worse than an empty section, and a partner
+reading the proposal is mostly deciding whether this group can finish what it
+starts.
+
+## The tailored proposal
+
+`/proposal` is the leave-behind for meetings. Add `?for=` and the ask section
+and closing change; everything else stays the same.
+
+| Link | Audience |
+|---|---|
+| `/proposal` | General |
+| `/proposal?for=enmu` | The university |
+| `/proposal?for=sponsor` | Local businesses |
+| `/proposal?for=city` | City and county |
+
+Every version prints to a clean PDF — use that as the physical leave-behind.
+To reword an ask or add an audience, edit
+[`src/content/proposal.ts`](src/content/proposal.ts); no other file changes.
+
+The page is unlisted rather than secret: `noindex`, absent from the sitemap,
+and not linked from the navigation. You send someone the URL written for them.
+
+## Editing content
+
+Content lives in plain typed objects under [`src/content/`](src/content/) —
+the same "edit one object, save, push" workflow as the original HTML files.
+
+| File | What it holds |
+|---|---|
+| `ledger.ts` | The status ledger on the home page |
+| `timeline.ts` | The six phases |
+| `risks.ts` | The published risk table |
+| `funding.ts` | Funding sources, and the ways to support |
+| `figures.ts` | The four statistics on `/plan` |
+| `team.ts` | The founding group |
+| `proposal.ts` | The proposal's audience variants |
+| `ways-to-help.ts` | The three routes on the home page |
+
+**Keep the ledger current.** A status board that hasn't moved in six months
+does more damage than not having one.
 
 ## Environment variables
 
-Copy `.env.example` → `.env.local` and fill in what you have. Everything is
-optional; each integration degrades gracefully when its keys are absent.
+Copy `.env.example` to `.env.local`. All optional; each degrades gracefully.
 
 | Variable | Purpose |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | Canonical URL for metadata/sitemap and Stripe redirects |
-| `NEXT_PUBLIC_SANITY_PROJECT_ID` | Enables Sanity fetches and `/studio` |
-| `NEXT_PUBLIC_SANITY_DATASET` | Usually `production` |
-| `SANITY_API_READ_TOKEN` | Optional (public datasets don't need it) |
-| `SANITY_API_WRITE_TOKEN` | Newsletter signups written to Sanity |
-| `STRIPE_SECRET_KEY` | Enables "Get Tickets" checkout (`sk_test_...`) |
-| `STRIPE_WEBHOOK_SECRET` | Enables webhook signature verification |
-| `RESEND_API_KEY` | Enables contact/newsletter/ticket emails |
-| `RESEND_FROM_EMAIL` | `onboarding@resend.dev` works before domain verification |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URLs, Open Graph tags and the sitemap. **Set this in Vercel** — without it they all point at localhost |
+| `RESEND_API_KEY` | Enables the contact notification email |
+| `RESEND_FROM_EMAIL` | `onboarding@resend.dev` works before a domain is verified |
 | `CONTACT_INBOX_EMAIL` | Where contact form submissions are delivered |
 
-## Setting up the integrations
+## Deploying
 
-1. **Sanity** — [sanity.io](https://sanity.io) → create a project (free tier),
-   dataset `production`. Put the project ID in `.env.local`. Open
-   `/studio`, then add: a `production` (with `openingNight` in the future and
-   `ticketsEnabled` on), a few `person` docs (`isFounder` for the About grid),
-   `newsPost`s, `sponsor`s, `faqItem`s, and the `siteSettings` singleton.
-   Create an **Editor** token for `SANITY_API_WRITE_TOKEN` (newsletter capture)
-   and add `http://localhost:3000` (and later your Vercel URL) to the
-   project's CORS origins.
-2. **Stripe** — [dashboard.stripe.com](https://dashboard.stripe.com) → toggle
-   **Test mode** → copy the secret key. Test card: `4242 4242 4242 4242`.
-   Local webhook: `stripe listen --forward-to localhost:3000/api/webhooks/stripe`
-   and put the printed `whsec_...` in `.env.local`.
-3. **Resend** — [resend.com](https://resend.com) → create an API key. With the
-   default `onboarding@resend.dev` sender, emails deliver only to your own
-   account's address — fine for a POC.
+1. Push to GitHub and import the repo at vercel.com. Defaults are fine.
+2. Add the environment variables above. `NEXT_PUBLIC_SITE_URL` must be the
+   real public URL.
+3. Point a domain at it. A link at someone else's domain undercuts the
+   credibility the site exists to build.
 
-## Deploying to Vercel
+## Where enquiries go
 
-1. Push to GitHub, import the repo at vercel.com (defaults are fine).
-2. Add all env vars; set `NEXT_PUBLIC_SITE_URL` to the Vercel URL.
-3. After deploying: Stripe Dashboard → Developers → Webhooks → Add endpoint
-   `https://YOUR-SITE.vercel.app/api/webhooks/stripe` with event
-   `checkout.session.completed`; copy the signing secret into
-   `STRIPE_WEBHOOK_SECRET` and redeploy.
-4. Add the Vercel URL to Sanity's CORS origins so `/studio` works in production.
+The contact form records every submission through one function,
+[`recordSubmission`](src/lib/submissions.ts), and then sends a notification to
+`CONTACT_INBOX_EMAIL`. Recording happens first, so a Resend outage cannot lose
+a lead.
 
-## Project structure
+**This is interim.** With no datastore in this phase, "recording" means a
+structured line in the platform log; the durable copies are the inbox and
+Resend's own record of what it sent. The enquiry list is the volunteer roster
+and the donor pipeline, and it deserves better than an inbox. When the
+dashboard lands, replace the body of that one function with a database insert.
 
-```
-src/
-  app/(site)/        # public pages (home, about, productions, news, …)
-  app/studio/        # embedded Sanity Studio
-  app/api/           # checkout + stripe webhook route handlers
-  actions/           # server actions: contact, newsletter
-  components/        # ui / layout / sections / cards / forms / motion
-  content/fallback/  # typed seed content mirroring Sanity shapes
-  lib/sanity/        # client, GROQ queries, fetch-with-fallback, image urls
-  lib/               # stripe.ts, resend.ts, email templates, utils
-  config/site.ts     # org name (single constant), nav, socials
-sanity/              # schema definitions + studio config
-```
+## What's deliberately not here
 
-## Decisions made during the build
+No ticketing, no CMS, no accounts, no database. Tickets cannot be sold before
+a licence and a venue exist, and every one of those adds a service to hand over
+later. They are additions, not rewrites, when the time comes.
 
-- **Next.js 16 instead of 15.** `create-next-app@latest` now ships Next 16
-  (Turbopack default, async `params`/`searchParams`, React 19). The spec's
-  architecture is unchanged; all current-version APIs are used.
-- **Tailwind v4 CSS-first theme.** Design tokens live in `globals.css` under
-  `@theme` rather than `tailwind.config.ts` — the v4 way.
-- **shadcn-style primitives, hand-rolled.** Button/Card/Badge/Accordion are
-  built directly on Radix + cva with the project's tokens rather than via the
-  shadcn CLI, which would have overwritten the custom theme. Same patterns,
-  same API.
-- **Placeholder art instead of binary assets.** Fallback content ships no
-  images; posters/headshots render branded gradient placeholders, so the demo
-  looks intentional and the repo stays clean. Real images come from Sanity.
-- **Honeypot spam control on both forms; bot trips return fake success.**
-- **Webhook always returns 200 after signature verification** — a failed
-  confirmation email is logged rather than making Stripe retry forever.
-- **Newsletter is interim by design**: addresses go to Sanity
-  (`newsletterSignup`) + a welcome email; migrate to Resend Audiences or a
-  real platform before sending campaigns.
+The private team dashboard — tasks, fundraising pipeline, contacts, documents —
+is a later phase. [`plan.html`](docs/source-html/plan.html) and
+[`funding.html`](docs/source-html/funding.html) are its seed data, which is why
+they were kept intact rather than folded into this site.
 
-## Honest caveats (POC scope)
+## Handing this over
 
-- **No inventory** — general admission only; Stripe will happily oversell a
-  house. Add inventory (first real reason for a database) or use external
-  ticketing before real sales.
-- **Test mode only.** Going live with Stripe needs the org's legal/bank
-  details.
-- **Legal pages are placeholders** and marked as such — review before launch.
+Built to transfer. When the organisation is ready:
 
-## Future roadmap (documented, not built)
-
-Reserved seating (Postgres/Neon + Drizzle when the time comes), donations
-(Stripe Payment Links first), member accounts (Auth.js), admin dashboard,
-real email marketing (Resend Audiences / Buttondown), event calendar, search,
-archive filters, student photo-upload workflows.
+- Host the repo in a GitHub organisation, not a personal account — handing over
+  is then adding owners and removing yourself
+- No credentials are in the code; everything is an environment variable
+- Two services to transfer: Vercel and Resend, both with free tiers that
+  comfortably cover a site at this stage

@@ -5,11 +5,10 @@
  * captures full-page screenshots of every public route at desktop (1440px)
  * and mobile (390px) widths into /screenshots.
  *
- * Reduced motion is emulated so scroll-triggered Framer animations render
- * statically — otherwise below-the-fold sections would screenshot at
- * opacity 0.
+ * Reduced motion is emulated so the hero's staggered load animation resolves
+ * immediately rather than capturing mid-fade.
  *
- * Run: node scripts/screenshot.ts   (Node 22+ type stripping)
+ * Run: npm run screenshots   (after npm run build)
  */
 
 import { spawn, type ChildProcess } from "node:child_process";
@@ -23,14 +22,14 @@ const OUT_DIR = join(process.cwd(), "screenshots");
 
 const routes: Array<{ name: string; path: string }> = [
   { name: "home", path: "/" },
-  { name: "productions", path: "/productions" },
-  { name: "production-detail", path: "/productions/dear-evan-hansen" },
-  { name: "about", path: "/about" },
-  { name: "auditions", path: "/auditions" },
-  { name: "get-involved", path: "/get-involved" },
-  { name: "news", path: "/news" },
+  { name: "plan", path: "/plan" },
+  { name: "support", path: "/support" },
+  { name: "who-we-are", path: "/who-we-are" },
   { name: "contact", path: "/contact" },
-  { name: "faq", path: "/faq" },
+  { name: "proposal-general", path: "/proposal" },
+  { name: "proposal-enmu", path: "/proposal?for=enmu" },
+  { name: "proposal-sponsor", path: "/proposal?for=sponsor" },
+  { name: "not-found", path: "/no-such-page" },
 ];
 
 const viewports = [
@@ -57,11 +56,31 @@ function waitForServer(url: string, timeoutMs = 60_000): Promise<void> {
   });
 }
 
+/**
+ * A server left over from an interrupted run will still answer on PORT, and
+ * `next start` fails quietly when the port is taken — so the capture would
+ * silently screenshot a stale build, referencing CSS chunk names that no
+ * longer exist. Refuse to run instead.
+ */
+async function assertPortFree(): Promise<void> {
+  try {
+    await fetch(BASE, { signal: AbortSignal.timeout(1500) });
+  } catch {
+    return; // Nothing listening, which is what we want.
+  }
+  console.error(
+    `Something is already serving ${BASE} — probably a leftover \`next start\`.\n` +
+      "Stop it first, or screenshots will capture a stale build."
+  );
+  process.exit(1);
+}
+
 async function main() {
   if (!existsSync(join(process.cwd(), ".next", "BUILD_ID"))) {
     console.error("No production build found — run `npm run build` first.");
     process.exit(1);
   }
+  await assertPortFree();
   mkdirSync(OUT_DIR, { recursive: true });
 
   console.log(`Starting production server on :${PORT} ...`);
@@ -96,8 +115,24 @@ async function main() {
       await context.close();
     }
 
+    // The proposal's whole purpose is to be handed over on paper, so the
+    // print stylesheet is a deliverable and gets checked alongside the rest.
+    const pdfContext = await browser.newContext();
+    const pdfPage = await pdfContext.newPage();
+    for (const variant of ["general", "enmu", "sponsor", "city"]) {
+      const query = variant === "general" ? "" : `?for=${variant}`;
+      await pdfPage.goto(`${BASE}/proposal${query}`, {
+        waitUntil: "networkidle",
+      });
+      await pdfPage.evaluate(() => document.fonts.ready);
+      const file = join(OUT_DIR, `proposal-${variant}.pdf`);
+      await pdfPage.pdf({ path: file, format: "Letter", printBackground: true });
+      console.log(`  ✓ proposal-${variant}.pdf`);
+    }
+    await pdfContext.close();
+
     await browser.close();
-    console.log(`Done — screenshots in ${OUT_DIR}`);
+    console.log(`Done — screenshots and PDFs in ${OUT_DIR}`);
   } finally {
     if (server.pid) {
       // On Windows, kill the whole npx→next process tree.
